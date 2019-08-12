@@ -1,4 +1,4 @@
-package com.hrong.major_show;
+package com.hrong.major;
 
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;

@@ -1,0 +1,194 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.hrong.major.dao.MajorDetailMapper" >
+  <resultMap id="BaseResultMap" type="com.hrong.major.model.MajorDetail" >
+    <id column="id" property="id" jdbcType="INTEGER" />
+    <result column="name" property="name" jdbcType="VARCHAR" />
+    <result column="code" property="code" jdbcType="VARCHAR" />
+    <result column="is_right" property="isRight" jdbcType="INTEGER" />
+    <result column="is_wrong" property="isWrong" jdbcType="INTEGER" />
+    <result column="detail_url" property="detailUrl" jdbcType="VARCHAR" />
+    <result column="order" property="order" jdbcType="INTEGER" />
+    <result column="subject_id" property="subjectId" jdbcType="INTEGER" />
+  </resultMap>
+  <resultMap id="ResultMapWithBLOBs" type="com.hrong.major.model.MajorDetailWithBLOBs" extends="BaseResultMap" >
+    <result column="description" property="description" jdbcType="LONGVARCHAR" />
+    <result column="job_prospect" property="jobProspect" jdbcType="LONGVARCHAR" />
+    <result column="course" property="course" jdbcType="LONGVARCHAR" />
+    <result column="ability" property="ability" jdbcType="LONGVARCHAR" />
+  </resultMap>
+  <sql id="Base_Column_List" >
+    id, name, code, is_right, is_wrong, detail_url, order, subject_id
+  </sql>
+  <sql id="Blob_Column_List" >
+    description, job_prospect, course, ability
+  </sql>
+  <select id="selectByPrimaryKey" resultMap="ResultMapWithBLOBs" parameterType="java.lang.Integer" >
+    select 
+    <include refid="Base_Column_List" />
+    ,
+    <include refid="Blob_Column_List" />
+    from major_detail
+    where id = #{id,jdbcType=INTEGER}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer" >
+    delete from major_detail
+    where id = #{id,jdbcType=INTEGER}
+  </delete>
+  <insert id="insert" parameterType="com.hrong.major.model.MajorDetailWithBLOBs" >
+    insert into major_detail (id, name, code, 
+      is_right, is_wrong, detail_url, 
+      order, subject_id, description, 
+      job_prospect, course, ability
+      )
+    values (#{id,jdbcType=INTEGER}, #{name,jdbcType=VARCHAR}, #{code,jdbcType=VARCHAR}, 
+      #{isRight,jdbcType=INTEGER}, #{isWrong,jdbcType=INTEGER}, #{detailUrl,jdbcType=VARCHAR}, 
+      #{order,jdbcType=INTEGER}, #{subjectId,jdbcType=INTEGER}, #{description,jdbcType=LONGVARCHAR}, 
+      #{jobProspect,jdbcType=LONGVARCHAR}, #{course,jdbcType=LONGVARCHAR}, #{ability,jdbcType=LONGVARCHAR}
+      )
+  </insert>
+  <insert id="insertSelective" parameterType="com.hrong.major.model.MajorDetailWithBLOBs" >
+    insert into major_detail
+    <trim prefix="(" suffix=")" suffixOverrides="," >
+      <if test="id != null" >
+        id,
+      </if>
+      <if test="name != null" >
+        name,
+      </if>
+      <if test="code != null" >
+        code,
+      </if>
+      <if test="isRight != null" >
+        is_right,
+      </if>
+      <if test="isWrong != null" >
+        is_wrong,
+      </if>
+      <if test="detailUrl != null" >
+        detail_url,
+      </if>
+      <if test="order != null" >
+        order,
+      </if>
+      <if test="subjectId != null" >
+        subject_id,
+      </if>
+      <if test="description != null" >
+        description,
+      </if>
+      <if test="jobProspect != null" >
+        job_prospect,
+      </if>
+      <if test="course != null" >
+        course,
+      </if>
+      <if test="ability != null" >
+        ability,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides="," >
+      <if test="id != null" >
+        #{id,jdbcType=INTEGER},
+      </if>
+      <if test="name != null" >
+        #{name,jdbcType=VARCHAR},
+      </if>
+      <if test="code != null" >
+        #{code,jdbcType=VARCHAR},
+      </if>
+      <if test="isRight != null" >
+        #{isRight,jdbcType=INTEGER},
+      </if>
+      <if test="isWrong != null" >
+        #{isWrong,jdbcType=INTEGER},
+      </if>
+      <if test="detailUrl != null" >
+        #{detailUrl,jdbcType=VARCHAR},
+      </if>
+      <if test="order != null" >
+        #{order,jdbcType=INTEGER},
+      </if>
+      <if test="subjectId != null" >
+        #{subjectId,jdbcType=INTEGER},
+      </if>
+      <if test="description != null" >
+        #{description,jdbcType=LONGVARCHAR},
+      </if>
+      <if test="jobProspect != null" >
+        #{jobProspect,jdbcType=LONGVARCHAR},
+      </if>
+      <if test="course != null" >
+        #{course,jdbcType=LONGVARCHAR},
+      </if>
+      <if test="ability != null" >
+        #{ability,jdbcType=LONGVARCHAR},
+      </if>
+    </trim>
+  </insert>
+  <update id="updateByPrimaryKeySelective" parameterType="com.hrong.major.model.MajorDetailWithBLOBs" >
+    update major_detail
+    <set >
+      <if test="name != null" >
+        name = #{name,jdbcType=VARCHAR},
+      </if>
+      <if test="code != null" >
+        code = #{code,jdbcType=VARCHAR},
+      </if>
+      <if test="isRight != null" >
+        is_right = #{isRight,jdbcType=INTEGER},
+      </if>
+      <if test="isWrong != null" >
+        is_wrong = #{isWrong,jdbcType=INTEGER},
+      </if>
+      <if test="detailUrl != null" >
+        detail_url = #{detailUrl,jdbcType=VARCHAR},
+      </if>
+      <if test="order != null" >
+        order = #{order,jdbcType=INTEGER},
+      </if>
+      <if test="subjectId != null" >
+        subject_id = #{subjectId,jdbcType=INTEGER},
+      </if>
+      <if test="description != null" >
+        description = #{description,jdbcType=LONGVARCHAR},
+      </if>
+      <if test="jobProspect != null" >
+        job_prospect = #{jobProspect,jdbcType=LONGVARCHAR},
+      </if>
+      <if test="course != null" >
+        course = #{course,jdbcType=LONGVARCHAR},
+      </if>
+      <if test="ability != null" >
+        ability = #{ability,jdbcType=LONGVARCHAR},
+      </if>
+    </set>
+    where id = #{id,jdbcType=INTEGER}
+  </update>
+  <update id="updateByPrimaryKeyWithBLOBs" parameterType="com.hrong.major.model.MajorDetailWithBLOBs" >
+    update major_detail
+    set name = #{name,jdbcType=VARCHAR},
+      code = #{code,jdbcType=VARCHAR},
+      is_right = #{isRight,jdbcType=INTEGER},
+      is_wrong = #{isWrong,jdbcType=INTEGER},
+      detail_url = #{detailUrl,jdbcType=VARCHAR},
+      order = #{order,jdbcType=INTEGER},
+      subject_id = #{subjectId,jdbcType=INTEGER},
+      description = #{description,jdbcType=LONGVARCHAR},
+      job_prospect = #{jobProspect,jdbcType=LONGVARCHAR},
+      course = #{course,jdbcType=LONGVARCHAR},
+      ability = #{ability,jdbcType=LONGVARCHAR}
+    where id = #{id,jdbcType=INTEGER}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.hrong.major.model.MajorDetail" >
+    update major_detail
+    set name = #{name,jdbcType=VARCHAR},
+      code = #{code,jdbcType=VARCHAR},
+      is_right = #{isRight,jdbcType=INTEGER},
+      is_wrong = #{isWrong,jdbcType=INTEGER},
+      detail_url = #{detailUrl,jdbcType=VARCHAR},
+      order = #{order,jdbcType=INTEGER},
+      subject_id = #{subjectId,jdbcType=INTEGER}
+    where id = #{id,jdbcType=INTEGER}
+  </update>
+</mapper>

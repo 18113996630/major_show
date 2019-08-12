@@ -1,0 +1,41 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE generatorConfiguration PUBLIC "-//mybatis.org//DTD MyBatis Generator Configuration 1.0//EN"
+        "http://mybatis.org/dtd/mybatis-generator-config_1_0.dtd" >
+<generatorConfiguration>
+    <classPathEntry location="E:\repository\mysql\mysql-connector-java\5.1.46\mysql-connector-java-5.1.46.jar"/>
+    <context id="context1">
+        <!-- 是否生成注释 -->
+        <commentGenerator>
+            <property name="suppressDate" value="true"/>
+            <property name="suppressAllComments" value="true"/>
+        </commentGenerator>
+        <!-- 数据库连接 -->
+        <jdbcConnection driverClass="com.mysql.jdbc.Driver"
+                        connectionURL="jdbc:mysql://39.106.190.74:3306/major_db"
+                        userId="root" password="aHVhbmdyb25n"/>
+
+        <!-- 生成的包名和工程名 -->
+        <javaModelGenerator targetPackage="com.hrong.major.model"
+                            targetProject="src/main/java"/>
+        <!-- xml映射文件   -->
+        <sqlMapGenerator targetPackage="com.hrong.major.mapping"
+                         targetProject="src/main/java"/>
+        <!--  mapper接口    -->
+        <javaClientGenerator targetPackage="com.hrong.major.dao"
+                             targetProject="src/main/java" type="XMLMAPPER"/>
+
+        <!-- 数据库表 以及是否生成example-->
+        <table tableName="subject_category" domainObjectName="SubjectCategory"
+               enableCountByExample="false" enableUpdateByExample="false" enableDeleteByExample="false"
+               enableSelectByExample="false" selectByExampleQueryId="false">
+            <!-- 设置别名 -->
+            <!-- <columnOverride column="ds_id" property="dsId" /> -->
+        </table>
+        <table tableName="major_detail" domainObjectName="MajorDetail"
+               enableCountByExample="false" enableUpdateByExample="false" enableDeleteByExample="false"
+               enableSelectByExample="false" selectByExampleQueryId="false">
+            <!-- 设置别名 -->
+            <!-- <columnOverride column="ds_id" property="dsId" /> -->
+        </table>
+    </context>
+</generatorConfiguration>

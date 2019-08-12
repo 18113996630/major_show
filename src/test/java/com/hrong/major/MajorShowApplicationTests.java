@@ -1,4 +1,4 @@
-package com.hrong.major_show;
+package com.hrong.major;
 
 import org.junit.Test;
 import org.junit.runner.RunWith;
