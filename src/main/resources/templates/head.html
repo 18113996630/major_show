@@ -1,0 +1,20 @@
+<head th:fragment="commonHead(title)" xmlns:th="http://www.springframework.org/schema/data/jaxb">
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <title th:text="${title}">Title</title>
+    <meta content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no" name="viewport">
+
+    <!-- jquery ui组件引用  提示框-->
+    <link rel="stylesheet" type="text/css" th:href="@{/common/jquery-ui-1.11.4/jquery-ui.min.css}" />
+
+    <!-- jquery组件引用 -->
+    <script th:src="@{/common/jquery/jquery-1.12.4.min.js}"></script>
+
+    <script type="text/javascript">
+        // 项目路径
+        /* var ctx = "${pageContext.request.contextPath}"; */
+        var ctx = "/projectName";
+    </script>
+
+
+</head>
