@@ -1,18 +1,21 @@
 /*
  Navicat Premium Data Transfer
 
- Source Server         : 本地
+ Source Server         : 阿里云1
  Source Server Type    : MySQL
- Source Server Version : 50723
- Source Host           : localhost:3306
- Source Schema         : major
+ Source Server Version : 50726
+ Source Host           : 39.106.190.74:3306
+ Source Schema         : major_db
 
  Target Server Type    : MySQL
- Target Server Version : 50723
+ Target Server Version : 50726
  File Encoding         : 65001
 
- Date: 12/08/2019 07:58:23
+ Date: 13/08/2019 11:29:57
 */
+CREATE DATABASE `major_db` DEFAULT CHARACTER SET utf8;
+
+USE `major_db`;
 
 SET NAMES utf8mb4;
 SET FOREIGN_KEY_CHECKS = 0;
@@ -454,12 +457,31 @@ INSERT INTO `subject_category` VALUES (12, '艺术学', '13', NULL, NULL, 12);
 DROP TABLE IF EXISTS `video`;
 CREATE TABLE `video`  (
   `id` int(10) NOT NULL AUTO_INCREMENT,
+  `title` varchar(500) CHARACTER SET utf8 COLLATE utf8_general_ci NULL DEFAULT NULL COMMENT '视频标题',
+  `author` varchar(50) CHARACTER SET utf8 COLLATE utf8_general_ci NULL DEFAULT NULL COMMENT '视频作者',
+  `source_app` varchar(100) CHARACTER SET utf8 COLLATE utf8_general_ci NULL DEFAULT NULL COMMENT '视频来源',
+  `publish_time` datetime(0) NULL DEFAULT NULL COMMENT '视频发布日期',
   `video_url` varchar(500) CHARACTER SET utf8 COLLATE utf8_general_ci NULL DEFAULT NULL COMMENT '视频地址',
-  `is_auth` int(1) NULL DEFAULT NULL COMMENT '是否取得授权',
+  `is_auth` int(1) NULL DEFAULT 0 COMMENT '是否取得授权',
   `order` int(2) NULL DEFAULT NULL COMMENT '排序号',
-  `course_id` int(10) NULL DEFAULT NULL COMMENT '课程id',
-  `major_id` int(10) NULL DEFAULT NULL COMMENT '学科id',
+  `category` varchar(255) CHARACTER SET utf8 COLLATE utf8_general_ci NULL DEFAULT NULL COMMENT '专业名字',
+  `major_id` int(10) NULL DEFAULT NULL COMMENT '专业id',
+  `subject_id` int(10) NULL DEFAULT NULL COMMENT '学科id',
   PRIMARY KEY (`id`) USING BTREE
-) ENGINE = InnoDB AUTO_INCREMENT = 1 CHARACTER SET = utf8 COLLATE = utf8_general_ci ROW_FORMAT = Dynamic;
+) ENGINE = InnoDB AUTO_INCREMENT = 11 CHARACTER SET = utf8 COLLATE = utf8_general_ci ROW_FORMAT = Dynamic;
+
+-- ----------------------------
+-- Records of video
+-- ----------------------------
+INSERT INTO `video` VALUES (1, '《张老师开课了》——张老师聊专业之哲学', '创蓝图教育', NULL, '2019-01-15 07:01:24', 'https://www.bilibili.com/video/av40743556', 0, NULL, '哲学', 1, NULL);
+INSERT INTO `video` VALUES (2, '哲学类专业发展规划', '山东中公教育', NULL, '2019-07-08 08:47:48', 'https://www.bilibili.com/video/av58291003', 0, NULL, '哲学', 1, NULL);
+INSERT INTO `video` VALUES (3, '就读哲学专业是一种什么体验？', 'Arinor', NULL, '2019-06-16 10:53:08', 'https://www.bilibili.com/video/av55741734', 0, NULL, '哲学', 1, NULL);
+INSERT INTO `video` VALUES (4, '师兄师姐对你说丨中国人民大学宗教学 真正的佛系大学如何修仙 看他们你还敢说自己佛系吗？', '在校OnCampus', NULL, '2018-06-29 10:24:46', 'https://www.bilibili.com/video/av25788444', 0, NULL, '宗教学', 3, NULL);
+INSERT INTO `video` VALUES (5, '来了经济学专业就可以天天数钱了？Naive！【洋葱教你选专业】', '洋葱数学', NULL, '2019-06-04 17:03:13', 'https://www.bilibili.com/video/av54545531', 0, NULL, '经济学', 4, NULL);
+INSERT INTO `video` VALUES (6, NULL, NULL, NULL, NULL, 'https://www.bilibili.com/video/av55474932', 0, NULL, NULL, 5, NULL);
+INSERT INTO `video` VALUES (7, NULL, NULL, NULL, NULL, 'https://www.bilibili.com/video/av56894898', 0, NULL, NULL, 6, NULL);
+INSERT INTO `video` VALUES (8, NULL, NULL, NULL, NULL, 'https://www.bilibili.com/video/av58424118', 0, NULL, NULL, NULL, NULL);
+INSERT INTO `video` VALUES (9, '广东金融学院保险学专业好不好，听前人怎么说', '师兄指路', '微信公众号', '2017-05-01 00:00:00', 'https://www.iqiyi.com/v_19rraypzls.html', 0, NULL, NULL, 10, NULL);
+INSERT INTO `video` VALUES (10, '李磊老师微课堂：高校专业解读—投资学', '磊言磊语', '腾讯视频', '2019-04-15 00:00:00', 'https://v.qq.com/x/page/l0861oau2a4.html', 0, NULL, NULL, 11, NULL);
 
 SET FOREIGN_KEY_CHECKS = 1;
