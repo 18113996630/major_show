@@ -1,0 +1,21 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.hrong.major.dao.VideoMapper">
+
+    <!-- 通用查询映射结果 -->
+    <resultMap id="BaseResultMap" type="com.hrong.major.model.Video">
+        <id column="id" property="id" />
+        <result column="title" property="title" />
+        <result column="author" property="author" />
+        <result column="source_app" property="sourceApp" />
+        <result column="publish_time" property="publishTime" />
+        <result column="video_url" property="videoUrl" />
+        <result column="is_auth" property="isAuth" />
+        <result column="order" property="orderNumber" />
+        <result column="category" property="category" />
+        <result column="major_id" property="majorId" />
+        <result column="subject_id" property="subjectId" />
+        <result column="deleted" property="deleted" />
+    </resultMap>
+
+</mapper>

@@ -1,12 +1,12 @@
 <!DOCTYPE html>
-<html xmlns:th="http://www.thymeleaf.org">
-<head>
-    <link th:href="@{/css/bootstrap.min.css}" rel="stylesheet">
-</head>
+<html lang="en" xmlns="http://www.w3.org/1999/xhtml" xmlns:th="http://www.thymeleaf.org">
 <body>
-    <div th:fragment="footer">
+    <div th:fragment="footer(scripts)">
+        <script th:src="@{/js/jquery.min.js}"></script>
+        <script th:src="@{/js/bootstrap.min.js}"></script>
+        <script th:src="@{/js/major.js}"></script>
+        <th:block th:replace="${scripts}"/>
         <p>&copy; 2016 Company, Inc.</p>
     </div>
 </body>
 </html>
-

@@ -3,3 +3,7 @@ $(document).ready(function () {
     $('.row-offcanvas').toggleClass('active')
   });
 });
+
+function detail_subject(subject) {
+    alert(subject.id)
+}

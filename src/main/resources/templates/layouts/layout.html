@@ -2,27 +2,19 @@
 <html xmlns:th="http://www.thymeleaf.org"
       xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout">
 
-<head>
-    <title>展示项目</title>
-    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8"/>
-    <link th:href="@{/css/bootstrap.min.css}" rel="stylesheet">
-    <link th:href="@{/css/ie10-viewport-bug-workaround.css}" rel="stylesheet">
-    <link th:href="@{/css/offcanvas.css}" rel="stylesheet">
-    <script th:src="@{/js/jquery-1.8.1.min.js}"></script>
-    <!--<script th:src="@{/js/bootstrap.min.js}"></script>-->
-    <!--<script th:src="@{/js/npm.js}"></script>-->
-    <script th:src="@{/js/offcanvas.js}"></script>
+<head th:replace="commons/header :: common-header(~{::title}, ~{})">
+    <title>主页</title>
 </head>
 <body>
 <!-- Header -->
-<div th:replace="commons/hearder :: header"></div>
+<div th:replace="commons/header :: header"></div>
 <div class="container">
     <div layout:fragment="content">
         <p>original data</p>
     </div>
     <hr>
     <footer>
-        <div th:replace="commons/footer :: footer">&copy; 2017 blog.codeleak.pl</div>
+        <div th:replace="commons/footer :: footer(~{})"></div>
     </footer>
 </div>
 </body>
