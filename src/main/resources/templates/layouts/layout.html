@@ -3,7 +3,7 @@
       xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout">
 
 <head>
-    <title>Hello Spring Boot!</title>
+    <title>展示项目</title>
     <meta http-equiv="Content-Type" content="text/html; charset=UTF-8"/>
     <link th:href="@{/css/bootstrap.min.css}" rel="stylesheet">
     <link th:href="@{/css/ie10-viewport-bug-workaround.css}" rel="stylesheet">
@@ -15,10 +15,10 @@
 </head>
 <body>
 <!-- Header -->
-<div th:replace="commons/header :: header">
+<div th:insert="commons/hearder :: header">
 <div class="container">
     <div layout:fragment="content">
-
+        <p>original data</p>
     </div>
     <footer>
         <div th:replace="commons/footer :: footer">&copy; 2017 blog.codeleak.pl</div>
