@@ -1,17 +1,17 @@
 /*
  Navicat Premium Data Transfer
 
- Source Server         : 3307-5.7
+ Source Server         : 本地
  Source Server Type    : MySQL
  Source Server Version : 50723
- Source Host           : localhost:3307
+ Source Host           : localhost:3306
  Source Schema         : major_db
 
  Target Server Type    : MySQL
  Target Server Version : 50723
  File Encoding         : 65001
 
- Date: 13/08/2019 18:49:10
+ Date: 14/08/2019 08:24:07
 */
 CREATE DATABASE `major_db` DEFAULT CHARACTER SET utf8;
 
@@ -19,6 +19,7 @@ USE `major_db`;
 
 SET NAMES utf8mb4;
 SET FOREIGN_KEY_CHECKS = 0;
+
 -- ----------------------------
 -- Table structure for course
 -- ----------------------------
@@ -84,8 +85,8 @@ INSERT INTO `major` VALUES (26, '边防管理', '030603K', NULL, NULL, NULL, NUL
 INSERT INTO `major` VALUES (27, '教育学', '40101', NULL, NULL, NULL, NULL, 1, NULL, NULL, NULL, 4, 0);
 INSERT INTO `major` VALUES (28, '科学教育', '40102', NULL, NULL, NULL, NULL, 2, NULL, NULL, NULL, 4, 0);
 INSERT INTO `major` VALUES (29, '人文教育', '40103', NULL, NULL, NULL, NULL, 3, NULL, NULL, NULL, 4, 0);
-INSERT INTO `major` VALUES (30, '教育技术学（注：可授教育学或理学或工学学士学位）', '40104', NULL, NULL, NULL, NULL, 4, NULL, NULL, NULL, 4, 0);
-INSERT INTO `major` VALUES (31, '艺术教育（注：可授教育学或艺术学学士学位）', '40105', NULL, NULL, NULL, NULL, 5, NULL, NULL, NULL, 4, 0);
+INSERT INTO `major` VALUES (30, '教育技术学', '40104', '注：可授教育学或理学或工学学士学位', NULL, NULL, NULL, 4, NULL, NULL, NULL, 4, 0);
+INSERT INTO `major` VALUES (31, '艺术教育', '40105', '注：可授教育学或艺术学学士学位', NULL, NULL, NULL, 5, NULL, NULL, NULL, 4, 0);
 INSERT INTO `major` VALUES (32, '学前教育', '40106', NULL, NULL, NULL, NULL, 6, NULL, NULL, NULL, 4, 0);
 INSERT INTO `major` VALUES (33, '小学教育', '40107', NULL, NULL, NULL, NULL, 7, NULL, NULL, NULL, 4, 0);
 INSERT INTO `major` VALUES (34, '特殊教育', '40108', NULL, NULL, NULL, NULL, 8, NULL, NULL, NULL, 4, 0);
@@ -176,29 +177,29 @@ INSERT INTO `major` VALUES (119, '物理学', '70201', NULL, NULL, NULL, NULL, 3
 INSERT INTO `major` VALUES (120, '应用物理学', '70202', NULL, NULL, NULL, NULL, 4, NULL, NULL, NULL, 7, 0);
 INSERT INTO `major` VALUES (121, '核物理', '70203', NULL, NULL, NULL, NULL, 5, NULL, NULL, NULL, 7, 0);
 INSERT INTO `major` VALUES (122, '化学', '70301', NULL, NULL, NULL, NULL, 6, NULL, NULL, NULL, 7, 0);
-INSERT INTO `major` VALUES (123, '应用化学（注：可授理学或工学学士学位）', '70302', NULL, NULL, NULL, NULL, 7, NULL, NULL, NULL, 7, 0);
+INSERT INTO `major` VALUES (123, '应用化学', '70302', '注：可授理学或工学学士学位', NULL, NULL, NULL, 7, NULL, NULL, NULL, 7, 0);
 INSERT INTO `major` VALUES (124, '天文学', '70401', NULL, NULL, NULL, NULL, 8, NULL, NULL, NULL, 7, 0);
 INSERT INTO `major` VALUES (125, '地理科学', '70501', NULL, NULL, NULL, NULL, 9, NULL, NULL, NULL, 7, 0);
-INSERT INTO `major` VALUES (126, '自然地理与资源环境（注：可授理学或管理学学士学位）', '70502', NULL, NULL, NULL, NULL, 10, NULL, NULL, NULL, 7, 0);
-INSERT INTO `major` VALUES (127, '人文地理与城乡规划（注：可授理学或管理学学士学位）', '70503', NULL, NULL, NULL, NULL, 11, NULL, NULL, NULL, 7, 0);
+INSERT INTO `major` VALUES (126, '自然地理与资源环境', '70502', '注：可授理学或管理学学士学位', NULL, NULL, NULL, 10, NULL, NULL, NULL, 7, 0);
+INSERT INTO `major` VALUES (127, '人文地理与城乡规划', '70503', '注：可授理学或管理学学士学位', NULL, NULL, NULL, 11, NULL, NULL, NULL, 7, 0);
 INSERT INTO `major` VALUES (128, '地理信息科学', '70504', NULL, NULL, NULL, NULL, 12, NULL, NULL, NULL, 7, 0);
 INSERT INTO `major` VALUES (129, '大气科学', '70601', NULL, NULL, NULL, NULL, 13, NULL, NULL, NULL, 7, 0);
 INSERT INTO `major` VALUES (130, '应用气象学', '70602', NULL, NULL, NULL, NULL, 14, NULL, NULL, NULL, 7, 0);
 INSERT INTO `major` VALUES (131, '海洋科学', '70701', NULL, NULL, NULL, NULL, 15, NULL, NULL, NULL, 7, 0);
-INSERT INTO `major` VALUES (132, '海洋技术(注：可授理学或工学学士学位)', '70702', NULL, NULL, NULL, NULL, 16, NULL, NULL, NULL, 7, 0);
+INSERT INTO `major` VALUES (132, '海洋技术', '70702', '注：可授理学或工学学士学位', NULL, NULL, NULL, 16, NULL, NULL, NULL, 7, 0);
 INSERT INTO `major` VALUES (133, '地球物理学', '70801', NULL, NULL, NULL, NULL, 17, NULL, NULL, NULL, 7, 0);
-INSERT INTO `major` VALUES (134, '空间科学与技术（注：可授理学或工学学士学位）', '70802', NULL, NULL, NULL, NULL, 18, NULL, NULL, NULL, 7, 0);
+INSERT INTO `major` VALUES (134, '空间科学与技术', '70802', '注：可授理学或工学学士学位', NULL, NULL, NULL, 18, NULL, NULL, NULL, 7, 0);
 INSERT INTO `major` VALUES (135, '地质学', '70901', NULL, NULL, NULL, NULL, 19, NULL, NULL, NULL, 7, 0);
 INSERT INTO `major` VALUES (136, '地球化学', '70902', NULL, NULL, NULL, NULL, 20, NULL, NULL, NULL, 7, 0);
 INSERT INTO `major` VALUES (137, '生物科学', '71001', NULL, NULL, NULL, NULL, 21, NULL, NULL, NULL, 7, 0);
-INSERT INTO `major` VALUES (138, '生物技术（注：可授理学或工学学士学位）', '71002', NULL, NULL, NULL, NULL, 22, NULL, NULL, NULL, 7, 0);
-INSERT INTO `major` VALUES (139, '生物信息学（注：可授理学或工学学士学位）', '71003', NULL, NULL, NULL, NULL, 23, NULL, NULL, NULL, 7, 0);
+INSERT INTO `major` VALUES (138, '生物技术', '71002', '注：可授理学或工学学士学位', NULL, NULL, NULL, 22, NULL, NULL, NULL, 7, 0);
+INSERT INTO `major` VALUES (139, '生物信息学', '71003', '注：可授理学或工学学士学位', NULL, NULL, NULL, 23, NULL, NULL, NULL, 7, 0);
 INSERT INTO `major` VALUES (140, '生态学', '71004', NULL, NULL, NULL, NULL, 24, NULL, NULL, NULL, 7, 0);
-INSERT INTO `major` VALUES (141, '心理学（注：可授理学或教育学学士学位）', '71101', NULL, NULL, NULL, NULL, 25, NULL, NULL, NULL, 7, 0);
-INSERT INTO `major` VALUES (142, '应用心理学（注：可授理学或教育学学士学位）', '71102', NULL, NULL, NULL, NULL, 26, NULL, NULL, NULL, 7, 0);
+INSERT INTO `major` VALUES (141, '心理学', '71101', '注：可授理学或教育学学士学位', NULL, NULL, NULL, 25, NULL, NULL, NULL, 7, 0);
+INSERT INTO `major` VALUES (142, '应用心理学', '71102', '注：可授理学或教育学学士学位', NULL, NULL, NULL, 26, NULL, NULL, NULL, 7, 0);
 INSERT INTO `major` VALUES (143, '统计学', '71201', NULL, NULL, NULL, NULL, 27, NULL, NULL, NULL, 7, 0);
 INSERT INTO `major` VALUES (144, '应用统计学', '71202', NULL, NULL, NULL, NULL, 28, NULL, NULL, NULL, 7, 0);
-INSERT INTO `major` VALUES (145, '理论与应用力学（注：可授工学或理学学士学位）', '80101', NULL, NULL, NULL, NULL, 1, NULL, NULL, NULL, 8, 0);
+INSERT INTO `major` VALUES (145, '理论与应用力学', '80101', '注：可授工学或理学学士学位', NULL, NULL, NULL, 1, NULL, NULL, NULL, 8, 0);
 INSERT INTO `major` VALUES (146, '工程力学', '80102', NULL, NULL, NULL, NULL, 2, NULL, NULL, NULL, 8, 0);
 INSERT INTO `major` VALUES (147, '机械工程', '80201', NULL, NULL, NULL, NULL, 3, NULL, NULL, NULL, 8, 0);
 INSERT INTO `major` VALUES (148, '机械设计制造及其自动化', '80202', NULL, NULL, NULL, NULL, 4, NULL, NULL, NULL, 8, 0);
@@ -210,8 +211,8 @@ INSERT INTO `major` VALUES (153, '车辆工程', '80207', NULL, NULL, NULL, NULL
 INSERT INTO `major` VALUES (154, '汽车服务工程', '80208', NULL, NULL, NULL, NULL, 10, NULL, NULL, NULL, 8, 0);
 INSERT INTO `major` VALUES (155, '测控技术与仪器', '80301', NULL, NULL, NULL, NULL, 11, NULL, NULL, NULL, 8, 0);
 INSERT INTO `major` VALUES (156, '材料科学与工程', '80401', NULL, NULL, NULL, NULL, 12, NULL, NULL, NULL, 8, 0);
-INSERT INTO `major` VALUES (157, '材料物理（注：可授工学或理学学士学位）', '80402', NULL, NULL, NULL, NULL, 13, NULL, NULL, NULL, 8, 0);
-INSERT INTO `major` VALUES (158, '材料化学（注：可授工学或理学学士学位）', '80403', NULL, NULL, NULL, NULL, 14, NULL, NULL, NULL, 8, 0);
+INSERT INTO `major` VALUES (157, '材料物理', '80402', '注：可授工学或理学学士学位', NULL, NULL, NULL, 13, NULL, NULL, NULL, 8, 0);
+INSERT INTO `major` VALUES (158, '材料化学', '80403', '注：可授工学或理学学士学位', NULL, NULL, NULL, 14, NULL, NULL, NULL, 8, 0);
 INSERT INTO `major` VALUES (159, '冶金工程', '80404', NULL, NULL, NULL, NULL, 15, NULL, NULL, NULL, 8, 0);
 INSERT INTO `major` VALUES (160, '金属材料工程', '80405', NULL, NULL, NULL, NULL, 16, NULL, NULL, NULL, 8, 0);
 INSERT INTO `major` VALUES (161, '无机非金属材料工程', '80406', NULL, NULL, NULL, NULL, 17, NULL, NULL, NULL, 8, 0);
@@ -222,17 +223,17 @@ INSERT INTO `major` VALUES (165, '电气工程及其自动化', '80601', NULL, N
 INSERT INTO `major` VALUES (166, '智能电网信息工程', '080602T', NULL, NULL, NULL, NULL, 22, NULL, NULL, NULL, 8, 0);
 INSERT INTO `major` VALUES (167, '光源与照明', '080603T', NULL, NULL, NULL, NULL, 23, NULL, NULL, NULL, 8, 0);
 INSERT INTO `major` VALUES (168, '电气工程与智能控制', '080604T', NULL, NULL, NULL, NULL, 24, NULL, NULL, NULL, 8, 0);
-INSERT INTO `major` VALUES (169, '电子信息工程（注：可授工学或理学学士学位）', '80701', NULL, NULL, NULL, NULL, 25, NULL, NULL, NULL, 8, 0);
-INSERT INTO `major` VALUES (170, '电子科学与技术（注：可授工学或理学学士学位）', '80702', NULL, NULL, NULL, NULL, 26, NULL, NULL, NULL, 8, 0);
+INSERT INTO `major` VALUES (169, '电子信息工程', '80701', '注：可授工学或理学学士学位', NULL, NULL, NULL, 25, NULL, NULL, NULL, 8, 0);
+INSERT INTO `major` VALUES (170, '电子科学与技术', '80702', '注：可授工学或理学学士学位', NULL, NULL, NULL, 26, NULL, NULL, NULL, 8, 0);
 INSERT INTO `major` VALUES (171, '通信工程', '80703', NULL, NULL, NULL, NULL, 27, NULL, NULL, NULL, 8, 0);
-INSERT INTO `major` VALUES (172, '微电子科学与工程（注：可授工学或理学学士学位）', '80704', NULL, NULL, NULL, NULL, 28, NULL, NULL, NULL, 8, 0);
-INSERT INTO `major` VALUES (173, '光电信息科学与工程（注：可授工学或理学学士学位）', '080705', NULL, NULL, NULL, NULL, 29, NULL, NULL, NULL, 8, 0);
+INSERT INTO `major` VALUES (172, '微电子科学与工程', '80704', '注：可授工学或理学学士学位', NULL, NULL, NULL, 28, NULL, NULL, NULL, 8, 0);
+INSERT INTO `major` VALUES (173, '光电信息科学与工程', '080705', '注：可授工学或理学学士学位', NULL, NULL, NULL, 29, NULL, NULL, NULL, 8, 0);
 INSERT INTO `major` VALUES (174, '信息工程', '80706', NULL, NULL, NULL, NULL, 30, NULL, NULL, NULL, 8, 0);
 INSERT INTO `major` VALUES (175, '自动化', '80801', NULL, NULL, NULL, NULL, 31, NULL, NULL, NULL, 8, 0);
-INSERT INTO `major` VALUES (176, '计算机科学与技术（注：可授工学或理学学士学位）', '80901', NULL, NULL, NULL, NULL, 32, NULL, NULL, NULL, 8, 0);
+INSERT INTO `major` VALUES (176, '计算机科学与技术', '80901', '注：可授工学或理学学士学位', NULL, NULL, NULL, 32, NULL, NULL, NULL, 8, 0);
 INSERT INTO `major` VALUES (177, '软件工程', '80902', NULL, NULL, NULL, NULL, 33, NULL, NULL, NULL, 8, 0);
 INSERT INTO `major` VALUES (178, '网络工程', '80903', NULL, NULL, NULL, NULL, 34, NULL, NULL, NULL, 8, 0);
-INSERT INTO `major` VALUES (179, '信息安全（注：可授工学或理学或管理学学士学位）', '080904K', NULL, NULL, NULL, NULL, 35, NULL, NULL, NULL, 8, 0);
+INSERT INTO `major` VALUES (179, '信息安全', '080904K', '注：可授工学或理学或管理学学士学位', NULL, NULL, NULL, 35, NULL, NULL, NULL, 8, 0);
 INSERT INTO `major` VALUES (180, '物联网工程', '80905', NULL, NULL, NULL, NULL, 36, NULL, NULL, NULL, 8, 0);
 INSERT INTO `major` VALUES (181, '数字媒体技术', '80906', NULL, NULL, NULL, NULL, 37, NULL, NULL, NULL, 8, 0);
 INSERT INTO `major` VALUES (182, '土木工程', '81001', NULL, NULL, NULL, NULL, 38, NULL, NULL, NULL, 8, 0);
@@ -254,7 +255,7 @@ INSERT INTO `major` VALUES (197, '石油工程', '81502', NULL, NULL, NULL, NULL
 INSERT INTO `major` VALUES (198, '矿物加工工程', '81503', NULL, NULL, NULL, NULL, 54, NULL, NULL, NULL, 8, 0);
 INSERT INTO `major` VALUES (199, '油气储运工程', '81504', NULL, NULL, NULL, NULL, 55, NULL, NULL, NULL, 8, 0);
 INSERT INTO `major` VALUES (200, '纺织工程', '81601', NULL, NULL, NULL, NULL, 56, NULL, NULL, NULL, 8, 0);
-INSERT INTO `major` VALUES (201, '服装设计与工程（注：可授工学或艺术学学士学位）', '81602', NULL, NULL, NULL, NULL, 57, NULL, NULL, NULL, 8, 0);
+INSERT INTO `major` VALUES (201, '服装设计与工程', '81602', '注：可授工学或艺术学学士学位', NULL, NULL, NULL, 57, NULL, NULL, NULL, 8, 0);
 INSERT INTO `major` VALUES (202, '轻化工程', '81701', NULL, NULL, NULL, NULL, 58, NULL, NULL, NULL, 8, 0);
 INSERT INTO `major` VALUES (203, '包装工程', '81702', NULL, NULL, NULL, NULL, 59, NULL, NULL, NULL, 8, 0);
 INSERT INTO `major` VALUES (204, '印刷工程', '81703', NULL, NULL, NULL, NULL, 60, NULL, NULL, NULL, 8, 0);
@@ -290,17 +291,17 @@ INSERT INTO `major` VALUES (233, '木材科学与工程', '82402', NULL, NULL, N
 INSERT INTO `major` VALUES (234, '林产化工', '82403', NULL, NULL, NULL, NULL, 90, NULL, NULL, NULL, 8, 0);
 INSERT INTO `major` VALUES (235, '环境科学与工程', '82501', NULL, NULL, NULL, NULL, 91, NULL, NULL, NULL, 8, 0);
 INSERT INTO `major` VALUES (236, '环境工程', '82502', NULL, NULL, NULL, NULL, 92, NULL, NULL, NULL, 8, 0);
-INSERT INTO `major` VALUES (237, '环境科学（注：可授工学或理学学士学位）', '82503', NULL, NULL, NULL, NULL, 93, NULL, NULL, NULL, 8, 0);
+INSERT INTO `major` VALUES (237, '环境科学', '82503', '注：可授工学或理学学士学位', NULL, NULL, NULL, 93, NULL, NULL, NULL, 8, 0);
 INSERT INTO `major` VALUES (238, '环境生态工程', '82504', NULL, NULL, NULL, NULL, 94, NULL, NULL, NULL, 8, 0);
-INSERT INTO `major` VALUES (239, '生物医学工程（注：可授工学或理学学士学位）', '82601', NULL, NULL, NULL, NULL, 95, NULL, NULL, NULL, 8, 0);
-INSERT INTO `major` VALUES (240, '食品科学与工程（注：可授工学或农学学士学位）', '82701', NULL, NULL, NULL, NULL, 96, NULL, NULL, NULL, 8, 0);
+INSERT INTO `major` VALUES (239, '生物医学工程', '82601', '注：可授工学或理学学士学位', NULL, NULL, NULL, 95, NULL, NULL, NULL, 8, 0);
+INSERT INTO `major` VALUES (240, '食品科学与工程', '82701', '注：可授工学或农学学士学位', NULL, NULL, NULL, 96, NULL, NULL, NULL, 8, 0);
 INSERT INTO `major` VALUES (241, '食品质量与安全', '82702', NULL, NULL, NULL, NULL, 97, NULL, NULL, NULL, 8, 0);
 INSERT INTO `major` VALUES (242, '粮食工程', '82703', NULL, NULL, NULL, NULL, 98, NULL, NULL, NULL, 8, 0);
 INSERT INTO `major` VALUES (243, '乳品工程', '82704', NULL, NULL, NULL, NULL, 99, NULL, NULL, NULL, 8, 0);
 INSERT INTO `major` VALUES (244, '酿酒工程', '82705', NULL, NULL, NULL, NULL, 100, NULL, NULL, NULL, 8, 0);
 INSERT INTO `major` VALUES (245, '建筑学', '82801', NULL, NULL, NULL, NULL, 101, NULL, NULL, NULL, 8, 0);
 INSERT INTO `major` VALUES (246, '城乡规划', '82802', NULL, NULL, NULL, NULL, 102, NULL, NULL, NULL, 8, 0);
-INSERT INTO `major` VALUES (247, '风景园林（注：可授工学或艺术学学士学位）', '82803', NULL, NULL, NULL, NULL, 103, NULL, NULL, NULL, 8, 0);
+INSERT INTO `major` VALUES (247, '风景园林', '82803', '注：可授工学或艺术学学士学位', NULL, NULL, NULL, 103, NULL, NULL, NULL, 8, 0);
 INSERT INTO `major` VALUES (248, '安全工程', '82901', NULL, NULL, NULL, NULL, 104, NULL, NULL, NULL, 8, 0);
 INSERT INTO `major` VALUES (249, '生物工程', '83001', NULL, NULL, NULL, NULL, 105, NULL, NULL, NULL, 8, 0);
 INSERT INTO `major` VALUES (250, '刑事科学技术', '083101K', NULL, NULL, NULL, NULL, 106, NULL, NULL, NULL, 8, 0);
@@ -310,7 +311,7 @@ INSERT INTO `major` VALUES (254, '园艺', '90102', NULL, NULL, NULL, NULL, 2, N
 INSERT INTO `major` VALUES (255, '植物保护', '90103', NULL, NULL, NULL, NULL, 3, NULL, NULL, NULL, 9, 0);
 INSERT INTO `major` VALUES (256, '植物科学与技术', '90104', NULL, NULL, NULL, NULL, 4, NULL, NULL, NULL, 9, 0);
 INSERT INTO `major` VALUES (257, '种子科学与工程', '90105', NULL, NULL, NULL, NULL, 5, NULL, NULL, NULL, 9, 0);
-INSERT INTO `major` VALUES (258, '设施农业科学与工程（注：可授农学或工学学士学位）', '90106', NULL, NULL, NULL, NULL, 6, NULL, NULL, NULL, 9, 0);
+INSERT INTO `major` VALUES (258, '设施农业科学与工程', '90106', '注：可授农学或工学学士学位', NULL, NULL, NULL, 6, NULL, NULL, NULL, 9, 0);
 INSERT INTO `major` VALUES (259, '农业资源与环境', '90201', NULL, NULL, NULL, NULL, 7, NULL, NULL, NULL, 9, 0);
 INSERT INTO `major` VALUES (260, '野生动物与自然保护区管理', '90202', NULL, NULL, NULL, NULL, 8, NULL, NULL, NULL, 9, 0);
 INSERT INTO `major` VALUES (261, '水土保持与荒漠化防治', '90203', NULL, NULL, NULL, NULL, 9, NULL, NULL, NULL, 9, 0);
@@ -327,7 +328,7 @@ INSERT INTO `major` VALUES (271, '基础医学', '100101K', NULL, NULL, NULL, NU
 INSERT INTO `major` VALUES (272, '临床医学', '100201K', NULL, NULL, NULL, NULL, 2, NULL, NULL, NULL, 10, 0);
 INSERT INTO `major` VALUES (273, '口腔医学', '100301K', NULL, NULL, NULL, NULL, 3, NULL, NULL, NULL, 10, 0);
 INSERT INTO `major` VALUES (274, '预防医学', '100401K', NULL, NULL, NULL, NULL, 4, NULL, NULL, NULL, 10, 0);
-INSERT INTO `major` VALUES (275, '食品卫生与营养学（注：授予理学学士学位）', '100402', NULL, NULL, NULL, NULL, 5, NULL, NULL, NULL, 10, 0);
+INSERT INTO `major` VALUES (275, '食品卫生与营养学', '100402', '注：授予理学学士学位', NULL, NULL, NULL, 5, NULL, NULL, NULL, 10, 0);
 INSERT INTO `major` VALUES (276, '中医学', '100501K', NULL, NULL, NULL, NULL, 6, NULL, NULL, NULL, 10, 0);
 INSERT INTO `major` VALUES (277, '针灸推拿学', '100502K', NULL, NULL, NULL, NULL, 7, NULL, NULL, NULL, 10, 0);
 INSERT INTO `major` VALUES (278, '藏医学', '100503K', NULL, NULL, NULL, NULL, 8, NULL, NULL, NULL, 10, 0);
@@ -336,24 +337,24 @@ INSERT INTO `major` VALUES (280, '维医学', '100505K', NULL, NULL, NULL, NULL,
 INSERT INTO `major` VALUES (281, '壮医学', '100506K', NULL, NULL, NULL, NULL, 11, NULL, NULL, NULL, 10, 0);
 INSERT INTO `major` VALUES (282, '哈医学', '100507K', NULL, NULL, NULL, NULL, 12, NULL, NULL, NULL, 10, 0);
 INSERT INTO `major` VALUES (283, '中西医临床医学', '100601K', NULL, NULL, NULL, NULL, 13, NULL, NULL, NULL, 10, 0);
-INSERT INTO `major` VALUES (284, '药学（注：授予理学学士学位）', '100701', NULL, NULL, NULL, NULL, 14, NULL, NULL, NULL, 10, 0);
-INSERT INTO `major` VALUES (285, '药物制剂（注：授予理学学士学位）', '100702', NULL, NULL, NULL, NULL, 15, NULL, NULL, NULL, 10, 0);
-INSERT INTO `major` VALUES (286, '中药学（注：授予理学学士学位）', '100801', NULL, NULL, NULL, NULL, 16, NULL, NULL, NULL, 10, 0);
-INSERT INTO `major` VALUES (287, '中药资源与开发（注：授予理学学士学位）', '100802', NULL, NULL, NULL, NULL, 17, NULL, NULL, NULL, 10, 0);
+INSERT INTO `major` VALUES (284, '药学', '100701', '注：授予理学学士学位', NULL, NULL, NULL, 14, NULL, NULL, NULL, 10, 0);
+INSERT INTO `major` VALUES (285, '药物制剂', '100702', '注：授予理学学士学位', NULL, NULL, NULL, 15, NULL, NULL, NULL, 10, 0);
+INSERT INTO `major` VALUES (286, '中药学', '100801', '注：授予理学学士学位', NULL, NULL, NULL, 16, NULL, NULL, NULL, 10, 0);
+INSERT INTO `major` VALUES (287, '中药资源与开发', '100802', '注：授予理学学士学位', NULL, NULL, NULL, 17, NULL, NULL, NULL, 10, 0);
 INSERT INTO `major` VALUES (288, '法医学', '100901K', NULL, NULL, NULL, NULL, 18, NULL, NULL, NULL, 10, 0);
-INSERT INTO `major` VALUES (289, '医学检验技术（注：授予理学学士学位）', '101001', NULL, NULL, NULL, NULL, 19, NULL, NULL, NULL, 10, 0);
-INSERT INTO `major` VALUES (290, '医学实验技术（注：授予理学学士学位）', '101002', NULL, NULL, NULL, NULL, 20, NULL, NULL, NULL, 10, 0);
-INSERT INTO `major` VALUES (291, '医学影像技术（注：授予理学学士学位）', '101003', NULL, NULL, NULL, NULL, 21, NULL, NULL, NULL, 10, 0);
-INSERT INTO `major` VALUES (292, '眼视光学（注：授予理学学士学位）', '101004', NULL, NULL, NULL, NULL, 22, NULL, NULL, NULL, 10, 0);
-INSERT INTO `major` VALUES (293, '康复治疗学（注：授予理学学士学位）', '101005', NULL, NULL, NULL, NULL, 23, NULL, NULL, NULL, 10, 0);
-INSERT INTO `major` VALUES (294, '口腔医学技术（注：授予理学学士学位）', '101006', NULL, NULL, NULL, NULL, 24, NULL, NULL, NULL, 10, 0);
-INSERT INTO `major` VALUES (295, '卫生检验与检疫（注：授予理学学士学位）', '101007', NULL, NULL, NULL, NULL, 25, NULL, NULL, NULL, 10, 0);
-INSERT INTO `major` VALUES (296, '护理学（注：授予理学学士学位）', '101101', NULL, NULL, NULL, NULL, 26, NULL, NULL, NULL, 10, 0);
-INSERT INTO `major` VALUES (298, '管理科学（注：可授管理学或理学学士学位）', '120101', NULL, NULL, NULL, NULL, 1, NULL, NULL, NULL, 11, 0);
-INSERT INTO `major` VALUES (299, '信息管理与信息系统（注：可授管理学或工学学士学位）', '120102', NULL, NULL, NULL, NULL, 2, NULL, NULL, NULL, 11, 0);
-INSERT INTO `major` VALUES (300, '工程管理（注：可授管理学或工学学士学位）', '120103', NULL, NULL, NULL, NULL, 3, NULL, NULL, NULL, 11, 0);
+INSERT INTO `major` VALUES (289, '医学检验技术', '101001', '注：授予理学学士学位', NULL, NULL, NULL, 19, NULL, NULL, NULL, 10, 0);
+INSERT INTO `major` VALUES (290, '医学实验技术', '101002', '注：授予理学学士学位', NULL, NULL, NULL, 20, NULL, NULL, NULL, 10, 0);
+INSERT INTO `major` VALUES (291, '医学影像技术', '101003', '注：授予理学学士学位', NULL, NULL, NULL, 21, NULL, NULL, NULL, 10, 0);
+INSERT INTO `major` VALUES (292, '眼视光学', '101004', '注：授予理学学士学位', NULL, NULL, NULL, 22, NULL, NULL, NULL, 10, 0);
+INSERT INTO `major` VALUES (293, '康复治疗学', '101005', '注：授予理学学士学位', NULL, NULL, NULL, 23, NULL, NULL, NULL, 10, 0);
+INSERT INTO `major` VALUES (294, '口腔医学技术', '101006', '注：授予理学学士学位', NULL, NULL, NULL, 24, NULL, NULL, NULL, 10, 0);
+INSERT INTO `major` VALUES (295, '卫生检验与检疫', '101007', '注：授予理学学士学位', NULL, NULL, NULL, 25, NULL, NULL, NULL, 10, 0);
+INSERT INTO `major` VALUES (296, '护理学', '101101', '注：授予理学学士学位', NULL, NULL, NULL, 26, NULL, NULL, NULL, 10, 0);
+INSERT INTO `major` VALUES (298, '管理科学', '120101', '注：可授管理学或理学学士学位', NULL, NULL, NULL, 1, NULL, NULL, NULL, 11, 0);
+INSERT INTO `major` VALUES (299, '信息管理与信息系统', '120102', '注：可授管理学或工学学士学位', NULL, NULL, NULL, 2, NULL, NULL, NULL, 11, 0);
+INSERT INTO `major` VALUES (300, '工程管理', '120103', '注：可授管理学或工学学士学位', NULL, NULL, NULL, 3, NULL, NULL, NULL, 11, 0);
 INSERT INTO `major` VALUES (301, '房地产开发与管理', '120104', NULL, NULL, NULL, NULL, 4, NULL, NULL, NULL, 11, 0);
-INSERT INTO `major` VALUES (302, '工程造价（注：可授管理学或工学学士学位）', '120105', NULL, NULL, NULL, NULL, 5, NULL, NULL, NULL, 11, 0);
+INSERT INTO `major` VALUES (302, '工程造价', '120105', '注：可授管理学或工学学士学位', NULL, NULL, NULL, 5, NULL, NULL, NULL, 11, 0);
 INSERT INTO `major` VALUES (303, '工商管理', '120201K', NULL, NULL, NULL, NULL, 6, NULL, NULL, NULL, 11, 0);
 INSERT INTO `major` VALUES (304, '市场营销', '120202', NULL, NULL, NULL, NULL, 7, NULL, NULL, NULL, 11, 0);
 INSERT INTO `major` VALUES (305, '会计学', '120203K', NULL, NULL, NULL, NULL, 8, NULL, NULL, NULL, 11, 0);
@@ -363,21 +364,21 @@ INSERT INTO `major` VALUES (308, '人力资源管理', '120206', NULL, NULL, NUL
 INSERT INTO `major` VALUES (309, '审计学', '120207', NULL, NULL, NULL, NULL, 12, NULL, NULL, NULL, 11, 0);
 INSERT INTO `major` VALUES (310, '资产评估', '120208', NULL, NULL, NULL, NULL, 13, NULL, NULL, NULL, 11, 0);
 INSERT INTO `major` VALUES (311, '物业管理', '120209', NULL, NULL, NULL, NULL, 14, NULL, NULL, NULL, 11, 0);
-INSERT INTO `major` VALUES (312, '文化产业管理（注：可授管理学或艺术学学士学位）', '120210', NULL, NULL, NULL, NULL, 15, NULL, NULL, NULL, 11, 0);
+INSERT INTO `major` VALUES (312, '文化产业管理', '120210', '注：可授管理学或艺术学学士学位', NULL, NULL, NULL, 15, NULL, NULL, NULL, 11, 0);
 INSERT INTO `major` VALUES (313, '农林经济管理', '120301', NULL, NULL, NULL, NULL, 16, NULL, NULL, NULL, 11, 0);
-INSERT INTO `major` VALUES (314, '农村区域发展（注：可授管理学或农学学士学位）', '120302', NULL, NULL, NULL, NULL, 17, NULL, NULL, NULL, 11, 0);
+INSERT INTO `major` VALUES (314, '农村区域发展', '120302', '注：可授管理学或农学学士学位', NULL, NULL, NULL, 17, NULL, NULL, NULL, 11, 0);
 INSERT INTO `major` VALUES (315, '公共事业管理', '120401', NULL, NULL, NULL, NULL, 18, NULL, NULL, NULL, 11, 0);
 INSERT INTO `major` VALUES (316, '行政管理', '120402', NULL, NULL, NULL, NULL, 19, NULL, NULL, NULL, 11, 0);
 INSERT INTO `major` VALUES (317, '劳动与社会保障', '120403', NULL, NULL, NULL, NULL, 20, NULL, NULL, NULL, 11, 0);
-INSERT INTO `major` VALUES (318, '土地资源管理（注：可授管理学或工学学士学位）', '120404', NULL, NULL, NULL, NULL, 21, NULL, NULL, NULL, 11, 0);
+INSERT INTO `major` VALUES (318, '土地资源管理', '120404', '注：可授管理学或工学学士学位', NULL, NULL, NULL, 21, NULL, NULL, NULL, 11, 0);
 INSERT INTO `major` VALUES (319, '城市管理', '120405', NULL, NULL, NULL, NULL, 22, NULL, NULL, NULL, 11, 0);
 INSERT INTO `major` VALUES (320, '图书馆学', '120501', NULL, NULL, NULL, NULL, 23, NULL, NULL, NULL, 11, 0);
 INSERT INTO `major` VALUES (321, '档案学', '120502', NULL, NULL, NULL, NULL, 24, NULL, NULL, NULL, 11, 0);
 INSERT INTO `major` VALUES (322, '信息资源管理', '120503', NULL, NULL, NULL, NULL, 25, NULL, NULL, NULL, 11, 0);
 INSERT INTO `major` VALUES (323, '物流管理', '120601', NULL, NULL, NULL, NULL, 26, NULL, NULL, NULL, 11, 0);
-INSERT INTO `major` VALUES (324, '物流工程（注：可授管理学或工学学士学位）', '120602', NULL, NULL, NULL, NULL, 27, NULL, NULL, NULL, 11, 0);
-INSERT INTO `major` VALUES (325, '工业工程（注：可授管理学或工学学士学位）', '120701', NULL, NULL, NULL, NULL, 28, NULL, NULL, NULL, 11, 0);
-INSERT INTO `major` VALUES (326, '电子商务（注：可授管理学或经济学或工学学士学位）', '120801', NULL, NULL, NULL, NULL, 29, NULL, NULL, NULL, 11, 0);
+INSERT INTO `major` VALUES (324, '物流工程', '120602', '注：可授管理学或工学学士学位', NULL, NULL, NULL, 27, NULL, NULL, NULL, 11, 0);
+INSERT INTO `major` VALUES (325, '工业工程', '120701', '注：可授管理学或工学学士学位', NULL, NULL, NULL, 28, NULL, NULL, NULL, 11, 0);
+INSERT INTO `major` VALUES (326, '电子商务', '120801', '注：可授管理学或经济学或工学学士学位', NULL, NULL, NULL, 29, NULL, NULL, NULL, 11, 0);
 INSERT INTO `major` VALUES (327, '旅游管理', '120901K', NULL, NULL, NULL, NULL, 30, NULL, NULL, NULL, 11, 0);
 INSERT INTO `major` VALUES (328, '酒店管理', '120902', NULL, NULL, NULL, NULL, 31, NULL, NULL, NULL, 11, 0);
 INSERT INTO `major` VALUES (329, '会展经济与管理', '120903', NULL, NULL, NULL, NULL, 32, NULL, NULL, NULL, 11, 0);
