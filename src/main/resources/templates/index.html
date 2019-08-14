@@ -19,7 +19,7 @@
                 <div class="row">
                     <!--/*@thymesVar id="subjects" type="com.hrong.major.model.SubjectCategory"*/-->
                     <div class="col-xs-6 col-lg-3 subject-container" th:each="subject:${subjects}">
-                        <a th:href="@{'/majors/'+${subject.id}}">
+                        <a th:href="@{'/majors/'+${subject.id}+'/1/20'}">
                             <h2>[[${subject.name}]]</h2>
                             <p><span class="btn btn-default" role="button">查看视频 &raquo</span></p>
                         </a>

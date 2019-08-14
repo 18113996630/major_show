@@ -31,8 +31,10 @@ public class MajorController {
 	@Resource
 	private SubjectService subjectService;
 
-	@GetMapping(value = "/majors/{subjectId}")
-	public String findMajorsBySubject(Model model, @PathVariable(value = "subjectId") int subjectId){
+	@GetMapping(value = "/majors/{subjectId}/{page}/{count}")
+	public String findMajorsBySubject(Model model, @PathVariable(value = "subjectId") int subjectId,
+									  @PathVariable(value = "page") int page,
+									  @PathVariable(value = "count") int count){
 		QueryWrapper<Major> wrapper = new QueryWrapper<Major>().eq("subject_id", subjectId);
 		List<Major> majors = majorService.list(wrapper);
 		List<Subject> subjects = subjectService.list();
