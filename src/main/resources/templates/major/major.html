@@ -15,7 +15,7 @@
         <div class="row row-offcanvas row-offcanvas-left">
             <div class="col-xs-4 col-sm-2 sidebar-offcanvas">
                 <div class="list-group">
-                    <a th:href="@{'/majors/'+${subject.id}}" class="list-group-item active"
+                    <a th:href="@{'/majors/'+${subject.id}+'/1/20'}" class="list-group-item active"
                        th:each="subject:${subjects}" th:onclick="refreshMajors([[${subject}]])">
                         <button class="btn btn-default btn-group-justified" th:text="${subject.name}"></button>
                     </a>
@@ -36,10 +36,22 @@
             </div>
             <div class="col-xs-12 col-sm-10">
                 <nav aria-label="">
-                    <ul class="pager">
-                        <li><a href="#">上一页</a></li>
-                        <li><a href="#">下一页</a></li>
-                    </ul>
+<!--                    <ul class="pager">-->
+<!--                        <li><a href="#">上一页</a></li>-->
+<!--                        <li><a href="#">下一页</a></li>-->
+<!--                    </ul>-->
+                    <ul class="pagination pagination-lg" >
+                        <li th:class="${indexPage==1}?'disabled' : ''"><a href="#">上一页</a></li>
+                        <li th:if="${indexPage-3 >=1}" ><a th:href="@{'admin_law_list.html?page=' + ${indexPage-3}}" th:text="${indexPage -3}" >1</a></li>
+                        <li th:if="${indexPage-2 >=1}" ><a th:href="@{'admin_law_list.html?page=' + ${indexPage-2}}" th:text="${indexPage -2}" >1</a></li>
+                        <li th:if="${indexPage-1 >=1}" ><a th:href="@{'admin_law_list.html?page=' + ${indexPage-1}}" th:text="${indexPage -1}" >1</a></li>
+                        <li class="active"><a href="#" th:text="${indexPage}" >1</a></li>
+                        <li th:if="${indexPage+1 <=totalPage}" ><a th:href="@{'admin_law_list.html?page=' + ${indexPage+1}}" th:text="${indexPage +1}" >1</a></li>
+                        <li th:if="${indexPage+2 <=totalPage}" ><a th:href="@{'admin_law_list.html?page=' + ${indexPage+2}}" th:text="${indexPage +2}" >1</a></li>
+                        <li th:if="${indexPage+3 <=totalPage}" ><a th:href="@{'admin_law_list.html?page=' + ${indexPage+3}}" th:text="${indexPage +3}" >1</a></li>
+
+                        <li th:class="${indexPage==totalPage}?'disabled' : ''" ><a href="#">下一页</a></li>
+                    </ul><br>
                 </nav>
             </div>
         </div>
