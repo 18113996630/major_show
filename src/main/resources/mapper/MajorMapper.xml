@@ -11,7 +11,7 @@
         <result column="is_right" property="isRight" />
         <result column="is_wrong" property="isWrong" />
         <result column="detail_url" property="detailUrl" />
-        <result column="order" property="orderNumber" />
+        <result column="order_number" property="orderNumber" />
         <result column="job_prospect" property="jobProspect" />
         <result column="course" property="course" />
         <result column="ability" property="ability" />

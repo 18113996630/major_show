@@ -11,7 +11,7 @@
         <result column="publish_time" property="publishTime" />
         <result column="video_url" property="videoUrl" />
         <result column="is_auth" property="isAuth" />
-        <result column="order" property="orderNumber" />
+        <result column="order_number" property="orderNumber" />
         <result column="category" property="category" />
         <result column="major_id" property="majorId" />
         <result column="subject_id" property="subjectId" />

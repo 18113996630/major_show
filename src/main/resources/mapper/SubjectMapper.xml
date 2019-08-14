@@ -9,7 +9,7 @@
         <result column="code" property="code" />
         <result column="description" property="description" />
         <result column="icon_uri" property="iconUri" />
-        <result column="order" property="orderNumber" />
+        <result column="order_number" property="orderNumber" />
         <result column="deleted" property="deleted" />
     </resultMap>
 
