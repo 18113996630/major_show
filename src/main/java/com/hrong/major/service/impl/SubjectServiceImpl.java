@@ -6,6 +6,8 @@ import com.hrong.major.service.SubjectService;
 import com.baomidou.mybatisplus.extension.service.impl.ServiceImpl;
 import org.springframework.stereotype.Service;
 
+import java.io.Serializable;
+
 /**
  * <p>
  * 学科分类 服务实现类
@@ -15,6 +17,6 @@ import org.springframework.stereotype.Service;
  * @since 2019-08-13
  */
 @Service
-public class SubjectServiceImpl extends ServiceImpl<SubjectMapper, Subject> implements SubjectService {
+public class SubjectServiceImpl extends ServiceImpl<SubjectMapper, Subject> implements SubjectService, Serializable {
 
 }

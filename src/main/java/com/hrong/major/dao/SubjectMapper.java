@@ -2,6 +2,7 @@ package com.hrong.major.dao;
 
 import com.hrong.major.model.Subject;
 import com.baomidou.mybatisplus.core.mapper.BaseMapper;
+import org.apache.ibatis.annotations.Mapper;
 
 /**
  * <p>

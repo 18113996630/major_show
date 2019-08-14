@@ -1,25 +1,25 @@
 /*
  Navicat Premium Data Transfer
 
- Source Server         : 本地
+ Source Server         : 3307-5.7
  Source Server Type    : MySQL
  Source Server Version : 50723
- Source Host           : localhost:3306
+ Source Host           : localhost:3307
  Source Schema         : major_db
 
  Target Server Type    : MySQL
  Target Server Version : 50723
  File Encoding         : 65001
 
- Date: 14/08/2019 08:24:07
+ Date: 14/08/2019 18:40:56
 */
+
 CREATE DATABASE `major_db` DEFAULT CHARACTER SET utf8;
 
 USE `major_db`;
 
 SET NAMES utf8mb4;
 SET FOREIGN_KEY_CHECKS = 0;
-
 -- ----------------------------
 -- Table structure for course
 -- ----------------------------
@@ -29,6 +29,29 @@ CREATE TABLE `course`  (
   `name` varchar(255) CHARACTER SET utf8 COLLATE utf8_general_ci NULL DEFAULT NULL COMMENT '课程名字',
   `description` text CHARACTER SET utf8 COLLATE utf8_general_ci NULL COMMENT '课程描述',
   `deleted` int(1) NULL DEFAULT 0 COMMENT '删除标志',
+  PRIMARY KEY (`id`) USING BTREE
+) ENGINE = InnoDB AUTO_INCREMENT = 1 CHARACTER SET = utf8 COLLATE = utf8_general_ci ROW_FORMAT = Dynamic;
+
+-- ----------------------------
+-- Table structure for log
+-- ----------------------------
+DROP TABLE IF EXISTS `log`;
+CREATE TABLE `log`  (
+  `id` bigint(10) NOT NULL AUTO_INCREMENT,
+  `resource_type` varchar(20) CHARACTER SET utf8 COLLATE utf8_general_ci NULL DEFAULT NULL COMMENT '资源类别',
+  `ip` varchar(50) CHARACTER SET utf8 COLLATE utf8_general_ci NULL DEFAULT NULL COMMENT 'ip',
+  `browser` varchar(1000) CHARACTER SET utf8 COLLATE utf8_general_ci NULL DEFAULT NULL COMMENT '浏览器Agent',
+  `system` varchar(50) CHARACTER SET utf8 COLLATE utf8_general_ci NULL DEFAULT NULL COMMENT '系统名称',
+  `system_version` varchar(50) CHARACTER SET utf8 COLLATE utf8_general_ci NULL DEFAULT NULL COMMENT '系统版本',
+  `system_bit` varchar(10) CHARACTER SET utf8 COLLATE utf8_general_ci NULL DEFAULT NULL COMMENT '操作系统位数',
+  `http_version` varchar(20) CHARACTER SET utf8 COLLATE utf8_general_ci NULL DEFAULT NULL COMMENT 'HTTP协议版本',
+  `encoding` varchar(20) CHARACTER SET utf8 COLLATE utf8_general_ci NULL DEFAULT NULL COMMENT '请求编码格式',
+  `cookie` varchar(500) CHARACTER SET utf8 COLLATE utf8_general_ci NULL DEFAULT NULL COMMENT 'Cookie',
+  `url` varchar(500) CHARACTER SET utf8 COLLATE utf8_general_ci NULL DEFAULT NULL COMMENT '请求url',
+  `uri` varchar(200) CHARACTER SET utf8 COLLATE utf8_general_ci NULL DEFAULT NULL COMMENT 'uri资源',
+  `client_port` varchar(10) CHARACTER SET utf8 COLLATE utf8_general_ci NULL DEFAULT NULL COMMENT '客户端端口',
+  `method` varchar(10) CHARACTER SET utf8 COLLATE utf8_general_ci NULL DEFAULT NULL COMMENT '请求方式',
+  `params` varchar(200) CHARACTER SET utf8 COLLATE utf8_general_ci NULL DEFAULT NULL COMMENT '参数名字',
   PRIMARY KEY (`id`) USING BTREE
 ) ENGINE = InnoDB AUTO_INCREMENT = 1 CHARACTER SET = utf8 COLLATE = utf8_general_ci ROW_FORMAT = Dynamic;
 

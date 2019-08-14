@@ -1,6 +1,8 @@
-package com.hrong.major.controller;
+package com.hrong.major.controller.common;
 
 
+import com.hrong.major.annotation.ClickLog;
+import com.hrong.major.model.ClickType;
 import com.hrong.major.service.SubjectService;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -17,6 +19,7 @@ public class IndexController {
 	@Resource
 	private SubjectService subjectService;
 
+	@ClickLog(type = ClickType.subject)
 	@GetMapping("/")
 	public String index(Model model) {
 		model.addAttribute("subjects", subjectService.list());
@@ -24,11 +27,11 @@ public class IndexController {
 	}
 	@GetMapping("/about")
 	public String about() {
-		return "about";
+		return "about/about";
 	}
 
 	@GetMapping("/contact")
 	public String contact() {
-		return "contact";
+		return "contact/contact";
 	}
 }

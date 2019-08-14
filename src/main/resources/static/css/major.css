@@ -39,6 +39,10 @@ footer {
     text-align: center;
     line-height: 110px;
 }
+.disable-a {
+    opacity: 0.2;
+    color: darkgray;
+}
 
 
 

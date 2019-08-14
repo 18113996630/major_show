@@ -5,5 +5,5 @@ $(document).ready(function () {
 });
 
 function refreshMajors(subject) {
-    $.get('/majors/'+subject.id)
+    $('#majors-contain').load('/majors/'+subject.id+'/1?size=20')
 }
