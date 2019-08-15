@@ -13,7 +13,7 @@ public class RequestUtils {
 	/**
 	 * 获取http请求的真实IP地址
 	 */
-	public static String getIPAddress(HttpServletRequest request) {
+	public static String getIpAddress(HttpServletRequest request) {
 		if (request == null) {
 			return null;
 		}
