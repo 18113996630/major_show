@@ -1,0 +1,27 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.hrong.major.dao.LogMapper">
+
+    <!-- 通用查询映射结果 -->
+    <resultMap id="BaseResultMap" type="com.hrong.major.model.Log">
+        <id column="id" property="id"/>
+        <result column="resource_type" property="resourceType"/>
+        <result column="ip" property="ip"/>
+        <result column="request_address" property="requestAddress"/>
+        <result column="browser" property="browser"/>
+        <result column="system" property="system"/>
+        <result column="system_version" property="systemVersion"/>
+        <result column="system_bit" property="systemBit"/>
+        <result column="http_version" property="httpVersion"/>
+        <result column="encoding" property="encoding"/>
+        <result column="cookie" property="cookie"/>
+        <result column="url" property="url"/>
+        <result column="uri" property="uri"/>
+        <result column="client_port" property="clientPort"/>
+        <result column="method" property="method"/>
+        <result column="params" property="params"/>
+        <result column="time" property="time"/>
+        <result column="execute_time" property="executeTime"/>
+    </resultMap>
+
+</mapper>

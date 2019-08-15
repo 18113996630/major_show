@@ -89,7 +89,7 @@ public class MysqlGenerator {
 		strategy.setEntityLombokModel(true);
 
 		// 需要生成的表
-		strategy.setInclude("course","major","subject","relation_major_course","video");
+		strategy.setInclude("log");
 
 		strategy.setSuperServiceClass(null);
 		strategy.setSuperServiceImplClass(null);

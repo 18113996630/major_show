@@ -21,6 +21,7 @@ import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestParam;
 
 import javax.annotation.Resource;
+import java.time.LocalDateTime;
 import java.util.List;
 
 /**
@@ -41,9 +42,9 @@ public class MajorController {
 
 	@ClickLog(type = ClickType.major)
 	@GetMapping(value = "/majors/{subjectId}")
-	public String refreshMajors(Model model, @PathVariable(value = "subjectId") int subjectId,
-									  @RequestParam(value = "page") int page,
-									  @RequestParam(value = "size") int size) {
+	public String getMajors(Model model, @PathVariable(value = "subjectId") int subjectId,
+							@RequestParam(value = "page") int page,
+							@RequestParam(value = "size") int size) {
 		IPage<Major> majors = majorService.page(new Page<>(page, size), new QueryWrapper<Major>().eq("subject_id", subjectId).orderByAsc("order_number"));
 		Subject currentSubject = subjectService.getById(subjectId);
 		List<Subject> subjects = subjectService.list();
@@ -54,7 +55,6 @@ public class MajorController {
 		model.addAttribute("majors", majors.getRecords());
 		model.addAttribute("currentSubject", currentSubject);
 		model.addAttribute("subjects", subjects);
-		log.info("model-info:{}", JSON.toJSONString(model));
 		return "major/major";
 	}
 
