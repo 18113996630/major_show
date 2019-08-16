@@ -1,11 +1,8 @@
 package com.hrong.major.controller.common;
 
-import com.hrong.major.model.Subject;
 import org.springframework.web.bind.annotation.ControllerAdvice;
-import org.springframework.web.bind.annotation.ExceptionHandler;
-import org.springframework.web.bind.annotation.ResponseBody;
 
-import javax.servlet.http.HttpServletRequest;
+import javax.security.auth.Subject;
 import java.util.List;
 
 /**
@@ -21,9 +18,4 @@ public class GlobalController {
 	public List<Subject> index() {
 		return null;
 	}
-
-	/*@ExceptionHandler({ Exception.class })
-	public Object handleException(HttpServletRequest request, Exception e) {
-		return "error/404";
-	}*/
 }

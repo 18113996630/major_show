@@ -5,7 +5,7 @@ body {
 
 body {
     padding-top: 70px;
-    background: url("/img/bg.jpg") no-repeat;
+    /*background: url("/img/bg.jpg") no-repeat;*/
     background-size: 100%;
 }
 
@@ -18,8 +18,8 @@ footer {
     margin-right: -1px;
     margin-bottom: -1px;
     border-radius: 3px;
-    padding-top: 20px;
-    padding-bottom: 20px;
+    padding-top: 1em;
+    padding-bottom: 1em;
 }
 
 .subject-container p,h2 {
@@ -39,12 +39,41 @@ footer {
     text-align: center;
     line-height: 110px;
 }
+
+/*翻页属性*/
 .disable-a {
     opacity: 0.2;
     color: darkgray;
 }
 
+/* index中去掉subject(li)前面的点 */
+.row li {
+    list-style-type: none;
+}
 
+/*搜索框的下边距*/
+.search_form {
+    margin-bottom: 2em;
+}
+
+/*搜索label属性*/
+.search_label_align_left {
+    text-align: left !important;
+    horiz-align: center !important;
+    font-size: 1.2em;
+    width: auto;
+    margin-right: -1.5em;
+}
+
+.float_menu_img {
+    /*float: left;*/
+    left: 0;
+    top: 45%;
+    width: 5em;
+    height: 5em;
+    position: fixed;
+    /*float: left !important;*/
+}
 
 @media screen and (max-width: 767px) {
     .row-offcanvas {

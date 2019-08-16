@@ -13,39 +13,60 @@
     <div class="container">
 
         <div class="row row-offcanvas row-offcanvas-left">
-            <div class="col-xs-4 col-sm-2 sidebar-offcanvas">
-                <div class="list-group">
-                    <!--/*@thymesVar id="subjects" type="com.hrong.major.model.Subject"*/-->
-                    <a class="list-group-item active" th:href="@{'/majors/'+${subject.id}(page=1, size=20)}"
-                       th:each="subject:${subjects}">
-                        <button class="btn btn-default btn-group-justified" th:text="${subject.name}"></button>
-                    </a>
-                </div>
-            </div>
 
+
+            <!-- 打开侧边栏,仅在手机上可见： -->
+            <!--<div class="pull-left  col-xs-12 float-btn">
+
+                <button type="button" class="btn btn-group-xs btn-primary btn-phone-line" data-toggle="offcanvas">
+                    专业种类
+                </button>
+            </div>-->
             <div class="col-xs-12 col-sm-9" th:id="majors-contain" th:fragment="majors-contain">
-                <div class="row">
-                    <!--/*@thymesVar id="subjects" type="com.hrong.major.model.Major"*/-->
-                    <div class="col-xs-4 col-lg-3 major-container" th:each="major:${majors}">
-                        <a th:href="@{'/majors/'+${major.id}}">
-                            <h4 th:text="${major.name}"></h4>
+                <!-- 展示专业种类信息 -->
+                <div class="col-xs-4 col-lg-3 sidebar-offcanvas">
+                    <div class="list-group">
+                        <!--/*@thymesVar id="subjects" type="com.hrong.major.model.Subject"*/-->
+                        <a class="list-group-item active" th:href="@{'/majors/'+${subject.id}(page=1, size=15)}"
+                           th:each="subject:${subjects}">
+                            <button class="btn btn-default btn-group-justified" th:text="${subject.name}"></button>
                         </a>
                     </div>
                 </div>
+                <!-- 展示专业信息 -->
+                <ul class="row">
+                    <!--<a class="pull-left"><img th:src="@{/img/menu.png}" src="/img/menu.png" class="float_menu_img"/></a>-->
+
+                    <li class="col-xs-12 col-md-8">
+                        <div th:replace="commons/search :: search-component"></div>
+                    </li>
+                    <!--/*@thymesVar id="subjects" type="com.hrong.major.model.Major"*/-->
+                    <li class="col-xs-12 col-md-3 major-container clearfix" th:each="major:${majors}">
+                        <a th:href="@{'/majors/'+${major.id}}">
+                            <h4 th:text="${major.name}"></h4>
+                        </a>
+                    </li>
+                </ul>
+
+
             </div>
+            <!-- 翻页按钮 -->
             <div class="col-xs-12 col-sm-10" th:if="${totalPages} gt 1">
                 <nav aria-label="">
                     <ul class="pager">
-                        <li><a th:if="${pageNum} gt 1" th:href="@{'/majors/'+${currentSubject.id}(page=${pageNum-1}, size=20)}">上一页</a></li>
+                        <li><a th:if="${pageNum} gt 1"
+                               th:href="@{'/majors/'+${currentSubject.id}(page=${pageNum-1}, size=20)}">上一页</a></li>
                         <li th:each="pageNo : ${#numbers.sequence(1, totalPages)}">
                             <a th:if="${pageNum eq pageNo}" href="javascript:void(0);">
                                 <span th:text="${pageNo}" th:class="disable-a"></span>
                             </a>
-                            <a th:if="${not (pageNum eq pageNo)}" th:href="@{'/majors/'+${currentSubject.id}(page=${pageNo}, size=20)}">
+                            <a th:if="${not (pageNum eq pageNo)}"
+                               th:href="@{'/majors/'+${currentSubject.id}(page=${pageNo}, size=20)}">
                                 <span th:text="${pageNo}"></span>
                             </a>
                         </li>
-                        <li><a th:if="${pageNum} lt ${totalPages}" th:href="@{'/majors/'+${currentSubject.id}(page=${pageNum+1}, size=20)}">下一页</a></li>
+                        <li><a th:if="${pageNum} lt ${totalPages}"
+                               th:href="@{'/majors/'+${currentSubject.id}(page=${pageNum+1}, size=20)}">下一页</a></li>
                     </ul>
                 </nav>
             </div>
