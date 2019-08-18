@@ -8,6 +8,7 @@ public enum ClickType {
 	 * 科目
 	 */
 	subject,
+	majors,
 	major,
 	video;
 

@@ -6,15 +6,25 @@
     <resultMap id="BaseResultMap" type="com.hrong.major.model.Video">
         <id column="id" property="id" />
         <result column="title" property="title" />
-        <result column="author" property="author" />
-        <result column="source_app" property="sourceApp" />
-        <result column="publish_time" property="publishTime" />
-        <result column="video_url" property="videoUrl" />
+        <result column="intro" property="intro" />
+        <result column="url" property="url" />
+        <result column="duration" property="duration" />
+        <result column="pubtime" property="pubtime" />
+        <result column="cover" property="cover" />
+        <result column="cover_name" property="coverName" />
+        <result column="play" property="play" />
+        <result column="danmaku" property="danmaku" />
+        <result column="reply" property="reply" />
+        <result column="up_id" property="upId" />
+        <result column="up_page" property="upPage" />
+        <result column="up_name" property="upName" />
+        <result column="up_face" property="upFace" />
+        <result column="face_name" property="faceName" />
         <result column="is_auth" property="isAuth" />
-        <result column="order_number" property="orderNumber" />
-        <result column="category" property="category" />
         <result column="major_id" property="majorId" />
-        <result column="subject_id" property="subjectId" />
+        <result column="major_detail_id" property="majorDetailId" />
+        <result column="source_name" property="sourceName" />
+        <result column="order_number" property="orderNumber" />
         <result column="deleted" property="deleted" />
     </resultMap>
 

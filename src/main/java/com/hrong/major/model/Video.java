@@ -4,6 +4,7 @@ import com.baomidou.mybatisplus.annotation.IdType;
 import com.baomidou.mybatisplus.annotation.TableField;
 import com.baomidou.mybatisplus.annotation.TableId;
 
+import java.sql.Timestamp;
 import java.time.LocalDateTime;
 import java.io.Serializable;
 
@@ -14,76 +15,125 @@ import lombok.experimental.Accessors;
 
 /**
  * <p>
- *
+ * 
  * </p>
  *
  * @author hrong
- * @since 2019-08-13
+ * @since 2019-08-17
  */
 @Data
 @EqualsAndHashCode(callSuper = false)
 @Accessors(chain = true)
 public class Video implements Serializable {
 
-	private static final long serialVersionUID = 1L;
+    private static final long serialVersionUID = 1L;
 
-	@TableId(value = "id", type = IdType.AUTO)
-	private Integer id;
+    @TableId(value = "id", type = IdType.AUTO)
+    private Integer id;
 
-	/**
-	 * 视频标题
-	 */
-	private String title;
+    /**
+     * 视频title
+     */
+    private String title;
 
-	/**
-	 * 视频作者
-	 */
-	private String author;
+    /**
+     * 介绍
+     */
+    private String intro;
 
-	/**
-	 * 视频来源
-	 */
-	private String sourceApp;
+    /**
+     * 地址
+     */
+    private String url;
 
-	/**
-	 * 视频发布日期
-	 */
-	private LocalDateTime publishTime;
+    /**
+     * 时长
+     */
+    private String duration;
 
-	/**
-	 * 视频地址
-	 */
-	private String videoUrl;
+    /**
+     * 发布时间
+     */
+    private String pubtime;
 
-	/**
-	 * 是否取得授权
-	 */
-	private Integer isAuth;
+    /**
+     * 封面url
+     */
+    private String cover;
+    /**
+     * 封面文件名
+     */
+    private String coverName;
 
-	/**
-	 * 排序号
-	 */
-	private Integer orderNumber;
+    /**
+     * 播放量
+     */
+    private Integer play;
 
-	/**
-	 * 专业名字
-	 */
-	private String category;
+    /**
+     * 弹幕量
+     */
+    private Integer danmaku;
 
-	/**
-	 * 专业id
-	 */
-	private Integer majorId;
+    /**
+     * 回复数量
+     */
+    private Integer reply;
 
-	/**
-	 * 学科id
-	 */
-	private Integer subjectId;
+    /**
+     * up id
+     */
+    private Integer upId;
 
-	/**
-	 * 删除标志
-	 */
-	@TableLogic(value = "0", delval = "1")
-	@TableField(select = false)
-	private Integer deleted;
+    /**
+     * up主页
+     */
+    private String upPage;
+
+    /**
+     * up名字
+     */
+    private String upName;
+
+    /**
+     * up头像地址
+     */
+    private String upFace;
+    /**
+     * up头像文件名称
+     */
+    private String faceName;
+
+    /**
+     * 是否授权
+     */
+    private Integer isAuth;
+
+    /**
+     * 专业id
+     */
+    private Integer majorId;
+    /**
+     * 专业id
+     */
+    private Integer majorDetailId;
+
+    /**
+     * 视频来源
+     */
+    private String sourceName;
+
+    /**
+     * 排序号
+     */
+    private Integer orderNumber;
+
+    /**
+     * 0为删除，1删除
+     */
+    @TableLogic(value = "0", delval = "1")
+    @TableField(select = false)
+    private Integer deleted;
+
+
 }

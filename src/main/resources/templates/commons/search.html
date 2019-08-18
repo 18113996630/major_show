@@ -8,11 +8,10 @@
 <body>
 <div th:fragment="search-component">
     <div class="container">
-        <form class="form-horizontal">
+        <form class="form-horizontal" th:action="@{/majors}" th:method="post" th:object="${searchVo}">
             <div class="form-group search_form">
-                <label for="major_name" class="col-md-1 col-xs-4 control-label search_label_align_left">专业名称：</label>
-                <div class="col-md-7 col-xs-6">
-                    <input type="text" class="form-control" id="major_name" placeholder="输入想搜索的专业名称吧~">
+                <div class="col-md-7 col-xs-9">
+                    <input type="text" th:field="*{name}" class="form-control" placeholder="输入想搜索的专业名称吧~">
                 </div>
                 <div class="col-md-2 col-xs-2">
                     <button type="submit" class="btn btn-info">搜一搜</button>

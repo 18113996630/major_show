@@ -77,7 +77,7 @@ public class MysqlGenerator {
 		dsc.setDriverName("com.mysql.cj.jdbc.Driver");
 		dsc.setUsername("root");
 		dsc.setPassword("123456");
-		dsc.setUrl("jdbc:mysql://localhost:3307/major_db?useUnicode=true&characterEncoding=utf8&serverTimezone=UTC");
+		dsc.setUrl("jdbc:mysql://localhost:3306/major_db?useUnicode=true&characterEncoding=utf8&serverTimezone=UTC");
 		mpg.setDataSource(dsc);
 
 		// 策略配置
@@ -89,7 +89,7 @@ public class MysqlGenerator {
 		strategy.setEntityLombokModel(true);
 
 		// 需要生成的表
-		strategy.setInclude("log");
+		strategy.setInclude("video");
 
 		strategy.setSuperServiceClass(null);
 		strategy.setSuperServiceImplClass(null);

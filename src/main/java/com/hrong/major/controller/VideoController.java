@@ -11,7 +11,7 @@ import org.springframework.stereotype.Controller;
  * </p>
  *
  * @author hrong
- * @since 2019-08-13
+ * @since 2019-08-17
  */
 @Controller
 @RequestMapping("/video")
