@@ -3,11 +3,6 @@
       xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
       layout:decorate="~{layouts/layout}" lang="en" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
       xsi:schemaLocation="http://www.ultraq.net.nz/thymeleaf/layout ">
-
-<head>
-    <base th:href="${#request.getContextPath()}+'/'">
-</head>
-
 <body>
 <div layout:fragment="content">
     <div class="container">
@@ -15,7 +10,7 @@
         <div class="row row-offcanvas row-offcanvas-left">
             <!-- 打开侧边栏,仅在手机上可见： -->
             <p class="pull-left visible-xs float_menu_img">
-                <button type="btn" class="btn_no_color" data-toggle="offcanvas"><img th:src="@{/img/menu1.png}" src="/img/menu1.png"/></button>
+                <button class="btn_no_color" data-toggle="offcanvas"><img src="/img/menu.png" alt=""/></button>
            </p>
 
             <div class="col-xs-12 col-sm-9" th:id="majors-contain" th:fragment="majors-contain">
@@ -47,7 +42,7 @@
                 <nav aria-label="">
                     <ul class="pager">
                         <li><a th:if="${pageNum} gt 1"
-                               th:href="@{'/majors/'+${currentSubject.id}(page=${pageNum-1}, size=15)}">上一页</a></li>
+                               th:href="@{'/majors/'+${currentSubject.id}(page=${pageNum}-1, size=15)}">上一页</a></li>
                         <li th:each="pageNo : ${#numbers.sequence(1, totalPages)}">
                             <a th:if="${pageNum eq pageNo}" href="javascript:void(0);">
                                 <span th:text="${pageNo}" th:class="disable-a"></span>
