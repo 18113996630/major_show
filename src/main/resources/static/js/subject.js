@@ -31,34 +31,11 @@ $('#subject_table').bootstrapTable({
             valign: 'middle'
         },
         {
-            title: '文章正确',
-            field: 'isRightWord',
+            title: '专业类别描述',
+            field: 'description',
             align: 'center',
-            valign: 'middle'
-        },
-        {
-            title: '文章错误',
-            field: 'isWrongWord',
-            align: 'center',
-            valign: 'middle'
-        },
-        {
-            title: '视频正确',
-            field: 'isRightVideo',
-            align: 'center',
-            valign: 'middle'
-        },
-        {
-            title: '视频错误',
-            field: 'isWrongVideo',
-            align: 'center',
-            valign: 'middle'
-        },
-        {
-            title: '详情url',
-            field: 'iconUri',
-            align: 'center',
-            valign: 'middle'
+            valign: 'middle',
+            width: '45%'
         },
         {
             title: '图标路径',
@@ -86,12 +63,6 @@ $('#subject_table').bootstrapTable({
                 }
                 return res;
             }
-        },
-        {
-            title: '专业类别',
-            field: 'subjectId',
-            align: 'center',
-            valign: 'middle'
         },
         {
             title: "操作",

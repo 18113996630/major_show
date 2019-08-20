@@ -8,8 +8,20 @@ import org.springframework.web.bind.annotation.GetMapping;
  **/
 @Controller
 public class AdminController {
+
+
 	@GetMapping(value = "/admin")
 	public String adminIndex(){
 		return "admin/index";
+	}
+
+	@GetMapping(value = "/admin/subject")
+	public String subject(){
+		return "admin/side/subject";
+	}
+
+	@GetMapping(value = "/admin/major")
+	public String major(){
+		return "admin/side/major";
 	}
 }

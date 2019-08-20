@@ -7,14 +7,8 @@
         <id column="id" property="id" />
         <result column="name" property="name" />
         <result column="code" property="code" />
-        <result column="description" property="description" />
-        <result column="is_right" property="isRight" />
-        <result column="is_wrong" property="isWrong" />
         <result column="detail_url" property="detailUrl" />
         <result column="order_number" property="orderNumber" />
-        <result column="job_prospect" property="jobProspect" />
-        <result column="course" property="course" />
-        <result column="ability" property="ability" />
         <result column="subject_id" property="subjectId" />
         <result column="deleted" property="deleted" />
     </resultMap>

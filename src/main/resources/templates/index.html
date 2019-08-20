@@ -11,9 +11,9 @@
 <div class="container">
     <div class="row row-offcanvas row-offcanvas-right" layout:fragment="content">
         <div class="col-xs-12 col-sm-9">
-            <!--<p class="pull-right visible-xs">
+            <p class="pull-right visible-xs">
                 <button type="button" class="btn btn-primary btn-xs" data-toggle="offcanvas">Toggle nav</button>
-            </p>-->
+            </p>
             <!-- 信息展示位置 -->
             <div class="jumbotron">
                 <h1>Hello!</h1>
@@ -21,37 +21,38 @@
             </div>
             <div th:replace="commons/search :: search-component"></div>
             <!-- 专业种类展示 -->
+            <h2 class="center-block" th:text="专业种类"></h2>
             <div class="row">
                 <!--/*@thymesVar id="subjects" type="com.hrong.major.model.SubjectCategory"*/-->
                 <div class="col-xs-6 col-lg-4 subject-container" th:each="subject:${subjects}">
                     <a th:href="@{'/majors/'+${subject.id}(page=1, size=15)}">
                         <h2>[[${subject.name}]]</h2>
-                        <p><span class="btn btn-default" role="button">查看视频 &raquo</span></p>
+                        <p><span class="btn btn-default" role="button">查看专业&raquo</span></p>
                     </a>
                 </div>
             </div>
         </div>
-        <!--<div class="col-xs-6 col-sm-3 sidebar-offcanvas" id="sidebar">-->
-        <!--<div class="list-group">-->
-        <!--<a href="#" class="list-group-item active">Link</a>-->
-        <!--<a href="#" class="list-group-item">Link</a>-->
-        <!--<a href="#" class="list-group-item">Link</a>-->
-        <!--<a href="#" class="list-group-item">Link</a>-->
-        <!--<a href="#" class="list-group-item">Link</a>-->
-        <!--<a href="#" class="list-group-item">Link</a>-->
-        <!--<a href="#" class="list-group-item">Link</a>-->
-        <!--<a href="#" class="list-group-item">Link</a>-->
-        <!--<a href="#" class="list-group-item">Link</a>-->
-        <!--<a href="#" class="list-group-item">Link</a>-->
-        <!--<a href="#" class="list-group-item">Link</a>-->
-        <!--<a href="#" class="list-group-item">Link</a>-->
-        <!--<a href="#" class="list-group-item">Link</a>-->
-        <!--<a href="#" class="list-group-item">Link</a>-->
-        <!--<a href="#" class="list-group-item">Link</a>-->
-        <!--<a href="#" class="list-group-item">Link</a>-->
-        <!--<a href="#" class="list-group-item">Link</a>-->
-        <!--</div>-->
-        <!--</div>-->
+        <div class="col-xs-6 col-sm-3 sidebar-offcanvas" id="sidebar">
+            <div class="list-group">
+                <a class="list-group-item active" href="#">Link</a>
+                <a class="list-group-item" href="#">Link</a>
+                <a class="list-group-item" href="#">Link</a>
+                <a class="list-group-item" href="#">Link</a>
+                <a class="list-group-item" href="#">Link</a>
+                <a class="list-group-item" href="#">Link</a>
+                <a class="list-group-item" href="#">Link</a>
+                <a class="list-group-item" href="#">Link</a>
+                <a class="list-group-item" href="#">Link</a>
+                <a class="list-group-item" href="#">Link</a>
+                <a class="list-group-item" href="#">Link</a>
+                <a class="list-group-item" href="#">Link</a>
+                <a class="list-group-item" href="#">Link</a>
+                <a class="list-group-item" href="#">Link</a>
+                <a class="list-group-item" href="#">Link</a>
+                <a class="list-group-item" href="#">Link</a>
+                <a class="list-group-item" href="#">Link</a>
+            </div>
+        </div>
     </div>
 </div>
 </body>

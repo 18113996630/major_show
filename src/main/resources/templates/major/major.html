@@ -11,24 +11,22 @@
             <!-- 打开侧边栏,仅在手机上可见： -->
             <p class="pull-left visible-xs float_menu_img">
                 <button class="btn_no_color" data-toggle="offcanvas"><img src="/img/menu.png" alt=""/></button>
-           </p>
-
-            <div class="col-xs-12 col-sm-9" th:id="majors-contain" th:fragment="majors-contain">
+            </p>
+            <!-- sidebar-offcanvas保证处于侧边，并且在xs上默认隐藏 -->
+            <div class="col-xs-3 col-sm-2 sidebar-offcanvas">
                 <!-- 展示专业种类信息 -->
-                <div class="col-xs-4 col-lg-3 sidebar-offcanvas">
-                    <div class="list-group">
-                        <!--/*@thymesVar id="subjects" type="com.hrong.major.model.Subject"*/-->
-                        <a class="list-group-item active" th:href="@{'/majors/'+${subject.id}(page=1, size=15)}"
-                           th:each="subject:${subjects}">
-                            <button class="btn btn-default btn-group-justified" th:text="${subject.name}"></button>
-                        </a>
-                    </div>
+                <div class="list-group">
+                    <!--/*@thymesVar id="subjects" type="com.hrong.major.model.Subject"*/-->
+                    <a class="list-group-item active" th:each="subject:${subjects}"
+                       th:href="@{'/majors/'+${subject.id}(page=1, size=15)}">
+                        <button class="btn btn-default btn-group-justified" th:text="${subject.name}"></button>
+                    </a>
                 </div>
+            </div>
+            <div class="col-xs-12 col-sm-10">
+                <div th:replace="commons/search :: search-component"></div>
                 <!-- 展示专业信息 -->
                 <ul class="row major_ul">
-                    <li class="col-xs-12 col-md-8">
-                        <div th:replace="commons/search :: search-component"></div>
-                    </li>
                     <!--/*@thymesVar id="subjects" type="com.hrong.major.model.Major"*/-->
                     <li class="col-xs-12 col-md-3 major-container clearfix" th:each="major:${majors}">
                         <a th:href="@{'/major/info/'+${major.id}}">
@@ -38,7 +36,7 @@
                 </ul>
             </div>
             <!-- 翻页按钮 -->
-            <div class="col-xs-12 col-sm-10" th:if="${totalPages} gt 1 and ${currentSubject}">
+            <div class="col-xs-12 col-sm-9" th:if="${totalPages} gt 1 and ${currentSubject}">
                 <nav aria-label="">
                     <ul class="pager">
                         <li><a th:if="${pageNum} gt 1"

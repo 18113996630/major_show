@@ -4,19 +4,24 @@
 <div layout:fragment="content">
     <div class="container">
         <div class="row row-offcanvas row-offcanvas-left">
-            <div class="col-xs-12 col-sm-9" th:id="majors-contain" th:fragment="majors-contain">
-                <!-- 左侧可以展示同类专业 -->
-                <!--<div class="col-xs-4 col-sm-2 sidebar-offcanvas">
-                              <div class="list-group">
-                                  &lt;!&ndash;/*@thymesVar id="subjects" type="com.hrong.major.model.Subject"*/&ndash;&gt;
-                                  <a class="list-group-item active" th:href="@{'/majors/'+${subject.id}(page=1, size=20)}"
-                                     th:each="subject:${subjects}">
-                                      <button class="btn btn-default btn-group-justified" th:text="${subject.name}"></button>
-                                  </a>
-                              </div>
-                          </div>-->
-                <!--                <div class="row">-->
-                <div class="detail_div">
+            <div class="col-xs-12 col-md-12" th:fragment="majors-contain" th:id="majors-contain">
+                <!-- 打开侧边栏,仅在手机上可见： -->
+                <p class="pull-left visible-xs float_menu_img">
+                    <button class="btn_no_color" data-toggle="offcanvas"><img alt="" src="/img/menu.png"/></button>
+                </p>
+                <!-- sidebar-offcanvas保证处于侧边，并且在xs上默认隐藏 -->
+                <div class="col-xs-3 col-md-2 sidebar-offcanvas">
+                    <!-- 展示专业种类信息 -->
+                    <div class="list-group">
+                        <!--/*@thymesVar id="subjects" type="com.hrong.major.model.Subject"*/-->
+                        <a class="list-group-item active" th:each="major:${majors}" th:href="@{'/major/info/'+${major.id}}">
+                            <button class="btn btn-default btn-group-justified" style="width: 100%">
+                                <span class="text-justify" th:text="${major.name}"></span>
+                            </button>
+                        </a>
+                    </div>
+                </div>
+                <div class="detail_div col-xs-12 col-md-10">
                     <!--/*@thymesVar id="subjects" type="com.hrong.major.model.Major"*/-->
                     <!-- 专业名字 -->
                     <h1 th:text="${detailVo.detail.name}" class="text-center"></h1>
@@ -33,7 +38,7 @@
                     <p><strong th:text="就业方向" th:class="text-info"></strong></p> &nbsp;&nbsp;
                     <p th:text="${detailVo.detail.job}" class="text-justify major_info"></p>
                     <!-- 该专业的视频信息 -->
-                    <h2 th:if="${detailVo.videos.size() gt 0}">相关视频</h2>
+                    <h2 th:text="${detailVo.videos.size() eq 0 ? '暂无相关视频，若需要请留言' : '相关视频'}"></h2>
                     <ul th:each="video:${detailVo.videos}" class="video_ul">
                         <li class="small_item"> <a th:href="${video.url}" target="_blank" th:text="${video.title}" th:class="title"></a><br /> <span th:text="'发布时间：'+${video.pubtime}"></span>
                             <div class="row video_info">
