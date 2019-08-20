@@ -1,13 +1,14 @@
 <!DOCTYPE html>
-<html layout:decorate="~{admin/layouts/layout}"
+<html lang="en" layout:decorate="~{admin/layouts/layout}"
       xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
-      xmlns:th="http://www.thymeleaf.org">
+      xmlns:th="http://www.thymeleaf.org" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+      xsi:schemaLocation="http://www.ultraq.net.nz/thymeleaf/layout ">
 <body>
 <div layout:fragment="content">
     <!-- 表格列拖动 -->
     <!-- https://blog.csdn.net/qq_40680190/article/details/82415284 -->
     <h2 class="text-center">专业</h2>
-    <button class="btn btn-info" th:onclick="$('#infoModal').modal('show')" th:text="添加" ></button>
+    <button class="btn btn-info" th:onclick="$('#infoModal').modal('show')" th:text="添加"></button>
     <div class="table-responsive">
         <table class="table table-striped" id="subject_table"></table>
     </div>
@@ -54,7 +55,8 @@
                         <div class="form-group">
                             <label class="col-md-3 control-label" for="orderNumber">排序号</label>
                             <div class="col-md-8">
-                                <input class="form-control" id="orderNumber" name="orderNumber" placeholder="排序号" type="number"
+                                <input class="form-control" id="orderNumber" name="orderNumber" placeholder="排序号"
+                                       type="number"
                                        value="">
                             </div>
                         </div>
@@ -67,6 +69,12 @@
             </div>
         </div>
     </div>
+    <!-- 额外引入js -->
+    <footer>
+        <div th:replace="admin/commons/footer :: footer(~{::script})">
+            <script th:src="@{/js/ad_major.js}"></script>
+        </div>
+    </footer>
 </div>
 </body>
 </html>

@@ -1,12 +1,14 @@
 <!DOCTYPE html>
 <html lang="en" xmlns="http://www.w3.org/1999/xhtml" xmlns:th="http://www.thymeleaf.org">
-<body>
-    <div th:fragment="footer(scripts)">
-        <script th:src="@{/js/jquery.min.js}"></script>
-        <script th:src="@{/js/bootstrap.min.js}"></script>
-        <script th:src="@{/js/index.js}"></script>
-        <th:block th:replace="${scripts}"/>
-        <p>&copy; 2016 Company, Inc.</p>
-    </div>
-</body>
+<head th:replace="commons/header :: common-header(~{}, ~{::link})">
+    <link rel="stylesheet" th:href="@{/css/footer.css}">
+</head>
+<div class="foot_div" th:fragment="footer(script)">
+    <script th:src="@{/js/jquery.min.js}"></script>
+    <script th:src="@{/js/bootstrap.min.js}"></script>
+    <script th:src="@{/js/common.js}"></script>
+    <th:block th:replace="${script}"/>
+    <hr>
+    <p>&copy; 2016 Company, Inc.</p>
+</div>
 </html>

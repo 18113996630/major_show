@@ -1,7 +1,7 @@
 <!DOCTYPE html>
 <html lang="en" xmlns="http://www.w3.org/1999/xhtml" xmlns:th="http://www.thymeleaf.org">
 <body>
-    <div th:fragment="footer(scripts)">
+    <div th:fragment="footer(script)">
         <script th:src="@{/js/jquery.min.js}"></script>
         <script th:src="@{/js/bootstrap.min.js}"></script>
         <script th:src="@{/js/bootstrap-table.min.js}"></script>
@@ -9,9 +9,9 @@
         <!-- Just to make our placeholder images work. Don't actually copy the next line! -->
         <script th:src="@{/js/holder.min.js}"></script>
         <script th:src="@{/layer/layer.js}"></script>
-        <script th:src="@{/js/subject.js}"></script>
         <!-- IE10 viewport hack for Surface/desktop Windows 8 bug -->
         <script th:src="@{/js/ie10-viewport-bug-workaround.js}"></script>
+        <th:block th:replace="${script}"/>
     </div>
 </body>
 </html>

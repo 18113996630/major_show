@@ -1,8 +1,10 @@
 <!DOCTYPE html>
-<html
-        layout:decorate="~{admin/layouts/layout}"
-        xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout">
-
+<html lang="en" layout:decorate="~{admin/layouts/layout}"
+      xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+      xmlns:th="http://www.thymeleaf.org">
+<head th:replace="admin/commons/header :: common-header(~{}, ~{::link})">
+    <link rel="stylesheet" th:href="@{/css/admin/ad_subject.css}">
+</head>
 <body>
 <div layout:fragment="content">
     <h1>暂时还没有啥内容</h1>

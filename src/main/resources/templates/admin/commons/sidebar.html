@@ -1,23 +1,18 @@
 <!DOCTYPE html>
 <html lang="en" xmlns:th="http://www.thymeleaf.org">
-<head th:replace="admin/commons/header :: common-header(~{::title}, ~{})">
-    <title>后台主页</title>
-</head>
 <body>
 <!-- 左侧导航栏 -->
-<div class="col-sm-3 col-md-2 sidebar" th:fragment="sidebar">
+<div class="col-xs-2 col-sm-2 col-md-2 col-lg-2 sidebar" th:fragment="sidebar">
     <ul class="nav nav-sidebar">
-        <li><a th:href="@{/admin}">首页<span class="sr-only">(current)</span></a></li>
-        <li><a th:href="@{/admin/subject}">专业类别</a></li>
-        <li><a th:href="@{/admin/major}">专业</a></li>
-        <li><a href="">专业详情</a></li>
-        <li><a href="">视频信息</a></li>
-    </ul>
-    <ul class="nav nav-sidebar">
-        <li><a href="#">浏览量</a></li>
-        <li><a href="#">点击量</a></li>
-        <li><a href="#">群体分析</a></li>
-        <li><a href="#">报表</a></li>
+        <li class="list-group-item-success"><a th:href="@{/admin}">首页</a></li>
+        <li class="list-group-item-danger"><a th:href="@{/admin/subject}">专业类别</a></li>
+        <li class="list-group-item-success"><a th:href="@{/admin/major}">专业</a></li>
+        <li class="list-group-item-danger"><a href="">专业详情</a></li>
+        <li class="list-group-item-success"><a href="">视频信息</a></li>
+        <li class="list-group-item-danger"><a href="#">浏览量</a></li>
+        <li class="list-group-item-success"><a href="#">点击量</a></li>
+        <li class="list-group-item-danger"><a href="#">群体分析</a></li>
+        <li class="list-group-item-success"><a href="#">报表</a></li>
     </ul>
 </div>
 </body>

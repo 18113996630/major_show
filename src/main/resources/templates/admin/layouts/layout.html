@@ -1,6 +1,7 @@
 <!DOCTYPE html>
-<html xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
-      xmlns:th="http://www.thymeleaf.org">
+<html lang="en" xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+      xmlns:th="http://www.thymeleaf.org" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+      xsi:schemaLocation="http://www.ultraq.net.nz/thymeleaf/layout ">
 <!-- commons文件夹下的header文件，fragment为：common-header(title, links)，可以额外指定标题和连接 -->
 <head th:replace="admin/commons/header :: common-header(~{::title}, ~{})">
     <title>后台主页</title>
@@ -11,14 +12,12 @@
 <div class="container-fluid">
     <div class="row">
         <div th:replace="admin/commons/sidebar :: sidebar"></div>
-        <div class="col-sm-9 col-sm-offset-3 col-md-10 col-md-offset-2 main" layout:fragment="content">
+        <div class="col-xs-10 col-sm-10 col-md-10 col-lg-10 col-xs-offset-2 col-sm-offset-2 col-md-offset-2 col-lg-offset-2 main"
+             layout:fragment="content">
             <h1>没有数据</h1>
         </div>
     </div>
     <hr>
-    <footer>
-        <div th:replace="admin/commons/footer :: footer(~{})"></div>
-    </footer>
 </div>
 </body>
 </html>

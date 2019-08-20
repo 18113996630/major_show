@@ -1,15 +1,17 @@
 <!DOCTYPE html>
-<html xmlns:th="http://www.thymeleaf.org"
-      xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
-      layout:decorate="~{layouts/layout}">
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
 <head th:replace="commons/header :: common-header(~{::title}, ~{})">
     <title>快联系我</title>
 </head>
 <body>
-<div layout:fragment="content">
-    <div class="container">
-        <h2>500</h2>
-    </div>
+
+<!-- Header -->
+<div th:replace="commons/header :: header"></div>
+<div class="container">
+    <h2>500</h2>
 </div>
+<footer>
+    <div th:replace="commons/footer :: footer(~{})"></div>
+</footer>
 </body>
 </html>

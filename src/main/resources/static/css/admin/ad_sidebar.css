@@ -1,0 +1,7 @@
+.nav-sidebar > li{
+    margin-right: -1px;
+    margin-bottom: -1px;
+}
+.nav-sidebar > li > a {
+    font-size: 1.5em;
+}

@@ -1,6 +1,6 @@
 <!DOCTYPE html>
 <html lang="en" xmlns:th="http://www.thymeleaf.org">
-<head th:fragment="common-header(title, links)">
+<head th:fragment="common-header(title, link)">
     <meta charset="utf-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1">
@@ -9,17 +9,16 @@
     <meta name="author" content="">
     <link rel="icon" href="/img/favicon.ico">
 
-    <!--/*@thymesVar id="title" type="title"*/-->
-    <!--/*@thymesVar id="links" type="links"*/-->
     <title th:replace="${title}">demo-project</title>
     <link th:href="@{/css/bootstrap.min.css}" rel="stylesheet">
     <link th:href="@{/css/ie10-viewport-bug-workaround.css}" rel="stylesheet">
-    <link th:href="@{/css/major.css}" rel="stylesheet">
-    <th:block th:replace="${links}"/>
+    <link rel="stylesheet" th:href="@{/css/header.css}">
+    <th:block th:replace="${link}"/>
+    <link rel="stylesheet" th:href="@{/css/common.css}">
 </head>
 <body>
 <!-- 类似指定id为header，复用方法：<div th:replace="commons/header :: header"></div>-->
-<nav class="navbar navbar-fixed-top navbar-inverse" th:fragment="header">
+<nav class="navbar navbar-fixed-top navbar-inverse nav_color" th:fragment="header">
     <div class="container">
         <div class="navbar-header">
             <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#navbar"
@@ -29,11 +28,11 @@
                 <span class="icon-bar"></span>
                 <span class="icon-bar"></span>
             </button>
-            <a class="navbar-brand" th:href="@{/}">专业show</a>
+            <a class="navbar-brand" th:href="@{/}">Subject Show</a>
         </div>
         <div id="navbar" class="collapse navbar-collapse">
             <ul class="nav navbar-nav">
-                <li><a th:href="@{/}">我要找专业</a></li>
+                <li><a th:href="@{/}">有啥专业</a></li>
                 <li><a th:href="@{/about}">关于我</a></li>
                 <li><a th:href="@{/contact}">联系我</a></li>
             </ul>

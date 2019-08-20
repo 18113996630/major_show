@@ -1,6 +1,6 @@
 <!DOCTYPE html>
 <html lang="en" xmlns:th="http://www.thymeleaf.org">
-<head th:fragment="common-header(title, links)">
+<head th:fragment="common-header(title, link)">
     <meta charset="utf-8">
     <meta content="IE=edge" http-equiv="X-UA-Compatible">
     <meta content="width=device-width, initial-scale=1" name="viewport">
@@ -17,8 +17,9 @@
     <link rel="stylesheet" th:href="@{/css/ie10-viewport-bug-workaround.css}">
     <!-- Custom styles for this template -->
     <link rel="stylesheet" th:href="@{/css/dashboard.css}">
-    <link rel="stylesheet" th:href="@{/css/subject.css}">
-    <th:block th:replace="${links}"/>
+    <link rel="stylesheet" th:href="@{/css/common.css}">
+    <link rel="stylesheet" th:href="@{/css/admin/ad_sidebar.css}">
+    <th:block th:replace="${link}"/>
 </head>
 <body>
 <!-- 类似指定id为header，复用方法：<div th:replace="commons/header :: header"></div>-->

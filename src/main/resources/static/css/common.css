@@ -1,0 +1,60 @@
+html,
+body {
+    overflow-x: hidden; /* Prevent scroll on narrow devices */
+}
+
+body {
+    padding-top: 70px;
+    background-color: #f2f2f2;
+    /*background: url("/img/bg.jpg") no-repeat;*/
+    background-size: 100%;
+}
+
+footer {
+    text-align: center;
+}
+
+/* index中去掉subject(li)前面的点 */
+.row li {
+    list-style-type: none;
+}
+@media screen and (max-width: 767px) {
+    .row-offcanvas {
+        position: relative;
+        -webkit-transition: all .25s ease-out;
+        -o-transition: all .25s ease-out;
+        transition: all .25s ease-out;
+    }
+
+    .row-offcanvas-right {
+        right: 0;
+    }
+
+    .row-offcanvas-left {
+        left: 0;
+    }
+
+    .row-offcanvas-right
+    .sidebar-offcanvas {
+        right: -50%; /* 6 columns */
+    }
+
+    .row-offcanvas-left
+    .sidebar-offcanvas {
+        left: -50%; /* 6 columns */
+    }
+
+    .row-offcanvas-right.active {
+        right: 50%; /* 6 columns */
+    }
+
+    .row-offcanvas-left.active {
+        left: 50%; /* 6 columns */
+    }
+
+    .sidebar-offcanvas {
+        position: absolute;
+        top: 0;
+        width: 50%; /* 6 columns */
+    }
+}

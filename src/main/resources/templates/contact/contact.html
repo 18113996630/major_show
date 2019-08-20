@@ -1,15 +1,16 @@
 <!DOCTYPE html>
-<html xmlns:th="http://www.thymeleaf.org"
-      xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
-      layout:decorate="~{layouts/layout}">
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
 <head th:replace="commons/header :: common-header(~{::title}, ~{})">
     <title>快联系我</title>
 </head>
 <body>
-<div layout:fragment="content">
-    <div class="container">
-        <h3>联系我</h3>
-    </div>
+<!-- Header -->
+<div th:replace="commons/header :: header"></div>
+<div class="container">
+    <h3>联系我：<a href="javascript:void(0)" th:text="qq邮箱" th:title="'1011486768'+'@'+'qq.com'"></a></h3>
 </div>
+<footer>
+    <div th:replace="commons/footer :: footer(~{})"></div>
+</footer>
 </body>
 </html>

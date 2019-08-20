@@ -9,6 +9,7 @@ import com.hrong.major.model.vo.MajorDetailWithVideoVo;
 import com.hrong.major.service.MajorDetailService;
 import com.hrong.major.service.MajorService;
 import com.hrong.major.service.SubjectService;
+import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -26,6 +27,7 @@ import java.util.List;
  * @author hrong
  * @since 2019-08-17
  */
+@Slf4j
 @Controller
 @RequestMapping("/major/info")
 public class MajorDetailController {
@@ -51,7 +53,7 @@ public class MajorDetailController {
 		model.addAttribute("nextId", nextDetailId);
 		//从详情查询subject下的majors
 		model.addAttribute("currentSubject", currentSubject);
-		//侧边栏显示
+		//显示该专业前后几个专业
 		model.addAttribute("majors", majors);
 		return "major/major_detail";
 	}

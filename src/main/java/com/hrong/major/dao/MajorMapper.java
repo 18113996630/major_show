@@ -28,7 +28,7 @@ public interface MajorMapper extends BaseMapper<Major> {
 							"SELECT `id` from `major` where `id`<#{id} and `subject_id`=#{subjectId} order by `order_number` desc limit 3) a " +
 						"union " +
 						"select * from (" +
-							"SELECT `id` from `major` where `id`>=#{id} and `subject_id`=#{subjectId} order by `order_number` limit 3) b" +
+							"SELECT `id` from `major` where `id`>=#{id} and `subject_id`=#{subjectId} order by `order_number` limit 4) b" +
 					") c order by c.id")
-	List<Integer> findAroundMajorIds(@Param(value = "id") Integer id, @Param(value = "subject_id") Integer subjectId);
+	List<Integer> findAroundMajorIds(@Param(value = "id") Integer id, @Param(value = "subjectId") Integer subjectId);
 }
