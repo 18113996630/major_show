@@ -14,3 +14,10 @@ $(document).ready(function () {
 $('#go_top_btn').click(function () {
     $('html,body').animate({ scrollTop: '0px' }, 1000); return false;
 });
+function video_up(id) {
+
+}
+
+function video_down(id) {
+
+}

@@ -6,7 +6,7 @@
     <link rel="stylesheet" th:href="@{/css/admin/ad_subject.css}">
 </head>
 <body>
-<div>
+<div layout:fragment="content">
     <!-- 表格列拖动 -->
     <!-- https://blog.csdn.net/qq_40680190/article/details/82415284 -->
     <button class="btn btn-info" th:onclick="$('#infoModal').modal('show')" th:text="添加" ></button>

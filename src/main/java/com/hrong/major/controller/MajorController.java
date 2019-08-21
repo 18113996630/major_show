@@ -71,6 +71,7 @@ public class MajorController extends BaseController<Major> {
 																		.orderByAsc("order_number"));
 		List<Subject> subjects = subjectService.list();
 		packagePageResult(model, page);
+		model.addAttribute("currentSubject", subjects.get(0));
 		model.addAttribute("majors", page.getRecords());
 		model.addAttribute("subjects", subjects);
 		return "major/major";
