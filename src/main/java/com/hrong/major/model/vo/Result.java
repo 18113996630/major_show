@@ -37,7 +37,7 @@ public class Result<T> {
 		return message;
 	}
 
-	public void setMessage(String message) {
+	private void setMessage(String message) {
 		this.message = message;
 	}
 

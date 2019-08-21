@@ -68,7 +68,7 @@
                         </div>
                     </div>
                     <a target="_blank" th:class="cover_a" th:href="${videoVo.video.url}" th:onclick="clickVideo([[${videoVo.video.id}]], [[${videoVo.clickCount}]])"> <img
-                            th:alt="${videoVo.video.title}" th:class="cover_img" th:src="@{'/cover/'+${videoVo.video.coverName}}"/>
+                        th:alt="${videoVo.video.title}" th:class="cover_img" th:src="@{'/cover/'+${videoVo.video.coverName}}"/>
                         <span th:class="duration" th:text="${videoVo.video.duration}"></span>
                     </a>
                     <hr>
