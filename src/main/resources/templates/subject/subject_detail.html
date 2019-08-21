@@ -1,7 +1,7 @@
 <!DOCTYPE html>
 <html lang="en" xmlns:th="http://www.thymeleaf.org">
 <head th:replace="commons/header :: common-header(~{}, ~{::link})">
-    <link rel="stylesheet" th:href="@{/css/major_detail.css}">
+    <link rel="stylesheet" th:href="@{/css/subject_detail.css}">
 </head>
 <body>
 <!-- Header -->
@@ -50,46 +50,38 @@
             <p><strong th:class="text-info" th:text="就业方向"></strong></p> &nbsp;&nbsp;
             <p class="text-justify major_info" th:text="${detailVo.detail.job}"></p>
             <!-- 该专业的视频信息 -->
-            <button class="btn btn-success btn-video-need" th:if="${detailVo.videos.isEmpty()}" th:onclick="video_need([[${detailVo.detail.id}]])" th:text="暂无相关视频若需要请点我"></button>
-            <h2 class="content_split" th:if="${detailVo.videos.size() gt 0}" th:text="相关视频"></h2>
-            <ul class="video_ul" th:each="videoVo:${detailVo.videos}">
-                <li class="small_item"><a target="_blank" th:class="title" th:href="${videoVo.video.url}"
-                                          th:text="${videoVo.video.title}"></a><br/> <span
-                        th:text="'发布时间：'+${videoVo.video.pubtime}"></span>
+            <h2 class="content_split" th:text="${detailVo.videos.size() eq 0 ? '暂无相关视频，若需要请留言' : '相关视频'}"></h2>
+            <ul class="video_ul" th:each="video:${detailVo.videos}">
+                <li class="small_item"><a target="_blank" th:class="title" th:href="${video.url}"
+                                          th:text="${video.title}"></a><br/> <span
+                        th:text="'发布时间：'+${video.pubtime}"></span>
                     <div class="row video_info">
                         <div class="col-xs-12 col-lg-6 col-md-6">
                             <span class="text-justify">视频来源：</span>
-                            <strong th:class="text-danger" th:text="${videoVo.video.sourceName}"></strong>
+                            <strong th:class="text-danger" th:text="${video.sourceName}"></strong>
                         </div>
                         <div class="col-xs-12 col-lg-6 col-md-6">
                             <span class="text-justify">视频提供者：</span>
-                            <strong th:class="text-danger"> <a target="_blank" th:href="${videoVo.video.upPage}"
-                                                               th:text="${videoVo.video.upName}"></a> </strong>
+                            <strong th:class="text-danger"> <a target="_blank" th:href="${video.upPage}"
+                                                               th:text="${video.upName}"></a> </strong>
                         </div>
                     </div>
-                    <a target="_blank" th:class="cover_a" th:href="${videoVo.video.url}" th:onclick="clickVideo([[${videoVo.video.id}]], [[${videoVo.clickCount}]])"> <img
-                            th:alt="${videoVo.video.title}" th:class="cover_img" th:src="@{'/cover/'+${videoVo.video.coverName}}"/>
-                        <span th:class="duration" th:text="${videoVo.video.duration}"></span>
+                    <a target="_blank" th:class="cover_a" th:href="${video.url}"> <img
+                            th:alt="${video.title}" th:class="cover_img" th:src="@{'/cover/'+${video.coverName}}"/>
+                        <span th:class="duration" th:text="${video.duration}"></span>
                     </a>
                     <hr>
-                    <!-- 视频反馈 -->
                     <div class="video_feedback">
                         <span class="text-info" th:text="这个视频怎么样+'?'"></span>
-                        <button class="btn btn-default btn-up" th:disabled="${videoVo.isUpped}" th:id="${videoVo.video.id}+'up'" th:onclick="video_up([[${videoVo.video.id}]], [[${videoVo.upCount}]])" th:value="${videoVo.video.id}+'up'">
+                        <button class="btn btn-default btn-up" th:classappend="1 eq 1 ? 'active' : ''" th:onclick="video_up(${video.id})" type="button">
                             <span aria-hidden="true" class="glyphicon glyphicon-thumbs-up"></span>
-                            <span th:text="${videoVo.upCount}"></span>
                         </button>
-                        <button class="btn btn-default btn-down" th:disabled="${videoVo.isDowned}" th:id="${videoVo.video.id}+'down'" th:onclick="video_down([[${videoVo.video.id}]], [[${videoVo.downCount}]])" th:value="${videoVo.video.id}+'down'">
+                        <button class="btn btn-default btn-down" th:onclick="video_down(${video.id})">
                             <span aria-hidden="true" class="glyphicon glyphicon-thumbs-down"></span>
-                            <span th:text="${videoVo.downCount}"></span>
-                        </button>
-                        <button class="btn btn-default" disabled="disabled" th:id="${videoVo.video.id}+'click'" th:value="${videoVo.video.id}+'click'">
-                            <span aria-hidden="true" class="glyphicon glyphicon-eye-open"></span>
-                            <span th:text="${videoVo.clickCount}"></span>
                         </button>
                     </div>
                     <div class="clearfloat"></div>
-                    <p class="text-justify" th:if="${videoVo.video.intro} != ''" th:text="${videoVo.video.intro}"></p>
+                    <p class="text-justify" th:if="${video.intro} != ''" th:text="${video.intro}"></p>
                     <hr/>
                 </li>
             </ul>
@@ -107,7 +99,6 @@
         <!-- 评论 -->
         <div class="col-xs-12 col-sm-12 col-md-12 col-lg-12 common">
             <div class="comment_head">
-                <h3 class="text-center">评论区功能正在开发</h3>
                 <span class="comment_count">21</span>
                 <span>评论</span>
             </div>
@@ -126,7 +117,7 @@
 
                 <div class="comment-send no-login">
                     <div class="user-face">
-<!--                        <img class="user-head" src="//static.hdslb.com/images/member/noface.gif">-->
+                        <img class="user-head" src="//static.hdslb.com/images/member/noface.gif">
                     </div>
                     <div class="textarea-container">
                         <div class="baffle-wrap">

@@ -2,6 +2,7 @@ package com.hrong.major.dao;
 
 import com.baomidou.mybatisplus.core.mapper.BaseMapper;
 import com.hrong.major.model.Major;
+import com.hrong.major.model.vo.MajorVo;
 import org.apache.ibatis.annotations.Param;
 import org.apache.ibatis.annotations.Select;
 
@@ -31,4 +32,12 @@ public interface MajorMapper extends BaseMapper<Major> {
 							"SELECT `id` from `major` where `id`>=#{id} and `subject_id`=#{subjectId} order by `order_number` limit 4) b" +
 					") c order by c.id")
 	List<Integer> findAroundMajorIds(@Param(value = "id") Integer id, @Param(value = "subjectId") Integer subjectId);
+
+	/**
+	 * 根据专业名字模糊查询专业
+	 * @param name 输入
+	 * @return MajorVo
+	 */
+	@Select(value = "select t.*,s.* from major t left join subject s on t.subject_id = s.id where t.name like #{name} order by t.order_number")
+	List<MajorVo> findMajorsByName(@Param(value = "name") String name);
 }

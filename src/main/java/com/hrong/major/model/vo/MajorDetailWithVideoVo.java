@@ -1,7 +1,6 @@
 package com.hrong.major.model.vo;
 
 import com.hrong.major.model.MajorDetail;
-import com.hrong.major.model.Video;
 import lombok.Builder;
 import lombok.Data;
 
@@ -18,5 +17,5 @@ public class MajorDetailWithVideoVo {
 	/**
 	 * 详情中的视频
 	 */
-	private List<Video> videos;
+	private List<VideoVo> videos;
 }

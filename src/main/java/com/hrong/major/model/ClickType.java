@@ -5,12 +5,29 @@ package com.hrong.major.model;
  */
 public enum ClickType {
 	/**
-	 * 科目
+	 * 专业类别
 	 */
 	subject,
+	/**
+	 * 搜索查看专业
+	 */
 	majors,
+	/**
+	 * 专业详情
+	 */
 	major,
-	video;
+	/**
+	 * 视频
+	 */
+	video,
+	/**
+	 * 踩视频
+	 */
+	video_down,
+	/**
+	 * 点赞视频
+	 */
+	video_up;
 
 	ClickType() {
 	}

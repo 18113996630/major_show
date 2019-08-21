@@ -2,6 +2,7 @@ package com.hrong.major.service;
 
 import com.baomidou.mybatisplus.extension.service.IService;
 import com.hrong.major.model.Major;
+import com.hrong.major.model.vo.MajorVo;
 
 import java.util.List;
 
@@ -20,4 +21,11 @@ public interface MajorService extends IService<Major> {
 	 * @return 专业list
 	 */
 	List<Major> findAroundMajors(Integer id);
+
+	/**
+	 * 模糊查询majors
+	 * @param name 输入的name
+	 * @return majorVo
+	 */
+	List<MajorVo> findMajorsByName(String name);
 }
