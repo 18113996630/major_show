@@ -1,38 +1,12 @@
-.major_search {
-    margin-left: 10%;
-}
-
-/*major页面左侧按钮的上级标签*/
-.float_menu_img {
-    left: 0;
-    top: 45%;
-    position: fixed;
-    z-index: 9999;
-}
-
-/*major页面的左侧按钮*/
-.btn_no_color {
-    background: none !important;
-    border: none;
-}
-
-/*major页面列表*/
-.major_ul {
-    /*margin-right: 0.8em;*/
-}
-
-.major_ul {
-    /*margin: 1em 1em 1em;*/
-    /*padding: 0;*/
-}
 .major_li {
     text-align: center;
     margin: 2em 0;
     text-overflow: ellipsis;
     white-space: nowrap;
     overflow: hidden;
-    display:inline-block;
+    display: inline-block;
 }
+
 .major_a {
     height: 100%;
     font-size: 2em;
@@ -44,16 +18,43 @@
     color: darkgray;
 }
 
-/*.major-container {*/
-/*    border: 1px solid azure;*/
-/*    margin-right: -1px;*/
-/*    margin-bottom: -1px;*/
-/*    border-radius: 3px;*/
-/*    height: 120px;*/
-/*}*/
+.subjects a {
+    margin-right: 1em;
+}
 
-/*.major-container a h4 {*/
-/*    text-align: center;*/
-/*    line-height: 110px;*/
-/*}*/
+.subjects > a > button {
+    margin-bottom: 1em;
+}
 
+.active-btn {
+    color: #333;
+    background-color: #e6e6e6;
+    border: 2px solid #adadad;
+    font-size: x-large;
+    font-weight: bold;
+}
+
+.search_major_li {
+    text-align: center;
+    margin: 2em 0;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+    overflow: hidden;
+    display: inline-block;
+    padding: 0 30%;
+}
+
+.search_subject {
+    font-size: 1.3em;
+}
+
+.search_major_name {
+    font-size: 2em;
+}
+
+.sub-desc {
+    line-height: 2em;
+    word-wrap: break-word !important;
+    word-break: break-all !important;
+    white-space: normal !important;
+}

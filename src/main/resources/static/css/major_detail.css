@@ -95,6 +95,11 @@
     width: 100%;
     margin-bottom: 2.5em;
 }
+.btn-video-need {
+    width: 100%;
+    margin: 2.5em 0;
+    font-size: x-large;
+}
 
 .around_majors {
     border: 0.2em solid yellowgreen;
@@ -276,9 +281,9 @@
     background: none;
     border: 0;
 }
-.btn-up{
-    color: red;
-}
-.btn-down{
-    color: dimgray;
-}
+/*.btn-up{*/
+/*    color: red;*/
+/*}*/
+/*.btn-down{*/
+/*    color: dimgray;*/
+/*}*/

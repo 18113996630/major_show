@@ -5,10 +5,12 @@ import com.baomidou.mybatisplus.core.conditions.query.QueryWrapper;
 import com.baomidou.mybatisplus.core.metadata.IPage;
 import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
 import com.hrong.major.annotation.ClickLog;
+import com.hrong.major.constant.CacheConstant;
 import com.hrong.major.controller.common.BaseController;
 import com.hrong.major.model.ClickType;
 import com.hrong.major.model.Major;
 import com.hrong.major.model.Subject;
+import com.hrong.major.model.vo.MajorVo;
 import com.hrong.major.model.vo.SearchVo;
 import com.hrong.major.service.MajorService;
 import com.hrong.major.service.SubjectService;
@@ -51,9 +53,10 @@ public class MajorController extends BaseController<Major> {
 		IPage<Major> majors = majorService.page(new Page<>(page, size), new QueryWrapper<Major>().eq("subject_id", subjectId).orderByAsc("order_number"));
 		//翻页需要知道当前是什么科目类别
 		Subject currentSubject = subjectService.getById(subjectId);
-		List<Subject> subjects = subjectService.list();
+		List<Subject> subjects = CacheConstant.subjects;
 		packagePageResult(model, majors);
 		model.addAttribute("majors", majors.getRecords());
+		model.addAttribute("data", null);
 		model.addAttribute("currentSubject", currentSubject);
 		model.addAttribute("subjects", subjects);
 		model.addAttribute("searchVo", new SearchVo());
@@ -66,14 +69,14 @@ public class MajorController extends BaseController<Major> {
 	@ClickLog(type = ClickType.majors)
 	@PostMapping(value = "/majors")
 	public String queryMajorsByShortName(Model model, @ModelAttribute SearchVo major){
-		IPage<Major> page = majorService.page(new Page<>(1, 15), new QueryWrapper<Major>()
-																		.like("name", major.getName())
-																		.orderByAsc("order_number"));
-		List<Subject> subjects = subjectService.list();
-		packagePageResult(model, page);
-		model.addAttribute("currentSubject", subjects.get(0));
-		model.addAttribute("majors", page.getRecords());
-		model.addAttribute("subjects", subjects);
+		List<MajorVo> majors = majorService.findMajorsByName(major.getName());
+		model.addAttribute("currentSubject", new Subject().setId(0));
+		model.addAttribute("data", majors);
+		//启用与专业类别一起展示的方式
+		model.addAttribute("majors", null);
+		//不显示分页按钮
+		model.addAttribute("totalPages", null);
+		model.addAttribute("subjects", CacheConstant.subjects);
 		return "major/major";
 	}
 

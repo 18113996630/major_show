@@ -98,12 +98,12 @@ public class UserLogAspect {
 			long executeTime = endTime - startTime;
 			Log logInfo = new Log(null, resourceType, requestAddress, ipAddress, userAgent, systemName, systemVersion, systemBit, httpVersion, encoding, cookie, url, uri, String.valueOf(clientPort), method, params, LocalDateTime.now(), Math.toIntExact(executeTime));
 			executor.execute(() -> logService.save(logInfo));
-			return response.toString();
+			return response == null ? null : response.toString();
 		} catch (Exception e) {
 			e.printStackTrace();
 			log.error("出现异常:{}", e.getMessage());
 			Object response = joinPoint.proceed();
-			return response.toString();
+			return response == null ? null : response.toString();
 		}
 	}
 

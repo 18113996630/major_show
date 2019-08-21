@@ -1,9 +1,10 @@
 package com.hrong.major.service;
-import	java.io.Serializable;
 
-import com.hrong.major.model.MajorDetail;
 import com.baomidou.mybatisplus.extension.service.IService;
+import com.hrong.major.model.MajorDetail;
 import com.hrong.major.model.vo.MajorDetailWithVideoVo;
+
+import java.io.Serializable;
 
 /**
  * <p>
@@ -15,11 +16,12 @@ import com.hrong.major.model.vo.MajorDetailWithVideoVo;
  */
 public interface MajorDetailService extends IService<MajorDetail> {
 	/**
-	 * 根据id获取专业详情、包含视频数据
+	 * 根据id获取专业详情、包含视频数据、点赞、踩、观看情况
 	 * @param id 指定专业id
+	 * @param ip ip地址
 	 * @return vo
 	 */
-	MajorDetailWithVideoVo findDetailVoById(Serializable id);
+	MajorDetailWithVideoVo findDetailVoById(Serializable id, String ip);
 
 	/**
 	 * 根据当前专业明细获取排序后的下一个专业详情id

@@ -4,17 +4,21 @@ import com.baomidou.mybatisplus.core.conditions.query.QueryWrapper;
 import com.baomidou.mybatisplus.extension.service.impl.ServiceImpl;
 import com.hrong.major.dao.MajorDetailMapper;
 import com.hrong.major.dao.MajorMapper;
+import com.hrong.major.dao.VideoFeedbackMapper;
 import com.hrong.major.dao.VideoMapper;
 import com.hrong.major.model.Major;
 import com.hrong.major.model.MajorDetail;
 import com.hrong.major.model.Video;
+import com.hrong.major.model.VideoFeedback;
 import com.hrong.major.model.vo.MajorDetailWithVideoVo;
+import com.hrong.major.model.vo.VideoVo;
 import com.hrong.major.service.MajorDetailService;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Service;
 
 import javax.annotation.Resource;
 import java.io.Serializable;
+import java.util.ArrayList;
 import java.util.List;
 
 /**
@@ -35,22 +39,41 @@ public class MajorDetailServiceImpl extends ServiceImpl<MajorDetailMapper, Major
 	private VideoMapper videoMapper;
 	@Resource
 	private MajorMapper majorMapper;
+	@Resource
+	private VideoFeedbackMapper videoFeedbackMapper;
 
 	@Override
-	public MajorDetailWithVideoVo findDetailVoById(Serializable id) {
-		MajorDetail detail = majorDetailMapper.selectOne(new QueryWrapper<MajorDetail>().eq("major_id", id));
+	public MajorDetailWithVideoVo findDetailVoById(Serializable majorDetailId, String ip) {
+		MajorDetail detail = majorDetailMapper.selectOne(new QueryWrapper<MajorDetail>().eq("major_id", majorDetailId));
 		if (detail == null) {
 			return null;
 		}
+		//获取当前页面的所有video
 		List<Video> videos = videoMapper.selectList(new QueryWrapper<Video>().eq("major_detail_id", detail.getId()).orderByAsc("order_number"));
-		return MajorDetailWithVideoVo.builder().detail(detail).videos(videos).build();
+		List<VideoVo> videoVos = new ArrayList<>(videos.size());
+		for (Video video : videos) {
+			Integer videoId = video.getId();
+			//查看当前用户是否点赞、踩与点击量...
+			Integer isUpped = videoFeedbackMapper.selectCount(new QueryWrapper<VideoFeedback>().eq("video_id", videoId).eq("ip", ip).eq("type", "up"));
+			Integer isDowned = videoFeedbackMapper.selectCount(new QueryWrapper<VideoFeedback>().eq("video_id", videoId).eq("ip", ip).eq("type", "down"));
+			Integer clickCount = videoFeedbackMapper.selectCount(new QueryWrapper<VideoFeedback>().eq("video_id", videoId).eq("type", "click"));
+			Integer upCount = videoFeedbackMapper.selectCount(new QueryWrapper<VideoFeedback>().eq("video_id", videoId).eq("type", "up"));
+			Integer downCount = videoFeedbackMapper.selectCount(new QueryWrapper<VideoFeedback>().eq("video_id", videoId).eq("type", "down"));
+			VideoVo videoVo = VideoVo.builder()
+									.video(video).isDowned(isDowned)
+									.isUpped(isUpped).clickCount(clickCount)
+									.upCount(upCount).downCount(downCount)
+									.build();
+			videoVos.add(videoVo);
+		}
+		return MajorDetailWithVideoVo.builder().detail(detail).videos(videoVos).build();
 	}
 
 	@Override
 	public Integer findNextMajorDetailIdByCurrentMajorDetailId(Serializable id) {
 		MajorDetail currentMajorDetail = majorDetailMapper.selectById(id);
 		//当前major
-		Major currentMajor = majorMapper.selectById(currentMajorDetail.getId());
+		Major currentMajor = majorMapper.selectById(currentMajorDetail.getMajorId());
 		//根据order_number排序后处于当前major后面的major
 		Major nextMajor = majorMapper.selectOne(new QueryWrapper<Major>()
 				.select("id", "name")

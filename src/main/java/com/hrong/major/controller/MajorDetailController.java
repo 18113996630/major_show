@@ -9,6 +9,8 @@ import com.hrong.major.model.vo.MajorDetailWithVideoVo;
 import com.hrong.major.service.MajorDetailService;
 import com.hrong.major.service.MajorService;
 import com.hrong.major.service.SubjectService;
+import com.hrong.major.service.VideoFeedbackService;
+import com.hrong.major.utils.RequestUtils;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -17,6 +19,7 @@ import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 
 import javax.annotation.Resource;
+import javax.servlet.http.HttpServletRequest;
 import java.util.List;
 
 /**
@@ -38,17 +41,24 @@ public class MajorDetailController {
 	private SubjectService subjectService;
 	@Resource
 	private MajorService majorService;
+	@Resource
+	private VideoFeedbackService videoFeedbackService;
 
 	/**
 	 * 根据专业id查询详情
 	 */
 	@ClickLog(type = ClickType.major)
 	@GetMapping(value = "/{id}")
-	public String getMajorInfoById(Model model, @PathVariable(value = "id") int id) {
-		MajorDetailWithVideoVo detail = majorDetailService.findDetailVoById(id);
+	public String getMajorInfoById(HttpServletRequest request, Model model, @PathVariable(value = "id") int id) {
+		//文字详情和视频信息
+		MajorDetailWithVideoVo detail = majorDetailService.findDetailVoById(id, RequestUtils.getIpAddress(request));
+		//下一个专业的id
 		Integer nextDetailId = majorDetailService.findNextMajorDetailIdByCurrentMajorDetailId(id);
+		//当前专业所属类别
 		Subject currentSubject = subjectService.getById(majorService.getById(detail.getDetail().getMajorId()).getSubjectId());
+		//当前专业附近的专业
 		List<Major> majors = majorService.findAroundMajors(id);
+
 		model.addAttribute("detailVo", detail);
 		model.addAttribute("nextId", nextDetailId);
 		//从详情查询subject下的majors
