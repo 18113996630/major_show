@@ -83,6 +83,37 @@
             <a class="btn btn-warning btn-next" th:href="@{'/majors/'+${currentSubject.id}(page=1, size=15)}"
                th:if="${nextId} eq 0">已经没有啦，看看其它专业</a>
         </div>
+        <hr>
+        <div class="col-xs-12 col-sm-12 col-md-12 col-lg-12 common">
+            <div class="comment_head">
+                <span class="comment_count">21</span>
+                <span>评论</span>
+            </div>
+            <div class="comment">
+                <div class="reply-notice"></div>
+                <div class="comment-header">
+                    <div class="tabs-order">
+                        <ul class="head_ul">
+                            <li class="default-sort" data-sort="0" style="display: none;">全部评论</li>
+                            <li class="hot-sort on" data-sort="2">按热度排序</li>
+                            <li class="new-sort" data-sort="0" style="display: list-item;">按时间排序</li>
+                        </ul>
+                    </div>
+                    <div class="header-page paging-box"></div>
+                </div>
+
+                <div class="comment-send no-login">
+                    <div class="user-face">
+                        <img class="user-head" src="//static.hdslb.com/images/member/noface.gif">
+                    </div>
+                    <div class="textarea-container">
+                        <div class="baffle-wrap">
+                            <div class="baffle">请先<a class="b-btn btn-open-mini-Login">登录</a>后发表评论 (・ω・)</div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
     </div>
 </div>
 <footer>
