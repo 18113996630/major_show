@@ -42,7 +42,7 @@ public class VideoController {
 		//展示视频贡献排行
 		List<TopVideoAuthorVo> topTenVideoAuthor = videoService.findTopTenVideoAuthor();
 		model.addAttribute("data", topTenVideoAuthor);
-		return "/top/top";
+		return "top/top";
 	}
 
 	@GetMapping(value = "/videos")
