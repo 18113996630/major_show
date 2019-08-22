@@ -4,28 +4,39 @@ package com.hrong.major.aspect;
 import com.alibaba.fastjson.JSON;
 import com.hrong.major.annotation.ClickLog;
 import com.hrong.major.model.Log;
+import com.hrong.major.model.User;
 import com.hrong.major.service.LogService;
 import com.hrong.major.utils.RequestUtils;
+import io.jsonwebtoken.JwtBuilder;
+import io.jsonwebtoken.Jwts;
+import io.jsonwebtoken.SignatureAlgorithm;
 import lombok.extern.slf4j.Slf4j;
+import org.aspectj.lang.JoinPoint;
 import org.aspectj.lang.ProceedingJoinPoint;
 import org.aspectj.lang.Signature;
+import org.aspectj.lang.annotation.AfterReturning;
 import org.aspectj.lang.annotation.Around;
 import org.aspectj.lang.annotation.Aspect;
 import org.aspectj.lang.annotation.Pointcut;
 import org.aspectj.lang.reflect.MethodSignature;
 import org.springframework.stereotype.Component;
+import org.springframework.util.Base64Utils;
 import org.springframework.web.context.request.RequestContextHolder;
 import org.springframework.web.context.request.ServletRequestAttributes;
 
 import javax.annotation.Resource;
 import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpServletResponse;
 import java.time.LocalDateTime;
+import java.util.Date;
 import java.util.Objects;
 import java.util.concurrent.LinkedBlockingQueue;
 import java.util.concurrent.RejectedExecutionHandler;
 import java.util.concurrent.ThreadFactory;
 import java.util.concurrent.ThreadPoolExecutor;
 import java.util.concurrent.TimeUnit;
+
+import static com.hrong.major.constant.Constant.KEY;
 
 /**
  * @Author hrong
@@ -34,8 +45,6 @@ import java.util.concurrent.TimeUnit;
 @Aspect
 @Component
 public class UserLogAspect {
-
-
 	/**
 	 * 当前线程小于core时，创建新线程执行任务
 	 * 当前线程等于core且queue未满时，将任务放进queue，不创建新的线程
@@ -63,6 +72,28 @@ public class UserLogAspect {
 	@Pointcut(value = "@annotation(com.hrong.major.annotation.ClickLog)")
 	public void pointcut() {
 
+	}
+
+	@Pointcut(value = "execution(* *com.hrong.major.controller.admin.AdminController.login(..)))")
+	public void loginPointcut() {
+	}
+
+	@AfterReturning(pointcut = "loginPointcut()", returning = "res")
+	public void afterReturningAdvice(JoinPoint jp, Object res) {
+		HttpServletResponse response = ((ServletRequestAttributes) RequestContextHolder.getRequestAttributes()).getResponse();
+		Object[] args = jp.getArgs();
+		User user = (User) args[0];
+		//如果是成功登陆，则生成jwt
+		JwtBuilder jwtBuilder = Jwts.builder()
+				.setSubject(String.valueOf(user.getId()))
+				.setAudience("audience")
+				.setExpiration(getExpiration())
+				.setIssuer("issuer")
+				.signWith(SignatureAlgorithm.HS512, Base64Utils.encodeToString(KEY.getBytes()));
+		String token = jwtBuilder.compact();
+		if (response != null) {
+			response.addHeader("Authorization", "salt" + token);
+		}
 	}
 
 	@Around("pointcut()")
@@ -119,5 +150,10 @@ public class UserLogAspect {
 			log.warn("【当前并发较高，超过200/s,使用备用线程保存日志数据，请优化线程池参数】");
 			rejectExecutor.execute(r);
 		}
+	}
+
+	private Date getExpiration() {
+		Long time = 24 * 60 * 60 * 1000L;
+		return new Date(System.currentTimeMillis() + time);
 	}
 }

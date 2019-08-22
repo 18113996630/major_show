@@ -7,4 +7,10 @@ public class Constant {
 	public static final String IP_LOCAL = "127.0.0.1";
 	public static final String IP_LOCAL_GATE = "0:0:0:0:0:0:0:1";
 	public static final String IP_HEAD_TYPE = "unknown";
+	/**
+	 * 后台管理uri前缀
+	 */
+	public static final String ADMIN_REQUEST_PREFIX = "admin";
+	public static final String KEY = "Hrong";
+	public static final String REQUEST_TYPE = "XMLHttpRequest";
 }

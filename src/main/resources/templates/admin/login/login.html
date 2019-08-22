@@ -1,0 +1,28 @@
+<!DOCTYPE html>
+<html lang="en" layout:decorate="~{admin/layouts/layout}"
+      xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+      xmlns:th="http://www.thymeleaf.org">
+<head th:replace="admin/commons/header :: common-header(~{}, ~{})">
+</head>
+<body>
+<div class="container">
+
+    <form class="form-signin">
+        <label for="account" class="sr-only">账号：</label>
+        <input type="email" id="account" class="form-control" placeholder="请输入账号" required autofocus>
+        <label for="password" class="sr-only">密码：</label>
+        <input type="password" id="password" class="form-control" placeholder="请输入密码" required>
+        <div class="checkbox">
+            <label>
+                <input type="checkbox" value="remember-me"> Remember
+            </label>
+        </div>
+        <button class="btn btn-lg btn-primary btn-block" type="submit">登录</button>
+    </form>
+</div>
+<footer>
+    <div th:replace="admin/commons/footer :: footer(~{})">
+    </div>
+</footer>
+</body>
+</html>

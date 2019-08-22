@@ -50,7 +50,8 @@
             <p><strong th:class="text-info" th:text="就业方向"></strong></p> &nbsp;&nbsp;
             <p class="text-justify major_info" th:text="${detailVo.detail.job}"></p>
             <!-- 该专业的视频信息 -->
-            <button class="btn btn-success btn-video-need" th:if="${detailVo.videos.isEmpty()}" th:onclick="video_need([[${detailVo.detail.id}]])" th:text="暂无相关视频若需要请点我"></button>
+            <button class="btn btn-success btn-video-need" th:if="${detailVo.videos.isEmpty()}"
+                    th:onclick="video_need([[${detailVo.detail.id}]])" th:text="点我帮你找视频"></button>
             <h2 class="content_split" th:if="${detailVo.videos.size() gt 0}" th:text="相关视频"></h2>
             <ul class="video_ul" th:each="videoVo:${detailVo.videos}">
                 <li class="small_item"><a target="_blank" th:class="title" th:href="${videoVo.video.url}"
