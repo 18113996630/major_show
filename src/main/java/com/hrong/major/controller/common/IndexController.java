@@ -9,6 +9,7 @@ import com.hrong.major.service.SubjectService;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.RequestParam;
 
 import javax.annotation.Resource;
 
@@ -37,4 +38,5 @@ public class IndexController {
 	public String contact() {
 		return "contact/contact";
 	}
+
 }

@@ -24,4 +24,9 @@ public class AdminController {
 	public String major(){
 		return "admin/side/major";
 	}
+
+	@GetMapping(value = "/admin/video")
+	public String video(){
+		return "admin/side/video";
+	}
 }

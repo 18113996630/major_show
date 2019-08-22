@@ -1,0 +1,41 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head th:replace="commons/header :: common-header(~{}, ~{::link})">
+    <link rel="stylesheet" th:href="@{/css/top.css}">
+</head>
+<body>
+<!-- Header -->
+<div th:replace="commons/header :: header"></div>
+
+<div class="container">
+    <div class="col-xs-12 col-sm-11 col-md-10 col-lg-10">
+        <table class="top">
+            <thead>
+                <tr>
+                    <th class="text-center col-xs-2 col-sm-2 col-md-2 col-lg-2">排行</th>
+                    <th class="col-xs-7 col-sm-7 col-md-7 col-lg-7">作者</th>
+                    <th class="text-right col-xs-2 col-sm-2 col-md-2 col-lg-2">数量</th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr th:each="item:${data}">
+                    <td th:text="${itemStat.index+1}" class="text-center">
+                    </td>
+                    <td>
+                        <a target="_blank" th:href="${item.url}" th:title="${item.upName}" class="author_link">
+                            <img th:src="@{'/face/'+${item.faceCover}}" alt="face" class="up_face">
+                            <span th:text="${item.upName}"></span>
+                        </a>
+                    </td>
+                    <td th:text="${item.count}" class="text-right"></td>
+                </tr>
+            </tbody>
+            <!--/*@thymesVar id="data" type="com.hrong.major.model.vo.TopVideoAuthorVo"*/-->
+        </table>
+    </div>
+</div>
+<footer>
+    <div th:replace="commons/footer :: footer(~{})"></div>
+</footer>
+</body>
+</html>

@@ -49,7 +49,8 @@ public class MajorDetailServiceImpl extends ServiceImpl<MajorDetailMapper, Major
 			return null;
 		}
 		//获取当前页面的所有video
-		List<Video> videos = videoMapper.selectList(new QueryWrapper<Video>().eq("major_detail_id", detail.getId()).orderByAsc("order_number"));
+		List<Video> videos = videoMapper.selectList(new QueryWrapper<Video>().eq("major_detail_id", detail.getId())
+				.eq("deleted", 0).orderByAsc("order_number"));
 		List<VideoVo> videoVos = new ArrayList<>(videos.size());
 		for (Video video : videos) {
 			Integer videoId = video.getId();
