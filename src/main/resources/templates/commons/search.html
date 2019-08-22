@@ -9,7 +9,8 @@
         <form class="form-horizontal" th:action="@{/majors}" th:method="post" th:object="${searchVo}">
             <div class="form-group search_form">
                 <div class="col-xs-9 col-sm-7 col-md-7 col-lg-7">
-                    <input class="form-control input-lg" placeholder="输入想搜索的专业名称吧~" th:field="*{name}" type="text">
+                    <input class="form-control input-lg" placeholder="输入想搜索的专业名称吧~" th:field="*{name}"
+                           type="text" required="required" oninvalid="setCustomValidity('不能什么都不输哦');" οninput="setCustomValidity('');">
                 </div>
                 <div class="col-xs-2 col-sm-2 col-md-2 col-lg-2">
                     <button class="btn btn-info btn-lg" type="submit">搜一搜</button>

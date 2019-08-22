@@ -97,10 +97,10 @@
             <!-- 后面还有同类专业时显示 -->
             <a class="btn btn-primary btn-next" th:href="@{'/major/info/'+${nextId}}"
                th:if="${nextId} gt 0">查看下一个专业介绍</a>
-            <a class="btn btn-warning btn-next" th:href="@{'/majors/'+${currentSubject.id}(page=1, size=15)}"
+            <a class="btn btn-warning btn-next" th:href="@{'/majors/'+${currentSubject.id}(page=1, size=8)}"
                th:if="${nextId} gt 0">看看其它专业</a>
             <!-- 当前专业时同类专业中最后一个时显示 -->
-            <a class="btn btn-warning btn-next" th:href="@{'/majors/'+${currentSubject.id}(page=1, size=15)}"
+            <a class="btn btn-warning btn-next" th:href="@{'/majors/'+${currentSubject.id}(page=1, size=8)}"
                th:if="${nextId} eq 0">已经没有啦，看看其它专业</a>
         </div>
         <hr>

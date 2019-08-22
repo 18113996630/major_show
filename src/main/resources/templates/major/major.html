@@ -16,7 +16,7 @@
             <div class="subjects">
                 <!--/*@thymesVar id="subjects" type="com.hrong.major.model.Subject"*/-->
                 <a th:each="subject:${subjects}"
-                   th:href="@{'/majors/'+${subject.id}(page=1, size=15)}">
+                   th:href="@{'/majors/'+${subject.id}(page=1, size=8)}">
                     <button class="btn btn-default btn-md" th:classappend="${subject.id eq currentSubject.id ? 'active-btn':(subject.id % 3 eq 0 ? 'btn-success' : (subject.id % 2 eq 0 ? 'btn-warning' : 'btn-info'))}"
                             th:text="${subject.name}"></button>
                 </a>
@@ -25,12 +25,15 @@
             <!-- 搜索框 -->
             <form class="form-group" th:action="@{/majors}" th:method="post" th:object="${searchVo}">
                 <div class="col-xs-9 col-sm-10 col-md-10 col-lg-10">
-                    <input class="form-control input-lg" placeholder="输入想搜索的专业名称吧~" th:field="*{name}" type="text">
+                    <input class="form-control input-lg" placeholder="输入想搜索的专业名称吧~" th:field="*{name}"
+                           type="text" required="required">
                 </div>
                 <div class="col-xs-3 col-sm-2 col-md-2 col-lg-2">
                     <button class="btn btn-info btn-lg" type="submit">搜一搜</button>
                 </div>
             </form>
+            <div class="clearfloat"></div>
+            <h3 class="text-center text-warning" th:if="not ${majors} and ${data.isEmpty()}" th:text="没有找到相关专业哦"></h3>
             <!-- 展示专业信息 -->
             <ul class="row major_ul" th:if="${majors}">
                 <!--/*@thymesVar id="subjects" type="com.hrong.major.model.Major"*/-->
@@ -65,18 +68,18 @@
                 <nav aria-label="">
                     <ul class="pager">
                         <li><a th:if="${pageNum} gt 1"
-                               th:href="@{'/majors/'+${currentSubject.id}(page=${pageNum}-1, size=15)}">上一页</a></li>
+                               th:href="@{'/majors/'+${currentSubject.id}(page=${pageNum}-1, size=8)}">上一页</a></li>
                         <li th:each="pageNo : ${#numbers.sequence(1, totalPages)}">
                             <a th:if="${pageNum eq pageNo}" href="javascript:void(0);">
                                 <span th:text="${pageNo}" th:class="disable-a"></span>
                             </a>
                             <a th:if="${not (pageNum eq pageNo)}"
-                               th:href="@{'/majors/'+${currentSubject.id}(page=${pageNo}, size=15)}">
+                               th:href="@{'/majors/'+${currentSubject.id}(page=${pageNo}, size=8)}">
                                 <span th:text="${pageNo}"></span>
                             </a>
                         </li>
                         <li><a th:if="${pageNum} lt ${totalPages}"
-                               th:href="@{'/majors/'+${currentSubject.id}(page=${pageNum+1}, size=15)}">下一页</a></li>
+                               th:href="@{'/majors/'+${currentSubject.id}(page=${pageNum+1}, size=8)}">下一页</a></li>
                     </ul>
                 </nav>
             </div>

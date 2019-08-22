@@ -17,6 +17,7 @@ import com.hrong.major.service.SubjectService;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
+import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PathVariable;
@@ -68,7 +69,7 @@ public class MajorController extends BaseController<Major> {
 	 */
 	@ClickLog(type = ClickType.majors)
 	@PostMapping(value = "/majors")
-	public String queryMajorsByShortName(Model model, @ModelAttribute SearchVo major){
+	public String queryMajorsByShortName(Model model, @Validated @ModelAttribute SearchVo major){
 		List<MajorVo> majors = majorService.findMajorsByName(major.getName());
 		model.addAttribute("currentSubject", new Subject().setId(0));
 		model.addAttribute("data", majors);

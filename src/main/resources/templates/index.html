@@ -27,7 +27,7 @@
             <div class="row">
                 <!--/*@thymesVar id="subjects" type="com.hrong.major.model.SubjectCategory"*/-->
                 <div class="col-xs-6 col-sm-6 col-md-4 col-lg-4 subject-container" th:each="subject:${subjects}">
-                    <a th:href="@{'/majors/'+${subject.id}(page=1, size=15)}">
+                    <a th:href="@{'/majors/'+${subject.id}(page=1, size=8)}">
                         <h2>[[${subject.name}]]</h2>
                         <p><span class="btn btn-default" role="button">查看专业说明&raquo</span></p>
                     </a>
