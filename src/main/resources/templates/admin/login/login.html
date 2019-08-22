@@ -1,20 +1,21 @@
 <!DOCTYPE html>
-<html lang="en" layout:decorate="~{admin/layouts/layout}"
-      xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
-      xmlns:th="http://www.thymeleaf.org">
-<head th:replace="admin/commons/header :: common-header(~{}, ~{})">
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head th:replace="admin/commons/header :: common-header(~{}, ~{::link})">
+    <link rel="stylesheet" th:href="@{/css/admin/login.css}">
 </head>
 <body>
 <div class="container">
-
-    <form class="form-signin">
+    <form class="form-signin" th:action="@{/admin/login}" th:method="post" th:object="${user}">
+        <h2 class="form-signin-heading text-center default-color0" style="color: chartreuse;">不登录就别想进后台</h2>
+        <h3 class="text-center" style="color: #2f14bb" th:if="${msg}" th:text="${msg}"></h3>
         <label for="account" class="sr-only">账号：</label>
-        <input type="email" id="account" class="form-control" placeholder="请输入账号" required autofocus>
+        <input autofocus class="form-control" id="account" placeholder="请输入账号" required th:field="*{account}" type="text">
+        <br>
         <label for="password" class="sr-only">密码：</label>
-        <input type="password" id="password" class="form-control" placeholder="请输入密码" required>
+        <input class="form-control" id="password" placeholder="请输入密码" required th:field="*{password}" type="password">
         <div class="checkbox">
             <label>
-                <input type="checkbox" value="remember-me"> Remember
+                <input type="checkbox" value="remember"> Remember Me
             </label>
         </div>
         <button class="btn btn-lg btn-primary btn-block" type="submit">登录</button>

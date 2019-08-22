@@ -13,7 +13,7 @@
             <thead>
                 <tr>
                     <th class="text-center col-xs-2 col-sm-2 col-md-2 col-lg-2">排行</th>
-                    <th class="col-xs-7 col-sm-7 col-md-7 col-lg-7">作者</th>
+                    <th class="text-center col-xs-7 col-sm-7 col-md-7 col-lg-7">作者</th>
                     <th class="text-right col-xs-2 col-sm-2 col-md-2 col-lg-2">数量</th>
                 </tr>
             </thead>
@@ -21,7 +21,7 @@
                 <tr th:each="item:${data}">
                     <td th:text="${itemStat.index+1}" class="text-center">
                     </td>
-                    <td>
+                    <td class="text-center">
                         <a target="_blank" th:href="${item.url}" th:title="${item.upName}" class="author_link">
                             <img th:src="@{'/face/'+${item.faceCover}}" alt="face" class="up_face">
                             <span th:text="${item.upName}"></span>

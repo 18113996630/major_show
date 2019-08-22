@@ -1,12 +1,15 @@
 package com.hrong.major.interceptor;
 
 import com.hrong.major.constant.Constant;
+import com.hrong.major.utils.CookieUtils;
 import io.jsonwebtoken.Jwts;
 import lombok.extern.slf4j.Slf4j;
+import org.apache.commons.lang3.StringUtils;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.util.Base64Utils;
 import org.springframework.web.method.HandlerMethod;
 import org.springframework.web.servlet.HandlerInterceptor;
+import org.springframework.web.servlet.ModelAndView;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
@@ -25,11 +28,11 @@ public class LoginInterceptor implements HandlerInterceptor {
 	public boolean preHandle(HttpServletRequest request, HttpServletResponse response, Object handler) throws Exception {
 		if (handler instanceof HandlerMethod) {
 			HandlerMethod handlerMethod = (HandlerMethod) handler;
-			String requestURI = request.getRequestURI();
-			if (requestURI.contains(Constant.ADMIN_REQUEST_PREFIX)) {
+			String requestUri = request.getRequestURI();
+			if (requestUri.contains(Constant.ADMIN_REQUEST_PREFIX)) {
 				String url = handlerMethod.getBeanType().getName() + "." + handlerMethod.getMethod().getName();
 				//解密jwt
-				String token = request.getHeader("Authorization");
+				String token = CookieUtils.getToken(request);
 				if (token != null) {
 					try {
 						String user = Jwts.parser()
@@ -39,14 +42,16 @@ public class LoginInterceptor implements HandlerInterceptor {
 								.parseClaimsJws(token.replace("Bearer ", ""))
 								.getBody()
 								.getSubject();
-						log.info("这是user：===========》" + user);
-						return true;
+						if (StringUtils.isNotBlank(user)) {
+							return true;
+						}
 					} catch (Exception e) {
 						e.printStackTrace();
+						response.sendRedirect(request.getContextPath() + "/admin/login");
 						return false;
 					}
 				}
-				log.info(url + "被拦截，请先登陆");
+				log.info(url + "被拦截，即将重定向到登录页面");
 				response.setStatus(403);
 				//ajax请求
 				String requestType = request.getHeader("X-Requested-With");
@@ -55,12 +60,18 @@ public class LoginInterceptor implements HandlerInterceptor {
 					PrintWriter out = response.getWriter();
 					out.println("地址:" + url + "无权限访问，请登录后重试");
 				} else {
-					response.sendRedirect(request.getContextPath() + "/admin/login/login");
+					response.sendRedirect(request.getContextPath() + "/admin/login");
 				}
-				return false;
 			}
-			return true;
 		}
-		return false;
+		return true;
+	}
+
+	@Override
+	public void postHandle(HttpServletRequest request, HttpServletResponse response, Object handler, ModelAndView modelAndView) throws Exception {
+		HandlerMethod handlerMethod = (HandlerMethod) handler;
+		String requestUri = request.getRequestURI();
+		System.out.println(response.toString());
+//		if (requestUri.contains())
 	}
 }

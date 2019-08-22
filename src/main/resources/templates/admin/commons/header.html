@@ -16,8 +16,8 @@
     <link rel="stylesheet" th:href="@{/css/bootstrap-table.min.css}">
     <link rel="stylesheet" th:href="@{/css/ie10-viewport-bug-workaround.css}">
     <!-- Custom styles for this template -->
-    <link rel="stylesheet" th:href="@{/css/dashboard.css}">
-    <link rel="stylesheet" th:href="@{/css/common.css}">
+    <link rel="stylesheet" th:href="@{/css/admin/dashboard.css}">
+    <link rel="stylesheet" th:href="@{/css/admin/common.css}">
     <link rel="stylesheet" th:href="@{/css/admin/ad_sidebar.css}">
     <th:block th:replace="${link}"/>
 </head>
@@ -39,7 +39,7 @@
             <ul class="nav navbar-nav navbar-right">
                 <li><a href="#">Dashboard</a></li>
                 <li><a href="#">设置</a></li>
-                <li><a href="#">退出</a></li>
+                <li><a th:href="@{/admin/logout}">退出</a></li>
                 <li><a href="#">帮助</a></li>
             </ul>
             <form class="navbar-form navbar-right">

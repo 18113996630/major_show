@@ -17,7 +17,7 @@
             </p>-->
             <!-- 信息展示位置 -->
             <div  class="show_div">
-                <img alt="" class="show_img" th:src="@{cover/1c8e2b974c543582117948b670375434d8001abd.jpg}">
+                <img alt="" class="show_img" th:src="@{cover/cover.png}">
             </div>
             <div class="index_search">
                 <div th:replace="commons/search :: search-component"></div>
@@ -29,7 +29,7 @@
                 <div class="col-xs-6 col-sm-6 col-md-4 col-lg-4 subject-container" th:each="subject:${subjects}">
                     <a th:href="@{'/majors/'+${subject.id}(page=1, size=8)}">
                         <h2>[[${subject.name}]]</h2>
-                        <p><span class="btn btn-default" role="button">查看专业说明&raquo</span></p>
+                        <p><span class="btn btn-default" role="button">查看专业&raquo</span></p>
                     </a>
                 </div>
             </div>

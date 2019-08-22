@@ -1,8 +1,12 @@
 package com.hrong.major.conf;
 
+import com.hrong.major.interceptor.LoginInterceptor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Value;
+import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
+import org.springframework.web.servlet.config.annotation.InterceptorRegistration;
+import org.springframework.web.servlet.config.annotation.InterceptorRegistry;
 import org.springframework.web.servlet.config.annotation.ResourceHandlerRegistry;
 import org.springframework.web.servlet.config.annotation.WebMvcConfigurer;
 
@@ -16,6 +20,20 @@ public class WebConf implements WebMvcConfigurer {
 	private String coverPath;
 	@Value("${face.path}")
 	private String facePath;
+
+	@Bean
+	public LoginInterceptor interceptorConfig() {
+		return new LoginInterceptor();
+	}
+
+	@Override
+	public void addInterceptors(InterceptorRegistry registry) {
+		InterceptorRegistration interceptor = registry.addInterceptor(interceptorConfig());
+		// 拦截配置
+		interceptor.addPathPatterns("/**/admin/**");
+		// 排除配置
+		interceptor.excludePathPatterns("/**/admin/login/**");
+	}
 
 	@Override
 	public void addResourceHandlers(ResourceHandlerRegistry registry) {

@@ -4,12 +4,8 @@ package com.hrong.major.aspect;
 import com.alibaba.fastjson.JSON;
 import com.hrong.major.annotation.ClickLog;
 import com.hrong.major.model.Log;
-import com.hrong.major.model.User;
 import com.hrong.major.service.LogService;
 import com.hrong.major.utils.RequestUtils;
-import io.jsonwebtoken.JwtBuilder;
-import io.jsonwebtoken.Jwts;
-import io.jsonwebtoken.SignatureAlgorithm;
 import lombok.extern.slf4j.Slf4j;
 import org.aspectj.lang.JoinPoint;
 import org.aspectj.lang.ProceedingJoinPoint;
@@ -20,13 +16,11 @@ import org.aspectj.lang.annotation.Aspect;
 import org.aspectj.lang.annotation.Pointcut;
 import org.aspectj.lang.reflect.MethodSignature;
 import org.springframework.stereotype.Component;
-import org.springframework.util.Base64Utils;
 import org.springframework.web.context.request.RequestContextHolder;
 import org.springframework.web.context.request.ServletRequestAttributes;
 
 import javax.annotation.Resource;
 import javax.servlet.http.HttpServletRequest;
-import javax.servlet.http.HttpServletResponse;
 import java.time.LocalDateTime;
 import java.util.Date;
 import java.util.Objects;
@@ -36,15 +30,13 @@ import java.util.concurrent.ThreadFactory;
 import java.util.concurrent.ThreadPoolExecutor;
 import java.util.concurrent.TimeUnit;
 
-import static com.hrong.major.constant.Constant.KEY;
-
 /**
  * @Author hrong
  **/
 @Slf4j
 @Aspect
 @Component
-public class UserLogAspect {
+public class MajorAspect {
 	/**
 	 * 当前线程小于core时，创建新线程执行任务
 	 * 当前线程等于core且queue未满时，将任务放进queue，不创建新的线程
@@ -74,26 +66,28 @@ public class UserLogAspect {
 
 	}
 
-	@Pointcut(value = "execution(* *com.hrong.major.controller.admin.AdminController.login(..)))")
+	@Pointcut(value = "execution(* *com.hrong.major.controller.admin.LoginController.login(..)))")
 	public void loginPointcut() {
 	}
 
 	@AfterReturning(pointcut = "loginPointcut()", returning = "res")
 	public void afterReturningAdvice(JoinPoint jp, Object res) {
-		HttpServletResponse response = ((ServletRequestAttributes) RequestContextHolder.getRequestAttributes()).getResponse();
-		Object[] args = jp.getArgs();
-		User user = (User) args[0];
-		//如果是成功登陆，则生成jwt
-		JwtBuilder jwtBuilder = Jwts.builder()
-				.setSubject(String.valueOf(user.getId()))
-				.setAudience("audience")
-				.setExpiration(getExpiration())
-				.setIssuer("issuer")
-				.signWith(SignatureAlgorithm.HS512, Base64Utils.encodeToString(KEY.getBytes()));
-		String token = jwtBuilder.compact();
-		if (response != null) {
-			response.addHeader("Authorization", "salt" + token);
-		}
+//		HttpServletResponse response = ((ServletRequestAttributes) RequestContextHolder.getRequestAttributes()).getResponse();
+//		if (Objects.requireNonNull(response).getStatus() == HttpServletResponse.SC_OK) {
+//			Object[] args = jp.getArgs();
+//			UserVo user = (UserVo) args[0];
+//			//如果是成功登陆，则生成jwt
+//			JwtBuilder jwtBuilder = Jwts.builder()
+//					.setSubject(String.valueOf(user.getAccount()))
+//					.setAudience("audience")
+//					.setExpiration(getExpiration())
+//					.setIssuer("issuer")
+//					.signWith(SignatureAlgorithm.HS512, Base64Utils.encodeToString(KEY.getBytes()));
+//			String token = jwtBuilder.compact();
+//			log.info("用户{}的token为：{}", user.getAccount(), token);
+//			CookieUtils.setCookie(request, response, SystemConstantUtil.SESSION_ID, sessionToken,-1,true);
+//			response.addHeader("Authorization", "salt" + token);
+//		}
 	}
 
 	@Around("pointcut()")

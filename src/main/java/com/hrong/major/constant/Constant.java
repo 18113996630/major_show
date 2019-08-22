@@ -13,4 +13,5 @@ public class Constant {
 	public static final String ADMIN_REQUEST_PREFIX = "admin";
 	public static final String KEY = "Hrong";
 	public static final String REQUEST_TYPE = "XMLHttpRequest";
+	public static final String COOKIE = "Authorization";
 }
