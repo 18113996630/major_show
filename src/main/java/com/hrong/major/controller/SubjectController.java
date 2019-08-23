@@ -1,8 +1,8 @@
 package com.hrong.major.controller;
 
 
-import com.baomidou.mybatisplus.core.conditions.query.QueryWrapper;
 import com.baomidou.mybatisplus.core.conditions.update.UpdateWrapper;
+import com.hrong.major.constant.CacheConstant;
 import com.hrong.major.model.Subject;
 import com.hrong.major.model.vo.Result;
 import com.hrong.major.service.SubjectService;
@@ -42,7 +42,7 @@ public class SubjectController {
 	@RequestMapping("/subjects")
 	public Map<String, Object> getAllSubjects() {
 		Map<String, Object> res = new HashMap<>(2);
-		List<Subject> subjects = subjectService.list(new QueryWrapper<Subject>().orderByAsc("order_number"));
+		List<Subject> subjects = CacheConstant.subjects;
 		res.put("total", subjects.size());
 		res.put("rows", subjects);
 		return res;

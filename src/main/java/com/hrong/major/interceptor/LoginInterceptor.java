@@ -1,6 +1,7 @@
 package com.hrong.major.interceptor;
 
 import com.hrong.major.constant.Constant;
+import com.hrong.major.model.vo.UserVo;
 import com.hrong.major.utils.CookieUtils;
 import io.jsonwebtoken.Jwts;
 import lombok.extern.slf4j.Slf4j;
@@ -72,6 +73,6 @@ public class LoginInterceptor implements HandlerInterceptor {
 		HandlerMethod handlerMethod = (HandlerMethod) handler;
 		String requestUri = request.getRequestURI();
 		System.out.println(response.toString());
-//		if (requestUri.contains())
+		modelAndView.addObject("user", new UserVo());
 	}
 }

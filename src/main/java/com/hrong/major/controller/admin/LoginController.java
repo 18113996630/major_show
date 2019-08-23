@@ -48,6 +48,6 @@ public class LoginController {
 		User currentUser = JwtUtils.getUserByRequest(request);
 		log.info("用户{}退出成功", currentUser.getAccount());
 		CookieUtils.deleteCookie(request, response, Constant.COOKIE);
-		return "/admin/login/login";
+		return "admin/login/login";
 	}
 }

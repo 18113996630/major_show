@@ -1,5 +1,6 @@
 package com.hrong.major.constant;
 
+import com.baomidou.mybatisplus.core.conditions.query.QueryWrapper;
 import com.hrong.major.model.Subject;
 import com.hrong.major.service.SubjectService;
 import lombok.Data;
@@ -23,6 +24,6 @@ public class CacheConstant {
 	@PostConstruct
 	public void init() {
 		service = subjectService;
-		subjects = service.list();
+		subjects = service.list(new QueryWrapper<Subject>().orderByAsc("order_number"));
 	}
 }
