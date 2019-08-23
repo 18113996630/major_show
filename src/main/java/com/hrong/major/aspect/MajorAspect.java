@@ -66,7 +66,7 @@ public class MajorAspect {
 
 
 	@Around("pointcut()")
-	public String aroundController(ProceedingJoinPoint joinPoint) throws Throwable {
+	public Object aroundController(ProceedingJoinPoint joinPoint) throws Throwable {
 		try {
 			HttpServletRequest request = ((ServletRequestAttributes) Objects.requireNonNull(RequestContextHolder.getRequestAttributes())).getRequest();
 			String ipAddress = RequestUtils.getIpAddress(request);
@@ -102,12 +102,11 @@ public class MajorAspect {
 			long executeTime = endTime - startTime;
 			Log logInfo = new Log(null, resourceType, requestAddress, ipAddress, userAgent, systemName, systemVersion, systemBit, httpVersion, encoding, cookie, url, uri, String.valueOf(clientPort), method, params, LocalDateTime.now(), Math.toIntExact(executeTime));
 			executor.execute(() -> logService.save(logInfo));
-			return response == null ? null : response.toString();
+			return response;
 		} catch (Exception e) {
 			e.printStackTrace();
 			log.error("出现异常:{}", e.getMessage());
-			Object response = joinPoint.proceed();
-			return response == null ? null : response.toString();
+			return joinPoint.proceed();
 		}
 	}
 
@@ -126,7 +125,7 @@ public class MajorAspect {
 	}
 
 	private Date getExpiration() {
-		Long time = 24 * 60 * 60 * 1000L;
+		long time = 24 * 60 * 60 * 1000L;
 		return new Date(System.currentTimeMillis() + time);
 	}
 }
