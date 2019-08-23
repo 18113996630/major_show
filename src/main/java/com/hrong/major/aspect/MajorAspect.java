@@ -3,14 +3,13 @@ package com.hrong.major.aspect;
 
 import com.alibaba.fastjson.JSON;
 import com.hrong.major.annotation.ClickLog;
+import com.hrong.major.model.ClickType;
 import com.hrong.major.model.Log;
 import com.hrong.major.service.LogService;
 import com.hrong.major.utils.RequestUtils;
 import lombok.extern.slf4j.Slf4j;
-import org.aspectj.lang.JoinPoint;
 import org.aspectj.lang.ProceedingJoinPoint;
 import org.aspectj.lang.Signature;
-import org.aspectj.lang.annotation.AfterReturning;
 import org.aspectj.lang.annotation.Around;
 import org.aspectj.lang.annotation.Aspect;
 import org.aspectj.lang.annotation.Pointcut;
@@ -63,32 +62,8 @@ public class MajorAspect {
 
 	@Pointcut(value = "@annotation(com.hrong.major.annotation.ClickLog)")
 	public void pointcut() {
-
 	}
 
-	@Pointcut(value = "execution(* *com.hrong.major.controller.admin.LoginController.login(..)))")
-	public void loginPointcut() {
-	}
-
-	@AfterReturning(pointcut = "loginPointcut()", returning = "res")
-	public void afterReturningAdvice(JoinPoint jp, Object res) {
-//		HttpServletResponse response = ((ServletRequestAttributes) RequestContextHolder.getRequestAttributes()).getResponse();
-//		if (Objects.requireNonNull(response).getStatus() == HttpServletResponse.SC_OK) {
-//			Object[] args = jp.getArgs();
-//			UserVo user = (UserVo) args[0];
-//			//如果是成功登陆，则生成jwt
-//			JwtBuilder jwtBuilder = Jwts.builder()
-//					.setSubject(String.valueOf(user.getAccount()))
-//					.setAudience("audience")
-//					.setExpiration(getExpiration())
-//					.setIssuer("issuer")
-//					.signWith(SignatureAlgorithm.HS512, Base64Utils.encodeToString(KEY.getBytes()));
-//			String token = jwtBuilder.compact();
-//			log.info("用户{}的token为：{}", user.getAccount(), token);
-//			CookieUtils.setCookie(request, response, SystemConstantUtil.SESSION_ID, sessionToken,-1,true);
-//			response.addHeader("Authorization", "salt" + token);
-//		}
-	}
 
 	@Around("pointcut()")
 	public String aroundController(ProceedingJoinPoint joinPoint) throws Throwable {
@@ -112,7 +87,11 @@ public class MajorAspect {
 			if (signature instanceof MethodSignature) {
 				MethodSignature methodSignature = (MethodSignature) signature;
 				ClickLog annotation = methodSignature.getMethod().getAnnotation(ClickLog.class);
-				resourceType = annotation.type().name();
+				if (ClickType.video.equals(annotation.type())) {
+					resourceType = request.getParameter("type");
+				} else {
+					resourceType = annotation.type().name();
+				}
 			}
 			String methodName = signature.getName();
 			Object aThis = joinPoint.getThis();

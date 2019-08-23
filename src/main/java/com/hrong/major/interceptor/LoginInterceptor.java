@@ -3,11 +3,11 @@ package com.hrong.major.interceptor;
 import com.hrong.major.constant.Constant;
 import com.hrong.major.model.vo.UserVo;
 import com.hrong.major.utils.CookieUtils;
-import io.jsonwebtoken.Jwts;
+import com.hrong.major.utils.JwtUtils;
+import com.hrong.major.utils.RequestUtils;
 import lombok.extern.slf4j.Slf4j;
 import org.apache.commons.lang3.StringUtils;
 import org.springframework.context.annotation.Configuration;
-import org.springframework.util.Base64Utils;
 import org.springframework.web.method.HandlerMethod;
 import org.springframework.web.servlet.HandlerInterceptor;
 import org.springframework.web.servlet.ModelAndView;
@@ -16,7 +16,6 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import java.io.PrintWriter;
 
-import static com.hrong.major.constant.Constant.KEY;
 import static com.hrong.major.constant.Constant.REQUEST_TYPE;
 
 /**
@@ -36,23 +35,16 @@ public class LoginInterceptor implements HandlerInterceptor {
 				String token = CookieUtils.getToken(request);
 				if (token != null) {
 					try {
-						String user = Jwts.parser()
-								.setSigningKey(Base64Utils.encodeToString(KEY.getBytes()))
-								.requireAudience("audience")
-								.requireIssuer("issuer")
-								.parseClaimsJws(token.replace("Bearer ", ""))
-								.getBody()
-								.getSubject();
+						String user = JwtUtils.getUserByToken(token).getAccount();
 						if (StringUtils.isNotBlank(user)) {
 							return true;
 						}
 					} catch (Exception e) {
-						e.printStackTrace();
 						response.sendRedirect(request.getContextPath() + "/admin/login");
 						return false;
 					}
 				}
-				log.info(url + "被拦截，即将重定向到登录页面");
+				log.info("IP:{}请求{}被拦截，即将重定向到登录页面", RequestUtils.getIpAddress(request), url);
 				response.setStatus(403);
 				//ajax请求
 				String requestType = request.getHeader("X-Requested-With");
@@ -70,9 +62,11 @@ public class LoginInterceptor implements HandlerInterceptor {
 
 	@Override
 	public void postHandle(HttpServletRequest request, HttpServletResponse response, Object handler, ModelAndView modelAndView) throws Exception {
-		HandlerMethod handlerMethod = (HandlerMethod) handler;
-		String requestUri = request.getRequestURI();
-		System.out.println(response.toString());
-		modelAndView.addObject("user", new UserVo());
+		if (modelAndView != null && modelAndView.getViewName() != null) {
+			String view = modelAndView.getViewName();
+			if (view.contains("admin/login/login")) {
+				modelAndView.addObject("user", new UserVo());
+			}
+		}
 	}
 }

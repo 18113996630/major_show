@@ -8,6 +8,7 @@ import io.jsonwebtoken.Jwts;
 import io.jsonwebtoken.SignatureAlgorithm;
 import org.springframework.stereotype.Component;
 import org.springframework.util.Base64Utils;
+import org.springframework.util.StringUtils;
 
 import javax.annotation.PostConstruct;
 import javax.annotation.Resource;
@@ -38,6 +39,9 @@ public class JwtUtils {
 
 	public static User getUserByRequest(HttpServletRequest request){
 		String token = CookieUtils.getToken(request);
+		if (StringUtils.isEmpty(token)) {
+			return null;
+		}
 		String user = Jwts.parser()
 				.setSigningKey(Base64Utils.encodeToString(KEY.getBytes()))
 				.requireAudience("audience")

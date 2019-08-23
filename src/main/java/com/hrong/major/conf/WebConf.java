@@ -33,6 +33,8 @@ public class WebConf implements WebMvcConfigurer {
 		interceptor.addPathPatterns("/**/admin/**");
 		// 排除配置
 		interceptor.excludePathPatterns("/**/admin/login/**");
+		interceptor.excludePathPatterns("/**/admin/css/**");
+		interceptor.excludePathPatterns("/**/admin/js/**");
 	}
 
 	@Override

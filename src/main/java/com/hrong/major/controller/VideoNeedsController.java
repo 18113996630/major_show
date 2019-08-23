@@ -2,6 +2,8 @@ package com.hrong.major.controller;
 
 
 import com.baomidou.mybatisplus.core.conditions.query.QueryWrapper;
+import com.hrong.major.annotation.ClickLog;
+import com.hrong.major.model.ClickType;
 import com.hrong.major.model.VideoNeeds;
 import com.hrong.major.model.vo.Result;
 import com.hrong.major.service.VideoNeedsService;
@@ -37,6 +39,7 @@ public class VideoNeedsController {
 	 * @return 申请结果
 	 */
 	@ResponseBody
+	@ClickLog(type = ClickType.video_need)
 	@PostMapping(value = "/{id}")
 	public Object needVideo(HttpServletRequest request, @PathVariable(value = "id")int id){
 		String ipAddress = RequestUtils.getIpAddress(request);

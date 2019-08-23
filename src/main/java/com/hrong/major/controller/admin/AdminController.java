@@ -1,6 +1,7 @@
 package com.hrong.major.controller.admin;
 
 import com.hrong.major.model.User;
+import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -8,12 +9,17 @@ import org.springframework.web.bind.annotation.GetMapping;
 /**
  * @Author hrong
  **/
+@Slf4j
 @Controller
 public class AdminController {
 
 
 	@GetMapping(value = "/admin")
 	public String adminIndex() {
+		return "admin/index";
+	}
+	@GetMapping(value = "/admin/index")
+	public String index() {
 		return "admin/index";
 	}
 

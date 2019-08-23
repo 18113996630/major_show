@@ -27,8 +27,11 @@ public enum ClickType {
 	/**
 	 * 点赞视频
 	 */
-	video_up;
-
+	video_up,
+	contact,
+	about,
+	top,
+	video_need,
 	ClickType() {
 	}
 }

@@ -13,6 +13,7 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.servlet.ModelAndView;
 
 import javax.annotation.Resource;
 import javax.servlet.http.HttpServletRequest;
@@ -32,22 +33,24 @@ public class LoginController {
 		User userDb = userService.getOne(new QueryWrapper<User>()
 				.eq("account", user.getAccount())
 				.eq("password", user.getPassword()));
+		ModelAndView modelAndView = new ModelAndView();
 		if (userDb == null) {
 			model.addAttribute("msg", "你猜不出来的");
 			return "admin/login/login";
 		} else {
 			String token = JwtUtils.getTokenByAccount(user.getAccount());
-			log.info("用户{}的token为：{}", user.getAccount(), token);
+			log.info("用户{}登录成功，token为：{}", user.getAccount(), token);
 			CookieUtils.setCookie(request, response, Constant.COOKIE, token, -1, true);
-			return "admin/index";
+			//这里是填写对应的request路径
+			return "redirect:/admin";
 		}
 	}
 
 	@GetMapping(value = "/admin/logout")
 	public String logout(HttpServletRequest request, HttpServletResponse response, @ModelAttribute UserVo user) {
 		User currentUser = JwtUtils.getUserByRequest(request);
-		log.info("用户{}退出成功", currentUser.getAccount());
+		log.info("用户退出成功{}", currentUser);
 		CookieUtils.deleteCookie(request, response, Constant.COOKIE);
-		return "admin/login/login";
+		return "redirect:/admin/login";
 	}
 }

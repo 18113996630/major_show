@@ -68,7 +68,7 @@ public class SubjectController {
 
 	@ResponseBody
 	@DeleteMapping(value = "/subject/{id}")
-	public Object deleteSubject(@PathVariable int id){
+	public Object deleteSubject(@PathVariable int id) {
 		Subject subject = subjectService.getById(id);
 		if (subject.getDeleted() != 1) {
 			subjectService.update(subject, new UpdateWrapper<Subject>().eq("id", id).set("deleted", 1));
@@ -78,7 +78,7 @@ public class SubjectController {
 
 	@ResponseBody
 	@PostMapping(value = "/subject/{id}")
-	public Object recoverySubject(@PathVariable int id){
+	public Object recoverySubject(@PathVariable int id) {
 		Subject subject = subjectService.getById(id);
 		if (subject.getDeleted() != 0) {
 			subjectService.update(subject, new UpdateWrapper<Subject>().eq("id", id).set("deleted", 0));
