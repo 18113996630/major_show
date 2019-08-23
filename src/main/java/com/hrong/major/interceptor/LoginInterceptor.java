@@ -1,7 +1,6 @@
 package com.hrong.major.interceptor;
 
 import com.hrong.major.constant.Constant;
-import com.hrong.major.model.vo.UserVo;
 import com.hrong.major.utils.CookieUtils;
 import com.hrong.major.utils.JwtUtils;
 import com.hrong.major.utils.RequestUtils;
@@ -62,11 +61,11 @@ public class LoginInterceptor implements HandlerInterceptor {
 
 	@Override
 	public void postHandle(HttpServletRequest request, HttpServletResponse response, Object handler, ModelAndView modelAndView) throws Exception {
-		if (modelAndView != null && modelAndView.getViewName() != null) {
-			String view = modelAndView.getViewName();
-			if (view.contains("admin/login/login")) {
-				modelAndView.addObject("user", new UserVo());
-			}
-		}
+//		if (modelAndView != null && modelAndView.getViewName() != null) {
+//			String view = modelAndView.getViewName();
+//			if (view.contains("admin/login/login")) {
+//				modelAndView.addObject("user", new UserVo());
+//			}
+//		}
 	}
 }

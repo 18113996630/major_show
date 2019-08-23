@@ -47,6 +47,7 @@ public class VideoNeedsController {
 		videoNeedsService.save(videoNeeds);
 		//查询申请该major-video的人数
 		int totalCount = videoNeedsService.count(new QueryWrapper<VideoNeeds>().eq("major_id", id));
+		log.info("id为{}的专业，共有{}个人想看", id, totalCount);
 		return Result.success(totalCount);
 	}
 }

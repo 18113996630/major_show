@@ -59,9 +59,10 @@ function clickVideo(id, count) {
 }
 function video_need(id) {
     $.post("/video/need/" + id, function (result) {
-        $('.btn-video-need').addClass('disabled');
-        $('.btn-video-need').prop('disabled', true);
-        $('.btn-video-need').text('其他'+result.data+'个小伙伴也想看');
+        btn = $(".btn-video-need");
+        btn.addClass('disabled');
+        btn.prop('disabled', true);
+        btn.text('其他'+result.data+'个小伙伴也想看');
         layer.msg('知道啦~我会尽快找的，记得回来看哟~');
     })
 }
