@@ -90,7 +90,7 @@
                         </button>
                     </div>
                     <div class="clearfloat"></div>
-                    <p class="text-justify" th:if="${videoVo.video.intro} != ''" th:text="${videoVo.video.intro}"></p>
+                    <p class="text-justify" th:if="${videoVo.video.intro} != ''" th:text="${#strings.substring(videoVo.video.intro,0,videoVo.video.intro.length()/2)+'...'}"></p>
                     <hr/>
                 </li>
             </ul>

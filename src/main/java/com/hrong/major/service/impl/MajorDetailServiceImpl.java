@@ -1,6 +1,7 @@
 package com.hrong.major.service.impl;
 
 import com.baomidou.mybatisplus.core.conditions.query.QueryWrapper;
+import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
 import com.baomidou.mybatisplus.extension.service.impl.ServiceImpl;
 import com.hrong.major.dao.MajorDetailMapper;
 import com.hrong.major.dao.MajorMapper;
@@ -10,6 +11,7 @@ import com.hrong.major.model.Major;
 import com.hrong.major.model.MajorDetail;
 import com.hrong.major.model.Video;
 import com.hrong.major.model.VideoFeedback;
+import com.hrong.major.model.vo.MajorDetailVoWithSubject;
 import com.hrong.major.model.vo.MajorDetailWithVideoVo;
 import com.hrong.major.model.vo.VideoVo;
 import com.hrong.major.service.MajorDetailService;
@@ -90,5 +92,15 @@ public class MajorDetailServiceImpl extends ServiceImpl<MajorDetailMapper, Major
 		log.info("{}下一个专业为：{}", currentMajor.getName(), nextMajor.getName());
 		MajorDetail nextMajorDetail = majorDetailMapper.selectOne(new QueryWrapper<MajorDetail>().eq("major_id", nextMajor.getId()));
 		return nextMajorDetail == null ? 0 : nextMajorDetail.getId();
+	}
+
+	@Override
+	public List<MajorDetailVoWithSubject> findMajorsDetailByNameAndSubjectName(Page page, String majorName, String subjectName) {
+		return majorDetailMapper.findMajorsDetailByNameAndSubjectName(page, majorName, subjectName);
+	}
+
+	@Override
+	public int countMajorsDetailByNameAndSubjectName(String majorName, String subjectName) {
+		return majorDetailMapper.countMajorsDetailByNameAndSubjectName(majorName, subjectName);
 	}
 }

@@ -9,7 +9,11 @@
 <div layout:fragment="content">
     <!-- 表格列拖动 -->
     <!-- https://blog.csdn.net/qq_40680190/article/details/82415284 -->
-    <button class="btn btn-info" th:onclick="$('#infoModal').modal('show')" th:text="添加" ></button>
+    <div class="btn-group" id="toolbar">
+        <button class="btn btn-default" th:onclick="$('#infoModal').modal('show')" type="button">
+            <span aria-hidden="true" class="glyphicon glyphicon-plus"></span>新增
+        </button>
+    </div>
     <div class="table-responsive">
         <table class="table table-striped" id="subject_table"></table>
     </div>

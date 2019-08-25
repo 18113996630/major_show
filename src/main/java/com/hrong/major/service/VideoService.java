@@ -1,8 +1,10 @@
 package com.hrong.major.service;
 
-import com.hrong.major.model.Video;
+import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
 import com.baomidou.mybatisplus.extension.service.IService;
+import com.hrong.major.model.Video;
 import com.hrong.major.model.vo.TopVideoAuthorVo;
+import com.hrong.major.model.vo.VideoVoWithMajorName;
 
 import java.util.List;
 
@@ -20,4 +22,7 @@ public interface VideoService extends IService<Video> {
 	 * @return vos
 	 */
 	List<TopVideoAuthorVo> findTopTenVideoAuthor();
+
+	List<VideoVoWithMajorName> findVideosByNameAndSubjectName(Page page, String videoName, String majorName, String upName, String isAuth);
+	int countVideosByNameAndSubjectName(String videoName, String majorName, String upName, String isAuth);
 }

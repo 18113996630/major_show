@@ -6,28 +6,17 @@
 <body>
 <div layout:fragment="content">
     <div class="form-inline text-center">
-        <select class="form-control" id="is-auth">
+        <select class="form-control" id="resource-type">
             <option value="">全部</option>
-            <option value="0">未授权</option>
-            <option value="1">已授权</option>
+            <option th:each="resource:${resources}" th:text="${resource.resourceType}" th:value="${resource.resourceType}"></option>
         </select>
-        <input class="input-group input-group-lg form-control" id="major-name" placeholder="专业名字" type="text">
-        <input class="input-group input-group-lg form-control" id="video-name" placeholder="视频名字" type="text">
-        <input class="input-group input-group-lg form-control" id="up-name" placeholder="up名字" type="text">
-        <button class="btn btn-group-lg btn-primary form-control" th:onclick="searchVideos()" type="button">
+        <input class="input-group input-group-lg form-control" id="ip" placeholder="ip" type="text">
+        <button class="btn btn-group-lg btn-primary form-control" th:onclick="searchLogs()" type="button">
             <span aria-hidden="true" class="glyphicon glyphicon-search"></span>搜索
-        </button>
-        <button class="btn btn-default" th:onclick="auth_video()" type="button">
-            <span aria-hidden="true" class="glyphicon glyphicon-ok-sign"></span>批量授权/取消授权
-        </button>
-    </div>
-    <div class="btn-group" id="toolbar">
-        <button class="btn btn-default" th:onclick="$('#infoModal').modal('show')" type="button">
-            <span aria-hidden="true" class="glyphicon glyphicon-plus"></span>新增
         </button>
     </div>
     <div class="table-responsive">
-        <table class="table table-striped" id="video_table"></table>
+        <table class="table table-striped" id="log_table"></table>
     </div>
     <div aria-hidden="true" aria-labelledby="myModalLabel" class="modal fade" id="infoModal" role="dialog"
          tabindex="-1">
@@ -125,7 +114,7 @@
     <!-- 额外引入js -->
     <footer>
         <div th:replace="admin/commons/footer :: footer(~{::script})">
-            <script th:src="@{/js/admin/ad_video.js}"></script>
+            <script th:src="@{/js/admin/ad_log.js}"></script>
         </div>
     </footer>
 </div>

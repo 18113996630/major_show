@@ -4,13 +4,37 @@
 
     <!-- 通用查询映射结果 -->
     <resultMap id="BaseResultMap" type="com.hrong.major.model.Major">
-        <id column="id" property="id" />
-        <result column="name" property="name" />
-        <result column="code" property="code" />
-        <result column="detail_url" property="detailUrl" />
-        <result column="order_number" property="orderNumber" />
-        <result column="subject_id" property="subjectId" />
-        <result column="deleted" property="deleted" />
+        <id column="id" property="id"/>
+        <result column="name" property="name"/>
+        <result column="code" property="code"/>
+        <result column="detail_url" property="detailUrl"/>
+        <result column="order_number" property="orderNumber"/>
+        <result column="subject_id" property="subjectId"/>
+        <result column="deleted" property="deleted"/>
     </resultMap>
+    <select id="findMajorsByNameAndSubjectName" resultType="com.hrong.major.model.vo.MajorVoWithSubjectName">
+        select t.*, s.name as subjectName
+        from major t
+                 left join subject s on t.subject_id = s.id
+        where 1=1
+        <if test="majorName != null and majorName != ''">
+            and t.name like #{majorName}
+        </if>
+        <if test="subjectId != null and subjectId != ''">
+            and s.id = #{subjectId}
+        </if>
+    </select>
+    <select id="countMajorsByNameAndSubjectName" resultType="int">
+        select count(1)
+        from major t
+        left join subject s on t.subject_id = s.id
+            where 1=1
+        <if test="majorName != null and majorName != ''">
+            and t.name like #{majorName}
+        </if>
+        <if test="subjectId != null and subjectId != ''">
+            and s.id = #{subjectId}
+        </if>
+    </select>
 
 </mapper>

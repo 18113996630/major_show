@@ -1,8 +1,10 @@
 package com.hrong.major.service;
 
+import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
 import com.baomidou.mybatisplus.extension.service.IService;
 import com.hrong.major.model.Major;
 import com.hrong.major.model.vo.MajorVo;
+import com.hrong.major.model.vo.MajorVoWithSubjectName;
 
 import java.util.List;
 
@@ -28,4 +30,20 @@ public interface MajorService extends IService<Major> {
 	 * @return majorVo
 	 */
 	List<MajorVo> findMajorsByName(String name);
+
+	/**
+	 * 根据专业名字和类别查询
+	 * @param page 分页
+	 * @param majorName 专业名字
+	 * @param subjectId 种类
+	 * @return vo
+	 */
+	List<MajorVoWithSubjectName> findMajorsByNameAndSubjectName(Page page, String majorName, Integer subjectId);
+	/**
+	 * 根据专业名字和类别查询数量
+	 * @param majorName 专业名字
+	 * @param subjectId 种类
+	 * @return vo
+	 */
+	int countMajorsByNameAndSubjectName(String majorName, Integer subjectId);
 }

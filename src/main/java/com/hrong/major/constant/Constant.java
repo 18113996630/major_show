@@ -11,6 +11,10 @@ public class Constant {
 	 * 后台管理uri前缀
 	 */
 	public static final String ADMIN_REQUEST_PREFIX = "admin";
+	/**
+	 * 登录请求mapping
+	 */
+	public static final String LOGIN_REQUEST = "admin/login/login";
 	public static final String KEY = "Hrong";
 	public static final String REQUEST_TYPE = "XMLHttpRequest";
 	public static final String COOKIE = "Authorization";

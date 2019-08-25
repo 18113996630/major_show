@@ -1,10 +1,13 @@
 package com.hrong.major.service;
 
+import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
 import com.baomidou.mybatisplus.extension.service.IService;
 import com.hrong.major.model.MajorDetail;
+import com.hrong.major.model.vo.MajorDetailVoWithSubject;
 import com.hrong.major.model.vo.MajorDetailWithVideoVo;
 
 import java.io.Serializable;
+import java.util.List;
 
 /**
  * <p>
@@ -29,4 +32,20 @@ public interface MajorDetailService extends IService<MajorDetail> {
 	 * @return nextDetailId
 	 */
 	Integer findNextMajorDetailIdByCurrentMajorDetailId(Serializable id);
+
+	/**
+	 * 根据专业名字和类别查询
+	 * @param page 分页
+	 * @param majorName 专业名字
+	 * @param subjectName 种类
+	 * @return vo
+	 */
+	List<MajorDetailVoWithSubject> findMajorsDetailByNameAndSubjectName(Page page, String majorName, String subjectName);
+	/**
+	 * 根据专业名字和类别查询数量
+	 * @param majorName 专业名字
+	 * @param subjectName 种类
+	 * @return vo
+	 */
+	int countMajorsDetailByNameAndSubjectName(String majorName, String subjectName);
 }

@@ -1,5 +1,5 @@
 $('#subject_table').bootstrapTable({
-    url: "/subjects", // 获取表格数据的url
+    url: "/admin/subjects", // 获取表格数据的url
     method: 'post',
     contentType: "application/x-www-form-urlencoded",
     cache: false, // 设置为 false 禁用 AJAX 数据缓存， 默认为true
@@ -70,7 +70,7 @@ $('#subject_table').bootstrapTable({
             valign: 'middle',
             formatter: function (value, row, index) {
                 return '<button class="btn btn-primary btn-sm" onclick="updateSubject(\'' + row.id + '\')">修改</button> ' +
-                    '<button class="btn btn-primary btn-sm" onclick="deleteSubject(\'' + row.id + '\')">无效</button> ' +
+                    '<button class="btn btn-success btn-sm" onclick="deleteSubject(\'' + row.id + '\')">无效</button> ' +
                     '<button class="btn btn-danger btn-sm" onclick="recoverySubject(\'' + row.id + '\')">恢复</button> ';
             }
         }
@@ -80,7 +80,7 @@ $('#subject_table').bootstrapTable({
 
 function updateSubject(id) {
     $.ajax({
-        url: "/subject/" + id,
+        url: "/admin/subject/" + id,
         type: "GET",
         // 成功后开启模态框
         success: showQuery,
@@ -92,7 +92,7 @@ function updateSubject(id) {
 
 function deleteSubject(id) {
     $.ajax({
-        url: "/subject/" + id,
+        url: "/admin/subject/" + id,
         type: "DELETE",
         success: function () {
             $('#subject_table').bootstrapTable('refresh');
@@ -105,7 +105,7 @@ function deleteSubject(id) {
 
 function recoverySubject(id) {
     $.ajax({
-        url: "/subject/" + id,
+        url: "/admin/subject/" + id,
         type: "POST",
         success: function () {
             $('#subject_table').bootstrapTable('refresh');
@@ -115,6 +115,10 @@ function recoverySubject(id) {
             alert("恢复失败");
         }
     });
+}
+
+function listMajors(id) {
+    $.get("/admin/majors/" + id)
 }
 
 function showQuery(data) {
@@ -135,7 +139,7 @@ function saveSubject() {
     if (res) {
         $.ajax({
             type: 'POST',
-            url: "/subject",
+            url: "/admin/subject",
             data: formData,
             dataType: "json",
             contentType: "application/json;charset=UTF-8",

@@ -1,17 +1,12 @@
 package com.hrong.major.model;
 
 import com.baomidou.mybatisplus.annotation.IdType;
-import com.baomidou.mybatisplus.annotation.TableField;
 import com.baomidou.mybatisplus.annotation.TableId;
-
-import java.sql.Timestamp;
-import java.time.LocalDateTime;
-import java.io.Serializable;
-
-import com.baomidou.mybatisplus.annotation.TableLogic;
 import lombok.Data;
 import lombok.EqualsAndHashCode;
 import lombok.experimental.Accessors;
+
+import java.io.Serializable;
 
 /**
  * <p>
@@ -131,8 +126,6 @@ public class Video implements Serializable {
     /**
      * 0为删除，1删除
      */
-    @TableLogic(value = "0", delval = "1")
-    @TableField(select = false)
     private Integer deleted;
 
 

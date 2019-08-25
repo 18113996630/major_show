@@ -23,5 +23,23 @@
         <result column="time" property="time"/>
         <result column="execute_time" property="executeTime"/>
     </resultMap>
+    <select id="findLogsByIpAndResource" resultMap="BaseResultMap">
+        select * from log t where 1=1
+        <if test="ip != null and ip != ''">
+            and t.ip like #{ip}
+        </if>
+        <if test="resource != null and resource != ''">
+            and t.resource_type like #{resource}
+        </if>
+    </select>
+    <select id="countLogsByIpAndResource" resultType="int">
+        select count(1) from log t where 1=1
+        <if test="ip != null and ip != ''">
+            and t.ip like #{ip}
+        </if>
+        <if test="resource != null and resource != ''">
+            and t.resource_type like #{resource}
+        </if>
+    </select>
 
 </mapper>

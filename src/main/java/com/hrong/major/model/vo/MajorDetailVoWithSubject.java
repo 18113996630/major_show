@@ -1,43 +1,25 @@
-package com.hrong.major.model;
+package com.hrong.major.model.vo;
 
-import com.baomidou.mybatisplus.annotation.IdType;
-import com.baomidou.mybatisplus.annotation.TableId;
 import lombok.Data;
-import lombok.EqualsAndHashCode;
-import lombok.experimental.Accessors;
 
 import java.io.Serializable;
 
 /**
- * <p>
- * 
- * </p>
  *
  * @author hrong
  * @since 2019-08-17
  */
 @Data
-@EqualsAndHashCode(callSuper = false)
-@Accessors(chain = true)
-public class MajorDetail implements Serializable {
+public class MajorDetailVoWithSubject implements Serializable {
 
     private static final long serialVersionUID = 1L;
 
-    @TableId(value = "id", type = IdType.AUTO)
     private Integer id;
 
     /**
      * 专业名字
      */
     private String name;
-    /**
-     * 编码
-     */
-    private String code;
-    /**
-     * 学制
-     */
-    private String year;
 
     /**
      * 培养目标
@@ -63,8 +45,19 @@ public class MajorDetail implements Serializable {
      */
     private Integer majorId;
     /**
+     * 所属专业类别
+     */
+    private String subjectName;
+    /**
      * 删除标志
      */
     private Integer deleted;
-
+    /**
+     * 编码
+     */
+    private String code;
+    /**
+     * 学制
+     */
+    private String year;
 }

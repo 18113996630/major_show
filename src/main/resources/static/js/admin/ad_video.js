@@ -1,33 +1,38 @@
-$('#subject_table').bootstrapTable({
-    url: "/videos", // 获取表格数据的url
+table = $('#video_table');
+table.bootstrapTable({
+    url: "/admin/videos", // 获取表格数据的url
     method: 'get',
-    contentType: "application/json",
+    contentType: "application/x-www-form-urlencoded",
     cache: false, // 设置为 false 禁用 AJAX 数据缓存， 默认为true
     striped: true,  //表格显示条纹，默认为false
     showRefresh: true,//刷新按钮
+    sidePagination: 'server', // 设置为服务器端分页
     toolbarAlign: 'right',
     buttonsAlign: 'right',//按钮对齐方式
     toolbar: '#toolbar',//指定工作栏
-
-    pageNumber: 1, //初始化加载第一页
-    pagination: true,//是否分页
-    pageSize: 4,//单页记录数
-    pageList: [5, 10, 20, 30],//可选择单页记录数
-    sidePagination: 'server',
-    queryParams: function (params) {
-        var temp = {
-            limit: params.limit, // 每页显示数量
-            // offset: params.offset, // SQL语句起始索引
-            page: (params.offset / params.limit) + 1,   //当前页码
-
-            name: '',
-            author: ''
+    pagination: true,     //是否显示分页（*）
+    sortable: false,      //是否启用排序
+    sortOrder: "asc",     //排序方式
+    pageNumber: 1,      //初始化加载第一页，默认第一页
+    pageSize: 10,      //每页的记录行数（*）
+    pageList: [10, 25, 50, 100],  //可供选择的每页的行数（*）
+    strictSearch: true,
+    clickToSelect: true,    //是否启用点击选中行
+    searchOnEnterKey: true,
+    queryParams: function (params) {//上传服务器的参数
+        return {//如果是在服务器端实现分页，limit、offset这两个参数是必须的
+            pageSize: params.limit, // 每页显示数量
+            pageNumber: (params.offset / params.limit) + 1, //当前页码
+            majorName: '%' + $('#major-name').val() + '%',
+            videoName: '%' + $('#video-name').val() + '%',
+            upName: '%' + $('#up-name').val() + '%',
+            isAuth: '%' + $('#is-auth').val() + '%'
         };
-        return temp;
     },
-
-
     columns: [
+        {
+            checkbox: true
+        },
         {
             title: '序号', // 表格表头显示文字
             align: 'center',
@@ -37,50 +42,59 @@ $('#subject_table').bootstrapTable({
             }
         },
         {
-            title: '名字',
-            field: 'name',
+            title: '视频标题',
+            field: 'title',
             align: 'center',
             valign: 'middle'
         },
         {
-            title: '编码',
-            field: 'code',
+            title: '地址',
+            field: 'url',
             align: 'center',
             valign: 'middle'
         },
         {
-            title: '文章正确',
-            field: 'isRightWord',
+            title: '时长',
+            field: 'duration',
             align: 'center',
             valign: 'middle'
         },
         {
-            title: '文章错误',
-            field: 'isWrongWord',
+            title: '发布时间',
+            field: 'pubtime',
             align: 'center',
             valign: 'middle'
         },
         {
-            title: '视频正确',
-            field: 'isRightVideo',
+            title: '播放量',
+            field: 'play',
             align: 'center',
             valign: 'middle'
         },
         {
-            title: '视频错误',
-            field: 'isWrongVideo',
+            title: 'up名字',
+            field: 'upName',
             align: 'center',
             valign: 'middle'
         },
         {
-            title: '详情url',
-            field: 'iconUri',
+            title: '是否授权',
+            field: 'isAuth',
             align: 'center',
-            valign: 'middle'
+            valign: 'middle',
+            formatter: function (value, row, index) {
+                var res = '';
+                if (value === 1) {
+                    res = '已授权';
+                } else {
+                    res = '未授权';
+                }
+                return res;
+            }
         },
         {
-            title: '图标路径',
-            field: 'iconUri',
+            title: '所属专业',
+            field: 'majorName',
             align: 'center',
             valign: 'middle'
         },
@@ -106,28 +120,23 @@ $('#subject_table').bootstrapTable({
             }
         },
         {
-            title: '专业类别',
-            field: 'subjectId',
-            align: 'center',
-            valign: 'middle'
-        },
-        {
             title: "操作",
             align: 'center',
             valign: 'middle',
             formatter: function (value, row, index) {
-                return '<button class="btn btn-primary btn-sm" onclick="updateSubject(\'' + row.id + '\')">修改</button> ' +
-                    '<button class="btn btn-primary btn-sm" onclick="deleteSubject(\'' + row.id + '\')">无效</button> ' +
-                    '<button class="btn btn-danger btn-sm" onclick="recoverySubject(\'' + row.id + '\')">恢复</button> ';
+                return '<button class="btn btn-primary btn-sm" onclick="updateVideo(\'' + row.id + '\')">修改</button> ' +
+                    '<button class="btn btn-primary btn-sm" onclick="invalidVideo(\'' + row.id + '\')">无效</button> ' +
+                    '<button class="btn btn-danger btn-sm" onclick="recoveryVideo(\'' + row.id + '\')">恢复</button> ' +
+                    '<button class="btn btn-danger btn-sm" onclick="deleteVideo(\'' + row.id + '\')">删除</button> ';
             }
         }
     ],
     locale: 'zh-CN'//中文支持
 });
 
-function updateSubject(id) {
+function updateVideo(id) {
     $.ajax({
-        url: "/subject/" + id,
+        url: "/admin/video/" + id,
         type: "GET",
         // 成功后开启模态框
         success: showQuery,
@@ -137,25 +146,29 @@ function updateSubject(id) {
     });
 }
 
-function deleteSubject(id) {
+function searchVideos() {
+    table.bootstrapTable('refresh', {url: '/admin/videos'});
+}
+
+function invalidVideo(id) {
     $.ajax({
-        url: "/subject/" + id,
-        type: "DELETE",
+        url: "/admin/video/" + id,
+        type: "POST",
         success: function () {
-            $('#subject_table').bootstrapTable('refresh');
-            layer.msg('删除成功', {icon: 1})
+            table.bootstrapTable('refresh');
+            layer.msg('操作成功', {icon: 1})
         }, error: function () {
-            layer.alert("删除失败");
+            layer.alert("操作失败");
         }
     });
 }
 
-function recoverySubject(id) {
+function recoveryVideo(id) {
     $.ajax({
-        url: "/subject/" + id,
+        url: "/admin/video/" + id,
         type: "POST",
         success: function () {
-            $('#subject_table').bootstrapTable('refresh');
+            table.bootstrapTable('refresh');
             layer.msg('恢复成功', {icon: 1})
         },
         error: function () {
@@ -164,25 +177,43 @@ function recoverySubject(id) {
     });
 }
 
+function deleteVideo(id) {
+    $.ajax({
+        url: "/admin/video/" + id,
+        type: "DELETE",
+        success: function () {
+            table.bootstrapTable('refresh');
+            layer.msg('删除成功', {icon: 1})
+        },
+        error: function () {
+            alert("删除失败");
+        }
+    });
+}
+
 function showQuery(data) {
     data = data.data;
     $("#id").val(data.id);
-    $("#name").val(data.name);
-    $("#code").val(data.code);
-    $("#description").val(data.description);
-    $("#iconUri").val(data.iconUri);
+    $("#title").val(data.title);
+    $("#url").val(data.url);
+    $("#intro").val(data.intro);
+    $("#duration").val(data.duration);
+    $("#pubtime").val(data.pubtime);
+    $("#play").val(data.play);
+    $("#upName").val(data.upName);
+    $("#isAuth").val(data.isAuth);
     $("#orderNumber").val(data.orderNumber);
     // 显示模态框
     $('#infoModal').modal('show');
 }
 
-function saveSubject() {
-    var formData = formSerializeJson('subject_form');
+function saveVideo() {
+    var formData = formSerializeJson('video_form');
     var res = validateInput(formData);
     if (res) {
         $.ajax({
             type: 'POST',
-            url: "/subject",
+            url: "/admin/video",
             data: formData,
             dataType: "json",
             contentType: "application/json;charset=UTF-8",
@@ -190,11 +221,11 @@ function saveSubject() {
                 if (data.code === 200) {
                     $('#infoModal').modal('hide');
                     var opt = {
-                        url: "/subjects",
+                        url: "/admin/videos",
                         silent: true,
                         query: {}
                     };
-                    $('#subject_table').bootstrapTable('refresh', opt);
+                    table.bootstrapTable('refresh', opt);
                     layer.msg('修改成功', {icon: 1})
                 } else {
                     layer.alert(data.message);
@@ -226,4 +257,21 @@ function formSerializeJson(formId) {
         obj[n.name] = n.value;
     });
     return JSON.stringify(obj);
+}
+
+function getIdSelections() {
+    rows = $("#video_table").bootstrapTable('getSelections');
+    var ids = '';
+    for (var i = 0; i < rows.length; i++) {
+        ids += rows[i]['id'] + ",";
+    }
+    ids = ids.substring(0, ids.length-1);
+    return ids
+}
+
+function auth_video() {
+    data = getIdSelections();
+    $.post('/admin/videos/auth', {"ids": data}, function (result) {
+        table.bootstrapTable('refresh', {url: '/admin/videos'});
+    })
 }

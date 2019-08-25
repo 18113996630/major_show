@@ -9,7 +9,10 @@
         <result column="description" property="description" />
         <result column="course" property="course" />
         <result column="job" property="job" />
+        <result column="ability" property="ability" />
         <result column="major_id" property="majorId" />
+        <result column="code" property="code" />
+        <result column="year" property="year" />
     </resultMap>
 
 </mapper>

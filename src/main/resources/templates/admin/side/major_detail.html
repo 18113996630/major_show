@@ -7,12 +7,12 @@
 <div layout:fragment="content">
     <div class="form-inline text-center">
 
-        <select class="form-control" id="subject-id">
-            <option value=''>全部</option>
-            <option th:each="subject:${subjects}" th:text="${subject.name}" th:value="${subject.id}"></option>
+        <select class="form-control" id="subject-name">
+            <option value="">全部</option>
+            <option th:each="subject:${subjects}" th:text="${subject.name}" th:value="${subject.name}"></option>
         </select>
         <input class="input-group input-group-lg form-control" id="major-name" placeholder="专业名字" type="text">
-        <button class="btn btn-group-lg btn-primary form-control" th:onclick="searchMajors()" type="button">
+        <button class="btn btn-group-lg btn-primary form-control" th:onclick="searchDetails()" type="button">
             <span aria-hidden="true" class="glyphicon glyphicon-search"></span>搜索
         </button>
     </div>
@@ -29,7 +29,7 @@
         <div class="modal-dialog modal-lg">
             <div class="modal-content">
                 <div class="modal-header">
-                    <strong class="modal-title" id="myModalLabel" th:text="专业详情"></strong>
+                    <strong class="modal-title" id="myModalLabel" th:text="详情信息"></strong>
                     <button aria-hidden="true" class="btn close" data-dismiss="modal">&times;</button>
                 </div>
                 <div class="modal-body">
@@ -50,11 +50,38 @@
                             </div>
                         </div>
                         <div class="form-group">
-                            <label class="col-md-3 control-label" for="orderNumber">排序号</label>
+                            <label class="col-md-3 control-label" for="code">学制</label>
                             <div class="col-md-8">
-                                <input class="form-control" id="orderNumber" name="orderNumber" placeholder="排序号"
-                                       type="number"
+                                <input class="form-control" id="year" name="code" placeholder="学制信息" type="text"
                                        value="">
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <label class="col-md-3 control-label" for="description">专业描述</label>
+                            <div class="col-md-8">
+                                <textarea class="form-control desc_text_area" id="description"
+                                          name="description"></textarea>
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <label class="col-md-3 control-label" for="description">核心课程</label>
+                            <div class="col-md-8">
+                                <textarea class="form-control desc_text_area" id="course"
+                                          name="description"></textarea>
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <label class="col-md-3 control-label" for="description">就业前景</label>
+                            <div class="col-md-8">
+                                <textarea class="form-control desc_text_area" id="job"
+                                          name="description"></textarea>
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <label class="col-md-3 control-label" for="description">能力要求</label>
+                            <div class="col-md-8">
+                                <textarea class="form-control desc_text_area" id="ability"
+                                          name="description"></textarea>
                             </div>
                         </div>
                     </form>
@@ -69,7 +96,7 @@
     <!-- 额外引入js -->
     <footer>
         <div th:replace="admin/commons/footer :: footer(~{::script})">
-            <script th:src="@{/js/admin/ad_major.js}"></script>
+            <script th:src="@{/js/admin/ad_major_detail.js}"></script>
         </div>
     </footer>
 </div>
