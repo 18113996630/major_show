@@ -4,6 +4,7 @@ import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
 import com.baomidou.mybatisplus.extension.service.impl.ServiceImpl;
 import com.hrong.major.dao.VideoMapper;
 import com.hrong.major.model.Video;
+import com.hrong.major.model.vo.Author;
 import com.hrong.major.model.vo.TopVideoAuthorVo;
 import com.hrong.major.model.vo.VideoVoWithMajorName;
 import com.hrong.major.service.VideoService;
@@ -42,5 +43,15 @@ public class VideoServiceImpl extends ServiceImpl<VideoMapper, Video> implements
 	@Override
 	public int countVideosByNameAndSubjectName(String videoName, String majorName, String upName, String isAuth) {
 		return videoMapper.countVideosByNameAndSubjectName(videoName, majorName, upName, isAuth);
+	}
+
+	@Override
+	public List<Author> findAllAuthors(Page page, String upName) {
+		return videoMapper.findAllAuthors(page, upName);
+	}
+
+	@Override
+	public int countAllAuthors(String upName) {
+		return videoMapper.countAllAuthors(upName);
 	}
 }

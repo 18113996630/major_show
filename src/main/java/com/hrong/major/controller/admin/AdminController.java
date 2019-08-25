@@ -67,6 +67,23 @@ public class AdminController {
 		model.addAttribute("majors", majorService.list());
 		return "admin/side/video";
 	}
+	/**
+	 * 视频审核
+	 */
+	@GetMapping(value = "/video/contribute")
+	public String videoContribute(){
+		return "admin/side/video_contribute";
+	}
+
+	/**
+	 * 视频表格
+	 */
+	@GetMapping(value = "/video/author")
+	public String videoAuthor(){
+		return "admin/side/author";
+	}
+
+
 
 	/**
 	 * 专业详情表格

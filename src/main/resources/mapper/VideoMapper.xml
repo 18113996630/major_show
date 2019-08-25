@@ -4,28 +4,48 @@
 
     <!-- 通用查询映射结果 -->
     <resultMap id="BaseResultMap" type="com.hrong.major.model.Video">
-        <id column="id" property="id" />
-        <result column="title" property="title" />
-        <result column="intro" property="intro" />
-        <result column="url" property="url" />
-        <result column="duration" property="duration" />
-        <result column="pubtime" property="pubtime" />
-        <result column="cover" property="cover" />
-        <result column="cover_name" property="coverName" />
-        <result column="play" property="play" />
-        <result column="danmaku" property="danmaku" />
-        <result column="reply" property="reply" />
-        <result column="up_id" property="upId" />
-        <result column="up_page" property="upPage" />
-        <result column="up_name" property="upName" />
-        <result column="up_face" property="upFace" />
-        <result column="face_name" property="faceName" />
-        <result column="is_auth" property="isAuth" />
-        <result column="major_id" property="majorId" />
-        <result column="major_detail_id" property="majorDetailId" />
-        <result column="source_name" property="sourceName" />
-        <result column="order_number" property="orderNumber" />
-        <result column="deleted" property="deleted" />
+        <id column="id" property="id"/>
+        <result column="title" property="title"/>
+        <result column="intro" property="intro"/>
+        <result column="url" property="url"/>
+        <result column="duration" property="duration"/>
+        <result column="pubtime" property="pubtime"/>
+        <result column="cover" property="cover"/>
+        <result column="cover_name" property="coverName"/>
+        <result column="play" property="play"/>
+        <result column="danmaku" property="danmaku"/>
+        <result column="reply" property="reply"/>
+        <result column="up_id" property="upId"/>
+        <result column="up_page" property="upPage"/>
+        <result column="up_name" property="upName"/>
+        <result column="up_face" property="upFace"/>
+        <result column="face_name" property="faceName"/>
+        <result column="is_auth" property="isAuth"/>
+        <result column="major_id" property="majorId"/>
+        <result column="major_detail_id" property="majorDetailId"/>
+        <result column="source_name" property="sourceName"/>
+        <result column="order_number" property="orderNumber"/>
+        <result column="deleted" property="deleted"/>
     </resultMap>
+    <select id="findAllAuthors" resultType="com.hrong.major.model.vo.Author">
+        select t.*, a.titles
+        from vw_video_up t
+                 left join (SELECT up_name, GROUP_CONCAT(title) titles FROM video t GROUP BY t.up_name) a
+                           on t.upName = a.up_name
+        where 1 =1
+        <if test="upName != null and upName != ''">
+            and t.upName like #{upName}
+        </if>
+    </select>
+    <select id="countAllAuthors" resultType="int">
+        select count(1)
+        from vw_video_up t
+        left join (SELECT up_name, GROUP_CONCAT(title) titles FROM video t GROUP BY t.up_name) a
+        on t.upName = a.up_name
+        where 1 =1
+        <if test="upName != null and upName != ''">
+            and t.upName like #{upName}
+        </if>
+    </select>
 
 </mapper>

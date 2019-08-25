@@ -5,6 +5,7 @@ import com.baomidou.mybatisplus.core.conditions.update.UpdateWrapper;
 import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
 import com.hrong.major.model.MajorDetail;
 import com.hrong.major.model.Video;
+import com.hrong.major.model.vo.Author;
 import com.hrong.major.model.vo.Result;
 import com.hrong.major.model.vo.VideoVoWithMajorName;
 import com.hrong.major.service.MajorDetailService;
@@ -106,5 +107,16 @@ public class AdminVideoController {
 			videoService.saveOrUpdateBatch(updateVideos);
 		}
 		return Result.success("授权成功");
+	}
+
+	@ResponseBody
+	@GetMapping(value = "/video/authors")
+	public Object authors(int pageNumber, int pageSize ,String upName) {
+		Map<String, Object> res = new HashMap<>(2);
+		List<Author> videos = videoService.findAllAuthors(new Page(pageNumber, pageSize),upName);
+		int total = videoService.countAllAuthors(upName);
+		res.put("total", total);
+		res.put("rows", videos);
+		return res;
 	}
 }

@@ -1,0 +1,133 @@
+<!DOCTYPE html>
+<html lang="en" layout:decorate="~{admin/layouts/layout}"
+      xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+      xmlns:th="http://www.thymeleaf.org" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+      xsi:schemaLocation="http://www.ultraq.net.nz/thymeleaf/layout ">
+<body>
+<div layout:fragment="content">
+    <div class="table-responsive">
+        <table class="table table-striped" id="video_table"></table>
+    </div>
+    <div aria-hidden="true" aria-labelledby="myModalLabel" class="modal fade" id="infoModal" role="dialog"
+         tabindex="-1">
+        <div class="modal-dialog modal-lg">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <strong class="modal-title" id="myModalLabel" th:text="视频详情"></strong>
+                    <button aria-hidden="true" class="btn close" data-dismiss="modal">&times;</button>
+                </div>
+                <div class="modal-body">
+                    <form class="form-group-lg form-horizontal" role="form" th:id="video_form">
+                        <input id="id" name="id" type="hidden" value="">
+                        <div class="form-group">
+                            <label class="col-md-3 control-label" for="title" th:text="视频标题"></label>
+                            <div class="col-md-8">
+                                <input class="form-control" id="title" name="title" placeholder="视频标题" type="text"
+                                       value="">
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <label class="col-md-3 control-label" for="majorId" th:text="所属专业"></label>
+                            <div class="col-md-8">
+                                <select class="form-control" id="majorId" name="majorId">
+                                    <option th:each="major:${majors}" th:text="${major.name}" th:value="${major.id}"></option>
+                                </select>
+                            </div>
+                        </div>
+
+                        <div class="form-group">
+                            <label class="col-md-3 control-label" for="url">url</label>
+                            <div class="col-md-8">
+                                <input class="form-control" id="url" name="url" placeholder="url" type="text"
+                                       value="">
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <label class="col-md-3 control-label" for="intro">视频简介</label>
+                            <div class="col-md-8">
+                                <textarea class="form-control desc_text_area" id="intro"
+                                          name="intro"></textarea>
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <label class="col-md-3 control-label" for="duration">视频时长</label>
+                            <div class="col-md-8">
+                                <input class="form-control" id="duration" name="duration" placeholder="视频时长" type="text"
+                                       value="">
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <label class="col-md-3 control-label" for="pubtime">发布时间</label>
+                            <div class="col-md-8">
+                                <input class="form-control" id="pubtime" name="pubtime" placeholder="发布时间" type="text"
+                                       value="">
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <label class="col-md-3 control-label" for="play">播放量</label>
+                            <div class="col-md-8">
+                                <input class="form-control" id="play" name="play" placeholder="播放量" type="text"
+                                       value="">
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <label class="col-md-3 control-label" for="upName">up名字</label>
+                            <div class="col-md-8">
+                                <input class="form-control" id="upName" name="upName" placeholder="up名字" type="text"
+                                       value="">
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <label class="col-md-3 control-label" for="cover">封面地址</label>
+                            <div class="col-md-8">
+                                <input class="form-control" id="cover" name="upName" placeholder="地址url" type="text"
+                                       value="">
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <label class="col-md-3 control-label" for="coverName">封面文件名称</label>
+                            <div class="col-md-8">
+                                <input class="form-control" id="coverName" name="coverName" placeholder="封面文件名称" type="text"
+                                       value="">
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <label class="col-md-3 control-label" for="faceName">头像文件名称</label>
+                            <div class="col-md-8">
+                                <input class="form-control" id="faceName" name="faceName" placeholder="头像文件名称" type="text"
+                                       value="">
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <label class="col-md-3 control-label" for="isAuth">是否授权</label>
+                            <div class="col-md-8">
+                                <input class="form-control" id="isAuth" name="isAuth" type="number"
+                                       value="1"/>
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <label class="col-md-3 control-label" for="orderNumber">排序号</label>
+                            <div class="col-md-8">
+                                <input class="form-control" id="orderNumber" name="orderNumber" placeholder="排序号"
+                                       type="number"
+                                       value="">
+                            </div>
+                        </div>
+                    </form>
+                </div>
+                <div class="modal-footer">
+                    <button class="btn btn-default" data-dismiss="modal" th:text="关闭" type="button"></button>
+                    <button class="btn btn-primary" th:onclick="saveVideo()" th:text="保存" type="button"></button>
+                </div>
+            </div>
+        </div>
+    </div>
+    <!-- 额外引入js -->
+    <footer>
+        <div th:replace="admin/commons/footer :: footer(~{::script})">
+            <script th:src="@{/js/admin/ad_video_contribute.js}"></script>
+        </div>
+    </footer>
+</div>
+</body>
+</html>

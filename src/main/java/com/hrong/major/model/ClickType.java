@@ -32,6 +32,7 @@ public enum ClickType {
 	about,
 	top,
 	video_need,
+	contribute,
 	ClickType() {
 	}
 }

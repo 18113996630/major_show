@@ -1,0 +1,28 @@
+<!DOCTYPE html>
+<html lang="en" layout:decorate="~{admin/layouts/layout}"
+      xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+      xmlns:th="http://www.thymeleaf.org" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+      xsi:schemaLocation="http://www.ultraq.net.nz/thymeleaf/layout ">
+<body>
+<div layout:fragment="content">
+    <div class="form-inline text-center">
+        <input class="input-group input-group-lg form-control" id="up-name" placeholder="up名字" type="text">
+        <button class="btn btn-group-lg btn-primary form-control" th:onclick="searchAuthors()" type="button">
+            <span aria-hidden="true" class="glyphicon glyphicon-search"></span>搜索
+        </button>
+        <button class="btn btn-default" th:onclick="auth_video()" type="button">
+            <span aria-hidden="true" class="glyphicon glyphicon-ok-sign"></span>授权/取消授权
+        </button>
+    </div>
+    <div class="table-responsive">
+        <table class="table table-striped" id="author_table"></table>
+    </div>
+    <!-- 额外引入js -->
+    <footer>
+        <div th:replace="admin/commons/footer :: footer(~{::script})">
+            <script th:src="@{/js/admin/ad_author.js}"></script>
+        </div>
+    </footer>
+</div>
+</body>
+</html>

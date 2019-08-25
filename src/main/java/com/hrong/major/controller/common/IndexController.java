@@ -6,8 +6,10 @@ import com.hrong.major.annotation.ClickLog;
 import com.hrong.major.constant.CacheConstant;
 import com.hrong.major.model.ClickType;
 import com.hrong.major.model.Log;
+import com.hrong.major.model.Video;
 import com.hrong.major.model.vo.SearchVo;
 import com.hrong.major.service.LogService;
+import com.hrong.major.service.MajorService;
 import com.hrong.major.utils.RequestUtils;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -24,6 +26,8 @@ public class IndexController {
 
 	@Resource
 	private LogService logService;
+	@Resource
+	private MajorService majorService;
 
 	@ClickLog(type = ClickType.subject)
 	@GetMapping("/")
@@ -47,6 +51,15 @@ public class IndexController {
 	@GetMapping("/contact")
 	public String contact() {
 		return "contact/contact";
+	}
+
+	@ClickLog(type = ClickType.contribute)
+	@GetMapping("/contribute")
+	public String contribute(Model model) {
+		model.addAttribute("majors", majorService.list());
+		model.addAttribute("msg", null);
+		model.addAttribute("video", new Video());
+		return "contribute/contribute";
 	}
 
 }
