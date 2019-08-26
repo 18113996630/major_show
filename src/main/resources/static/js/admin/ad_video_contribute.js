@@ -54,12 +54,6 @@ table.bootstrapTable({
             valign: 'middle'
         },
         {
-            title: '封面地址',
-            field: 'cover',
-            align: 'center',
-            valign: 'middle'
-        },
-        {
             title: '封面文件名称',
             field: 'coverName',
             align: 'center',
@@ -92,6 +86,12 @@ table.bootstrapTable({
         {
             title: 'up名字',
             field: 'upName',
+            align: 'center',
+            valign: 'middle'
+        },
+        {
+            title: 'up主页',
+            field: 'upPage',
             align: 'center',
             valign: 'middle'
         },
@@ -131,7 +131,9 @@ table.bootstrapTable({
                 var res = '';
                 if (value === 1) {
                     res = '无效';
-                } else {
+                } else if(value === 2){
+                    res = '待审核';
+                }else if(value === 0){
                     res = '有效';
                 }
                 return res;
@@ -165,6 +167,7 @@ function showQuery(data) {
     data = data.data;
     $("#id").val(data.id);
     $("#title").val(data.title);
+    $("#majorId option[value='"+data.majorId+"']").attr("selected", "selected");
     $("#url").val(data.url);
     $("#intro").val(data.intro);
     $("#duration").val(data.duration);
@@ -172,6 +175,7 @@ function showQuery(data) {
     $("#play").val(data.play);
     $("#upName").val(data.upName);
     $("#isAuth").val(data.isAuth);
+    $("#deleted").val(data.deleted);
     $("#orderNumber").val(data.orderNumber);
     // 显示模态框
     $('#infoModal').modal('show');

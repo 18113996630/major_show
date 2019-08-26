@@ -197,6 +197,7 @@ function showQuery(data) {
     $("#title").val(data.title);
     $("#url").val(data.url);
     $("#intro").val(data.intro);
+    $("#majorId option[value='"+data.majorId+"']").attr("selected", "selected");
     $("#duration").val(data.duration);
     $("#pubtime").val(data.pubtime);
     $("#play").val(data.play);

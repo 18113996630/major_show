@@ -51,7 +51,13 @@ table.bootstrapTable({
             title: '视频名字',
             field: 'titles',
             align: 'center',
-            valign: 'middle'
+            valign: 'middle',
+            formatter: function (value, row, index) {
+                return '您好，我是一个转行一年半的程序员，我最近正在做一个网站，网站是关于普及大学各个专业需要学习的课程、就业前景啊什么的，我看到您主页里有些视频挺不错的，' +
+                    '可能会对同学们有帮助，所以想问问您可以把链接贴到我的网站里吗？\r\n' +
+                    '贴的方式是将封面放在网站同时声明原作者信息，点击封面会跳回您的主页进行播放，这是网站地址，您可以先看看: http://39.106.190.74 \r\n' +
+                    '这些是我想贴的视频名字：'+value
+            }
         },
         {
             title: '主页地址',
@@ -59,7 +65,7 @@ table.bootstrapTable({
             align: 'center',
             valign: 'middle',
             formatter: function (value, row, index) {
-                return '<a class="btn btn-primary btn-sm" href="'+value+'">查看主页</a> '
+                return '<a class="btn btn-primary btn-sm" target="_blank" href="'+value+'">查看主页</a> '
             }
         }
     ],

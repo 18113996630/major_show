@@ -67,8 +67,14 @@ public class AdminVideoController {
 			if (video.getId() == null) {
 				Integer majorDetailId = majorDetailService.getOne(new QueryWrapper<MajorDetail>().select("id").eq("major_id", video.getMajorId())).getId();
 				video.setMajorDetailId(majorDetailId);
+				videoService.saveOrUpdate(video);
+			}else {
+				//更新major_detail_id
+				Integer majorId = video.getMajorId();
+				Integer majorDetailId = majorDetailService.getOne(new QueryWrapper<MajorDetail>().eq("major_id", majorId)).getId();
+				video.setMajorDetailId(majorDetailId);
+				videoService.saveOrUpdate(video);
 			}
-			videoService.saveOrUpdate(video);
 		} catch (Exception e) {
 			log.error(e.getMessage());
 			return Result.err(500, String.format("后台保存出错:%s", e.getMessage()));

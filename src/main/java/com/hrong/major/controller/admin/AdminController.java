@@ -71,7 +71,8 @@ public class AdminController {
 	 * 视频审核
 	 */
 	@GetMapping(value = "/video/contribute")
-	public String videoContribute(){
+	public String videoContribute(Model model){
+		model.addAttribute("majors", majorService.list());
 		return "admin/side/video_contribute";
 	}
 
