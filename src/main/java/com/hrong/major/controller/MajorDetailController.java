@@ -5,11 +5,12 @@ import com.hrong.major.annotation.ClickLog;
 import com.hrong.major.model.ClickType;
 import com.hrong.major.model.Major;
 import com.hrong.major.model.Subject;
+import com.hrong.major.model.vo.CommentVo;
 import com.hrong.major.model.vo.MajorDetailWithVideoVo;
+import com.hrong.major.service.CommentService;
 import com.hrong.major.service.MajorDetailService;
 import com.hrong.major.service.MajorService;
 import com.hrong.major.service.SubjectService;
-import com.hrong.major.service.VideoFeedbackService;
 import com.hrong.major.utils.RequestUtils;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Controller;
@@ -42,7 +43,7 @@ public class MajorDetailController {
 	@Resource
 	private MajorService majorService;
 	@Resource
-	private VideoFeedbackService videoFeedbackService;
+	private CommentService commentService;
 
 	/**
 	 * 根据专业id查询详情
@@ -58,6 +59,8 @@ public class MajorDetailController {
 		Subject currentSubject = subjectService.getById(majorService.getById(detail.getDetail().getMajorId()).getSubjectId());
 		//当前专业附近的专业
 		List<Major> majors = majorService.findAroundMajors(id);
+		//当前专业详情的评论
+		List<CommentVo> comments = commentService.findCommentsByDetailId(id, RequestUtils.getIpAddress(request));
 
 		model.addAttribute("detailVo", detail);
 		model.addAttribute("nextId", nextDetailId);
@@ -65,6 +68,10 @@ public class MajorDetailController {
 		model.addAttribute("currentSubject", currentSubject);
 		//显示该专业前后几个专业
 		model.addAttribute("majors", majors);
+		//评论
+		model.addAttribute("comments", comments);
+		//评论数量
+		model.addAttribute("commentsCount", comments.size());
 		return "major/major_detail";
 	}
 }

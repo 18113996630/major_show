@@ -1,7 +1,7 @@
 package com.hrong.major.service;
 
-import com.hrong.major.model.Course;
 import com.baomidou.mybatisplus.extension.service.IService;
+import com.hrong.major.model.CommentFeedback;
 
 /**
  * <p>
@@ -9,8 +9,8 @@ import com.baomidou.mybatisplus.extension.service.IService;
  * </p>
  *
  * @author hrong
- * @since 2019-08-13
+ * @since 2019-08-28
  */
-public interface CourseService extends IService<Course> {
+public interface CommentFeedbackService extends IService<CommentFeedback> {
 
 }

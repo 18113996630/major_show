@@ -68,29 +68,39 @@
                                                                th:text="${videoVo.video.upName}"></a> </strong>
                         </div>
                     </div>
-                    <a target="_blank" th:class="cover_a" th:href="${videoVo.video.url}" th:onclick="clickVideo([[${videoVo.video.id}]], [[${videoVo.clickCount}]])"> <img
-                        th:alt="${videoVo.video.title}" th:class="cover_img" th:src="@{'/cover/'+${videoVo.video.coverName}}"/>
+                    <a target="_blank" th:class="cover_a" th:href="${videoVo.video.url}"
+                       th:onclick="clickVideo([[${videoVo.video.id}]], [[${videoVo.clickCount}]])"> <img
+                            th:alt="${videoVo.video.title}" th:class="cover_img"
+                            th:src="@{'/cover/'+${videoVo.video.coverName}}"/>
                         <span th:class="duration" th:text="${videoVo.video.duration}"></span>
                     </a>
                     <hr>
                     <!-- 视频反馈 -->
                     <div class="video_feedback">
                         <span class="text-info" th:text="这个视频怎么样+'?'"></span>
-                        <button class="btn btn-default btn-up" th:disabled="${videoVo.isUpped}" th:id="${videoVo.video.id}+'up'" th:onclick="video_up([[${videoVo.video.id}]], [[${videoVo.upCount}]])" th:value="${videoVo.video.id}+'up'">
+                        <button class="btn btn-default btn-up" th:disabled="${videoVo.isUpped}"
+                                th:id="${videoVo.video.id}+'up'"
+                                th:onclick="video_up([[${videoVo.video.id}]], [[${videoVo.upCount}]])"
+                                th:value="${videoVo.video.id}+'up'">
                             <span aria-hidden="true" class="glyphicon glyphicon-thumbs-up"></span>
                             <span th:text="${videoVo.upCount}"></span>
                         </button>
-                        <button class="btn btn-default btn-down" th:disabled="${videoVo.isDowned}" th:id="${videoVo.video.id}+'down'" th:onclick="video_down([[${videoVo.video.id}]], [[${videoVo.downCount}]])" th:value="${videoVo.video.id}+'down'">
+                        <button class="btn btn-default btn-down" th:disabled="${videoVo.isDowned}"
+                                th:id="${videoVo.video.id}+'down'"
+                                th:onclick="video_down([[${videoVo.video.id}]], [[${videoVo.downCount}]])"
+                                th:value="${videoVo.video.id}+'down'">
                             <span aria-hidden="true" class="glyphicon glyphicon-thumbs-down"></span>
                             <span th:text="${videoVo.downCount}"></span>
                         </button>
-                        <button class="btn btn-default" disabled="disabled" th:id="${videoVo.video.id}+'click'" th:value="${videoVo.video.id}+'click'">
+                        <button class="btn btn-default" disabled="disabled" th:id="${videoVo.video.id}+'click'"
+                                th:value="${videoVo.video.id}+'click'">
                             <span aria-hidden="true" class="glyphicon glyphicon-eye-open"></span>
                             <span th:text="${videoVo.clickCount}"></span>
                         </button>
                     </div>
                     <div class="clearfloat"></div>
-                    <p class="text-justify" th:if="${videoVo.video.intro} != ''" th:text="${#strings.substring(videoVo.video.intro,0,videoVo.video.intro.length()/2)+'...'}"></p>
+                    <p class="text-justify" th:if="${videoVo.video.intro} != ''"
+                       th:text="${#strings.substring(videoVo.video.intro,0,videoVo.video.intro.length()/2)+'...'}"></p>
                     <hr/>
                 </li>
             </ul>
@@ -103,39 +113,35 @@
             <!-- 当前专业时同类专业中最后一个时显示 -->
             <a class="btn btn-warning btn-next" th:href="@{'/majors/'+${currentSubject.id}(page=1, size=8)}"
                th:if="${nextId} eq 0">已经没有啦，看看其它专业</a>
+            <a class="btn btn-info btn-next" th:href="@{/contribute}">我也要投稿</a>
         </div>
         <hr>
         <!-- 评论 -->
         <div class="col-xs-12 col-sm-12 col-md-12 col-lg-12 common">
-            <div class="comment_head">
-                <h3 class="text-center">评论区功能正在开发</h3>
-                <!--<span class="comment_count">21</span>
-                <span>评论</span>-->
+            <div>
+                <span class="comment_count" th:text="${commentsCount}"></span>
+                <span>条评论</span>
             </div>
-            <!--<div class="comment">
-                <div class="reply-notice"></div>
-                <div class="comment-header">
-                    <div class="tabs-order">
-                        <ul class="head_ul">
-                            <li class="default-sort" data-sort="0" style="display: none;">全部评论</li>
-                            <li class="hot-sort on" data-sort="2">按热度排序</li>
-                            <li class="new-sort" data-sort="0" style="display: list-item;">按时间排序</li>
-                        </ul>
-                    </div>
-                    <div class="header-page paging-box"></div>
-                </div>
-
-                <div class="comment-send no-login">
-                    <div class="user-face">
-&lt;!&ndash;                        <img class="user-head" src="//static.hdslb.com/images/member/noface.gif">&ndash;&gt;
-                    </div>
-                    <div class="textarea-container">
-                        <div class="baffle-wrap">
-                            <div class="baffle">请先<a class="b-btn btn-open-mini-Login">登录</a>后发表评论 (・ω・)</div>
-                        </div>
-                    </div>
-                </div>
-            </div>-->
+            <br>
+            <div>
+                <form class="form-horizontal" id="comment-form">
+                    <input hidden="hidden" id="majorDetailId" name="majorDetailId" th:value="${detailVo.detail.id}"/>
+                    <textarea class="form-control" id="content" name="content" required rows="5"></textarea>
+                    <br>
+                    <button class="btn btn-primary btn-block" th:onclick="comment()" type="button">提交评论</button>
+                </form>
+                <br>
+                <ul class="comment_ul">
+                    <li class="comment_li" th:each="comment : ${comments}">
+                        <span class="comment_content" th:text="${comment.content}"></span>
+                        <span th:text="${comment.time}"></span>
+                        <button class="btn btn-default btn-up" th:disabled="${comment.isUp}" th:onclick="comment_up([[${comment.id}]])">
+                            <span aria-hidden="true" class="glyphicon glyphicon-thumbs-up"></span>
+                        </button>
+                        <span th:text="${comment.upCount}"></span>
+                    </li>
+                </ul>
+            </div>
         </div>
     </div>
 </div>

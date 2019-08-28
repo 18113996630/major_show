@@ -136,138 +136,13 @@
     margin: 2em 0;
     font-weight: normal;
 }
-
 /* 按钮文字过多时按钮自动换行 */
 /*.major_btn{*/
 /*    word-wrap: break-word !important;*/
 /*    word-break: break-all !important;*/
 /*    white-space: normal !important;*/
 /*}*/
-.common {
-    margin-top: 1.5em;
-    position: relative;
-}
 
-.comment_head {
-    font-size: 1.3em;
-    line-height: 1.5em;
-    color: #222;
-    margin: 0 0 1.2em;
-}
-
-.comment_count {
-    margin-right: 0.6em;
-}
-
-.comment {
-    position: relative;
-    font-size: 1.2em;
-    min-height: 6em;
-    background: #fff;
-}
-
-.reply-notice {
-    margin-bottom: 2em;
-}
-
-.comment-header {
-    padding: 0;
-    margin: 0 0 1.4em;
-    border-bottom: 1px solid #e5e9ef;
-}
-
-.tabs-order {
-    float: left;
-    margin-bottom: -1px;
-    padding: 0;
-    border: 0;
-    font-size: 100%;
-    vertical-align: baseline;
-}
-
-.head_ul {
-    margin: 0;
-    padding: 0;
-    list-style: none;
-    outline: none;
-    font-size: 100%;
-}
-
-.head_ul li {
-    border-radius: 0;
-    margin-right: 1em;
-    border-bottom: 1px solid transparent;
-    position: relative;
-    float: left;
-    line-height: 1.3em;
-    height: 1.3em;
-    font-size: 1em;
-    font-weight: bolder;
-}
-
-.on {
-    border-bottom: 1px solid #00a1d6;
-    color: #00a1d6;
-}
-
-.header-page {
-    float: right;
-    line-height: 36px;
-}
-
-.paging-box {
-    font-size: 12px;
-}
-
-.bb-comment .no-login {
-    position: relative;
-    margin: 2em 0;
-}
-
-.user-face {
-    float: left;
-    margin: 7px 0 0 5px;
-    position: relative;
-}
-
-.user-head {
-    width: 48px;
-    height: 48px;
-    border-radius: 50%;
-}
-
-.textarea-container {
-    margin-left: 85px;
-    margin-right: 80px;
-}
-
-.bb-comment {
-    position: relative;
-    margin-left: 85px;
-    margin-right: 80px;
-}
-
-.baffle {
-    display: block;
-    z-index: 102;
-    width: 100%;
-    top: 0;
-    line-height: 64px;
-    font-size: 12px;
-    border-radius: 4px;
-    text-align: center;
-    color: #777;
-    background-color: #e5e9ef;
-    overflow: hidden;
-}
-
-.b-btn {
-    padding: 4px 9px;
-    margin: 0 3px;
-    color: #fff;
-    background-color: #00a1d6;
-    border-radius: 4px;
-}
 
 .video_feedback {
     float: left;
@@ -281,9 +156,23 @@
     background: none;
     border: 0;
 }
-/*.btn-up{*/
-/*    color: red;*/
-/*}*/
-/*.btn-down{*/
-/*    color: dimgray;*/
-/*}*/
+.comment_ul {
+    padding: 0;
+    margin-top: 1em;
+}
+.btn-up {
+    color: red;
+}
+.comment_li{
+    list-style: none;
+    margin-bottom: 1.5em;
+}
+.comment_content {
+    font-size: 1.4em;
+    margin-right: 1.5em;
+}
+.comment_li button{
+    /*width: 10%;*/
+    /*float: right;*/
+    border: none;
+}

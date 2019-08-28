@@ -175,6 +175,7 @@ function validateInput(data) {
     }
 }
 
+
 function formSerializeJson(formId) {
     var obj = {};
     var serializeJson = $("#" + formId).serializeArray();
