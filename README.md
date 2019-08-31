@@ -146,6 +146,21 @@ springboot+mybatis-plus
 
 1. **进行WebMvcConfigurer配置，增加静态资源目录(磁盘中指定的目录)**
 
+   ```java
+   @Override
+   public void addResourceHandlers(ResourceHandlerRegistry registry) {
+       log.info("添加静态封面资源路径:{}", coverPath);
+       log.info("添加静态头像资源路径:{}", facePath);
+       registry.addResourceHandler("/static/**").addResourceLocations("classpath:/static/");
+       //访问路径：http://localhost:8081/cover/1c8e2b974c543582117948b670375434d8001abd.jpg
+       //addResourceHandler填:/cover/**，addResourceLocations填本地路径：file:E:/workspace/java/cover/
+       registry.addResourceHandler("/cover/**").addResourceLocations(coverPath);
+       registry.addResourceHandler("/face/**").addResourceLocations(facePath);
+   }
+   ```
+
+   
+
 2. **修改详情页布局**
    1. 将视频时长放至封面右下角
    2. 增加详情翻页
@@ -155,8 +170,8 @@ springboot+mybatis-plus
 
 1. **爬取专业详情数据(文字)并分析入库**
 2. **增加后台管理页面**
-   1. 编写登录界面
-   2. 编写拦截器，进行身份验证
+   1. **编写登录界面**
+   2. **编写拦截器，进行身份验证**
 
 #### 20190820
 
