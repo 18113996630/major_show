@@ -72,9 +72,10 @@
                             <strong th:class="text-danger" th:text="${videoVo.video.sourceName}"></strong>
                         </div>
                         <div class="col-xs-12 col-lg-6 col-md-6">
-                            <span class="text-justify" th:text="${dVAuthor}">视频提供者：</span>
-                            <strong th:class="text-danger"> <a target="_blank" th:href="${videoVo.video.upPage}"
-                                                               th:text="${videoVo.video.upName}"></a> </strong>
+                            <span class="text-justify">视频提供者：</span>
+                            <strong th:class="text-danger" th:text="${dVAuthor}">
+                                <a target="_blank" th:href="${videoVo.video.upPage}" th:text="${videoVo.video.upName}"></a>
+                            </strong>
                         </div>
                     </div>
                     <a target="_blank" th:class="cover_a" th:href="${videoVo.video.url}"
