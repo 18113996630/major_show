@@ -10,6 +10,6 @@
     <script th:src="@{/layer/layer.js}"></script>
     <th:block th:replace="${script}"/>
     <hr>
-    <p>&copy; 2016 Company, Inc.</p>
+    <p th:text="${conf.footer}">&copy; 2016 Company, Inc.</p>
 </div>
 </html>

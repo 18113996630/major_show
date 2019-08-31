@@ -1,6 +1,6 @@
 package com.hrong.major.conf;
 
-import com.hrong.major.interceptor.LoginInterceptor;
+import com.hrong.major.interceptor.MajorInterceptor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.context.annotation.Bean;
@@ -22,15 +22,15 @@ public class WebConf implements WebMvcConfigurer {
 	private String facePath;
 
 	@Bean
-	public LoginInterceptor interceptorConfig() {
-		return new LoginInterceptor();
+	public MajorInterceptor interceptorConfig() {
+		return new MajorInterceptor();
 	}
 
 	@Override
 	public void addInterceptors(InterceptorRegistry registry) {
 		InterceptorRegistration interceptor = registry.addInterceptor(interceptorConfig());
 		// 拦截配置
-		interceptor.addPathPatterns("/**/admin/**");
+		interceptor.addPathPatterns("/**");
 		// 排除配置
 		interceptor.excludePathPatterns("/**/admin/login/**");
 		interceptor.excludePathPatterns("/**/admin/css/**");

@@ -29,7 +29,7 @@
                 </div>
             </div>
             <div class="form-group">
-                <label class="col-sm-2 control-label" for="up_name">B站账号</label>
+                <label class="col-sm-2 control-label" for="up_name">B站账号(视频所在网站账号)</label>
                 <div class="col-sm-10">
                     <input class="form-control" id="up_name" placeholder="" required th:field="*{upName}" type="text">
                 </div>
@@ -41,6 +41,12 @@
                         <option value="">请选择所属专业</option>
                         <option th:each="major:${majors}" th:text="${major.name}" th:value="${major.id}"></option>
                     </select>
+                </div>
+            </div>
+            <div class="form-group">
+                <label class="col-sm-2 control-label" for="upContact">联系方式(qq或者微信)</label>
+                <div class="col-sm-10">
+                    <input class="form-control" id="upContact" placeholder="如果信息有误，方便我联系您更正信息哟~不会泄露您的联系方式" required th:field="*{upContact}" type="text">
                 </div>
             </div>
             <div class="form-group">

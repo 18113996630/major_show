@@ -1,0 +1,41 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.hrong.major.dao.ConfigurationMapper">
+
+    <!-- 通用查询映射结果 -->
+    <resultMap id="BaseResultMap" type="com.hrong.major.model.Configuration">
+        <result column="id" property="id" />
+        <result column="web_name" property="webName" />
+        <result column="head_subject" property="headSubject" />
+        <result column="head_major" property="headMajor" />
+        <result column="head_top" property="headTop" />
+        <result column="head_about" property="headAbout" />
+        <result column="head_contact" property="headContact" />
+        <result column="head_contribute" property="headContribute" />
+        <result column="footer" property="footer" />
+        <result column="d_desc" property="dDesc" />
+        <result column="d_course" property="dCourse" />
+        <result column="d_job" property="dJob" />
+        <result column="d_btn_find" property="dBtnFind" />
+        <result column="d_splitor" property="dSplitor" />
+        <result column="d_v_time" property="dVTime" />
+        <result column="d_v_auth" property="dVAuth" />
+        <result column="d_v_source" property="dVSource" />
+        <result column="d_v_author" property="dVAuthor" />
+        <result column="d_v_how" property="dVHow" />
+        <result column="d_btn_top" property="dBtnTop" />
+        <result column="d_btn_next" property="dBtnNext" />
+        <result column="d_btn_other" property="dBtnOther" />
+        <result column="d_btn_contribute" property="dBtnContribute" />
+        <result column="d_btn_last" property="dBtnLast" />
+        <result column="d_btn_comment" property="dBtnComment" />
+        <result column="h_a_title" property="hATitle" />
+        <result column="h_a_p1" property="hAP1" />
+        <result column="h_a_c1" property="hAC1" />
+        <result column="h_a_p2" property="hAP2" />
+        <result column="h_a_c2" property="hAC2" />
+        <result column="h_a_btn" property="hABtn" />
+        <result column="h_c_content" property="hCContent" />
+    </resultMap>
+
+</mapper>

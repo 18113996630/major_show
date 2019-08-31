@@ -14,7 +14,7 @@ public class Constant {
 	/**
 	 * 登录请求mapping
 	 */
-	public static final String LOGIN_REQUEST = "admin/login/login";
+	public static final String LOGIN_REQUEST = "admin/login";
 	public static final String KEY = "Hrong";
 	public static final String REQUEST_TYPE = "XMLHttpRequest";
 	public static final String COOKIE = "Authorization";

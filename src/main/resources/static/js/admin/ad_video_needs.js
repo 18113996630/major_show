@@ -1,6 +1,6 @@
-table = $('#log_table');
+table = $('#video_needs_table');
 table.bootstrapTable({
-    url: "/admin/logs", // 获取表格数据的url
+    url: "/admin/video/needsInfo", // 获取表格数据的url
     method: 'get',
     contentType: "application/x-www-form-urlencoded",
     cache: false, // 设置为 false 禁用 AJAX 数据缓存， 默认为true
@@ -11,7 +11,7 @@ table.bootstrapTable({
     buttonsAlign: 'right',//按钮对齐方式
     toolbar: '#toolbar',//指定工作栏
     pagination: true,     //是否显示分页（*）
-    sortable: false,      //是否启用排序
+    sortable: true,      //是否启用排序
     sortOrder: "asc",     //排序方式
     pageNumber: 1,      //初始化加载第一页，默认第一页
     pageSize: 10,      //每页的记录行数（*）
@@ -23,14 +23,13 @@ table.bootstrapTable({
         return {//如果是在服务器端实现分页，limit、offset这两个参数是必须的
             pageSize: params.limit, // 每页显示数量
             pageNumber: (params.offset / params.limit) + 1, //当前页码
-            ip: '%' + $('#ip').val() + '%',
-            resource: '%' + $('#resource-type').val() + '%'
+            upName: '%' + $('#up-name').val() + '%'
         };
     },
     columns: [
-        // {
-        //     checkbox: true
-        // },
+        {
+            checkbox: true
+        },
         {
             title: '序号', // 表格表头显示文字
             align: 'center',
@@ -40,14 +39,20 @@ table.bootstrapTable({
             }
         },
         {
-            title: 'ip',
-            field: 'ip',
+            title: '专业名称',
+            field: 'majorName',
             align: 'center',
             valign: 'middle'
         },
         {
-            title: '访问地址',
-            field: 'url',
+            title: '需求数量',
+            field: 'count',
+            align: 'center',
+            valign: 'middle'
+        },
+        {
+            title: 'ip',
+            field: 'ip',
             align: 'center',
             valign: 'middle'
         },
@@ -58,38 +63,36 @@ table.bootstrapTable({
             valign: 'middle'
         },
         {
-            title: 'URI',
-            field: 'uri',
-            align: 'center',
-            valign: 'middle'
-        },
-        {
-            title: '资源类型',
-            field: 'resourceType',
-            align: 'center',
-            valign: 'middle'
-        },
-        {
-            title: '访问时间',
+            title: '请求时间',
             field: 'time',
             align: 'center',
             valign: 'middle'
         },
         {
-            title: '耗费时间',
-            field: 'executeTime',
+            title: '操作',
+            field: 'url',
             align: 'center',
-            valign: 'middle'
-        },
-        {
-            title: 'user-agent',
-            field: 'browser',
-            align: 'center',
-            valign: 'middle'
+            valign: 'middle',
+            formatter: function (value, row, index) {
+                return '<button class="btn btn-primary btn-sm" onclick="fix(\'' + row.id + '\')">解决</button> '
+
+            }
         }
     ],
     locale: 'zh-CN'//中文支持
 });
-function searchLogs() {
-    table.bootstrapTable('refresh', {url: '/admin/logs'});
+
+function fix(id) {
+    $.ajax({
+        url: "/admin/video/need/" + id,
+        type: "POST",
+        // 成功后开启模态框
+        success: function (result) {
+            layer.msg(result.message);
+            table.bootstrapTable('refresh');
+        },
+        error: function (error) {
+            alert(error);
+        }
+    });
 }

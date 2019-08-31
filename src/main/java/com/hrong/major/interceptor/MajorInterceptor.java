@@ -1,5 +1,6 @@
 package com.hrong.major.interceptor;
 
+import com.hrong.major.constant.CacheConstant;
 import com.hrong.major.constant.Constant;
 import com.hrong.major.model.vo.UserVo;
 import com.hrong.major.utils.CookieUtils;
@@ -23,7 +24,7 @@ import static com.hrong.major.constant.Constant.REQUEST_TYPE;
  **/
 @Slf4j
 @Configuration
-public class LoginInterceptor implements HandlerInterceptor {
+public class MajorInterceptor implements HandlerInterceptor {
 	@Override
 	public boolean preHandle(HttpServletRequest request, HttpServletResponse response, Object handler) throws Exception {
 		if (handler instanceof HandlerMethod) {
@@ -62,10 +63,13 @@ public class LoginInterceptor implements HandlerInterceptor {
 
 	@Override
 	public void postHandle(HttpServletRequest request, HttpServletResponse response, Object handler, ModelAndView modelAndView) throws Exception {
-		if (modelAndView != null && modelAndView.getViewName() != null) {
-			String view = modelAndView.getViewName();
-			if (view.contains(Constant.LOGIN_REQUEST)) {
-				modelAndView.addObject("user", new UserVo());
+		if (modelAndView != null) {
+			modelAndView.addObject("conf", CacheConstant.conf);
+			if (modelAndView.getViewName() != null) {
+				String view = modelAndView.getViewName();
+				if (view.contains(Constant.LOGIN_REQUEST)) {
+					modelAndView.addObject("user", new UserVo());
+				}
 			}
 		}
 	}

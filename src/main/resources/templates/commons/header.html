@@ -28,16 +28,16 @@
                 <span class="icon-bar"></span>
                 <span class="icon-bar"></span>
             </button>
-            <a class="navbar-brand" th:href="@{/}">Subject Show</a>
+            <a class="navbar-brand" th:href="@{/}" th:text="${conf.webName}">Subject Show</a>
         </div>
         <div id="navbar" class="collapse navbar-collapse">
             <ul class="nav navbar-nav">
-                <li><a th:href="@{/}">专业类别</a></li>
-                <li><a th:href="@{'/majors/1'(page=1, size=8)}">专业</a></li>
-                <li><a th:href="@{/top}">视频贡献排行榜</a></li>
-                <li><a th:href="@{/about}">关于我</a></li>
-                <li><a th:href="@{/contact}">联系我</a></li>
-                <li><a th:href="@{/contribute}">我要投稿</a></li>
+                <li><a th:href="@{/}" th:text="${conf.headSubject}">专业类别</a></li>
+                <li><a th:href="@{'/majors/1'(page=1, size=8)}" th:text="${conf.headMajor}">专业</a></li>
+                <li><a th:href="@{/top}" th:text="${conf.headTop}">视频贡献排行榜</a></li>
+                <li><a th:href="@{/about}" th:text="${conf.headAbout}">关于我</a></li>
+                <li><a th:href="@{/contact}" th:text="${conf.headContact}">联系我</a></li>
+                <li><a th:href="@{/contribute}" th:text="${conf.headContribute}">我要投稿</a></li>
             </ul>
         </div>
     </div>

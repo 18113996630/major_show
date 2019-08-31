@@ -9,6 +9,8 @@
         <result column="count" property="count" />
         <result column="ip" property="ip" />
         <result column="time" property="time" />
+        <result column="status" property="status" />
+        <result column="address" property="address" />
     </resultMap>
 
 </mapper>

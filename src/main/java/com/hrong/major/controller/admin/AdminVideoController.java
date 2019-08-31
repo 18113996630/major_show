@@ -5,10 +5,13 @@ import com.baomidou.mybatisplus.core.conditions.update.UpdateWrapper;
 import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
 import com.hrong.major.model.MajorDetail;
 import com.hrong.major.model.Video;
+import com.hrong.major.model.VideoNeeds;
 import com.hrong.major.model.vo.Author;
 import com.hrong.major.model.vo.Result;
+import com.hrong.major.model.vo.VideoNeedsVo;
 import com.hrong.major.model.vo.VideoVoWithMajorName;
 import com.hrong.major.service.MajorDetailService;
+import com.hrong.major.service.VideoNeedsService;
 import com.hrong.major.service.VideoService;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Controller;
@@ -39,7 +42,8 @@ public class AdminVideoController {
 	private VideoService videoService;
 	@Resource
 	private MajorDetailService majorDetailService;
-
+	@Resource
+	private VideoNeedsService videoNeedsService;
 	/**
 	 * 表格初始化
 	 */
@@ -125,4 +129,25 @@ public class AdminVideoController {
 		res.put("rows", videos);
 		return res;
 	}
+	@ResponseBody
+	@GetMapping(value = "/video/needsInfo")
+	public Object videoNeedsInfo(int pageNumber, int pageSize) {
+		Map<String, Object> res = new HashMap<>(2);
+		List<VideoNeedsVo> videoNeeds = videoNeedsService.findVideoNeeds(new Page(pageNumber, pageSize));
+		int total = videoNeedsService.count(new QueryWrapper<VideoNeeds>().eq("status", 0));
+		res.put("total", total);
+		res.put("rows", videoNeeds);
+		return res;
+	}
+
+
+	@ResponseBody
+	@PostMapping(value = "/video/need/{id}")
+	public Object fixVideoNeedsInfo(@PathVariable int id) {
+		VideoNeeds videoNeeds = videoNeedsService.getById(id);
+		videoNeedsService.update(new UpdateWrapper<VideoNeeds>().eq("major_id", videoNeeds.getMajorId()).set("status", 1));
+		return Result.success("success");
+	}
+
+
 }

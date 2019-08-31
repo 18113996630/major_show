@@ -10,7 +10,6 @@ import lombok.EqualsAndHashCode;
 import lombok.experimental.Accessors;
 
 import java.io.Serializable;
-import java.time.LocalDateTime;
 
 /**
  * <p>
@@ -45,12 +44,12 @@ public class VideoNeeds implements Serializable {
      * ip
      */
     private String ip;
+    private String address;
 
     /**
      * 请求时间
      */
     @TableField(fill = FieldFill.INSERT)
-    private LocalDateTime time;
-
-
+    private String time;
+    private Integer status;
 }

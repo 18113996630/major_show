@@ -1,0 +1,19 @@
+<!DOCTYPE html>
+<html lang="en" layout:decorate="~{admin/layouts/layout}"
+      xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+      xmlns:th="http://www.thymeleaf.org" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+      xsi:schemaLocation="http://www.ultraq.net.nz/thymeleaf/layout ">
+<body>
+<div layout:fragment="content">
+    <div class="table-responsive">
+        <table class="table table-striped" id="video_needs_table"></table>
+    </div>
+    <!-- 额外引入js -->
+    <footer>
+        <div th:replace="admin/commons/footer :: footer(~{::script})">
+            <script th:src="@{/js/admin/ad_video_needs.js}"></script>
+        </div>
+    </footer>
+</div>
+</body>
+</html>

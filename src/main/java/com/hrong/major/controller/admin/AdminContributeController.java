@@ -2,7 +2,6 @@ package com.hrong.major.controller.admin;
 
 import com.baomidou.mybatisplus.core.conditions.query.QueryWrapper;
 import com.hrong.major.model.Video;
-import com.hrong.major.service.MajorDetailService;
 import com.hrong.major.service.VideoService;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Controller;
@@ -25,8 +24,6 @@ public class AdminContributeController {
 
 	@Resource
 	private VideoService videoService;
-	@Resource
-	private MajorDetailService majorDetailService;
 
 	/**
 	 * 表格初始化

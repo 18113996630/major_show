@@ -96,6 +96,12 @@ table.bootstrapTable({
             valign: 'middle'
         },
         {
+            title: '联系方式',
+            field: 'upContact',
+            align: 'center',
+            valign: 'middle'
+        },
+        {
             title: '是否授权',
             field: 'isAuth',
             align: 'center',

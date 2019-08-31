@@ -10,14 +10,14 @@
 <div>
     <div class="container">
         <div class="welcome_info">
-            <h2 class="text-center">欢迎第一次来到 <strong class="welcome_website">Subject Show</strong></h2>
-            <h3 class="welcome_title">做这个网站有什么目的</h3>
+            <h2 class="text-center" th:text="${conf.hATitle}">欢迎第一次来到 <strong class="welcome_website" th:text="${conf.webName}">Subject Show</strong></h2>
+            <h3 class="welcome_title" th:text="${conf.hAP1}">做这个网站有什么目的</h3>
             <p class="text-justify">
                 创建这个网站的目的是为了让大家更加了解大学的各个专业。<br>
                 对于还没有上大学的同学们，最好对各个专业有个大概的认知，不然等到自己填志愿的时候...我该选什么专业？这个专业是做什么的，听起来很厉害的样子？<br>
                 对于正在上大学的同学们，能提前了解到所学专业需要掌握哪些知识技能，毕业以后是做什么工作的就最好不过啦~
             </p>
-            <h3 class="welcome_title">为什么要做这个网站</h3>
+            <h3 class="welcome_title" th:text="${conf.hAP2}">为什么要做这个网站</h3>
             <p class="text-justify">
                 我是一个土木工程专业的程序猿。<br>
                 高考的时候为了毕业好找工作选了土木工程这个专业，大学期间没有仔细了解毕业后可能会做的工作，导致毕业后在工地待了两个月因为自己不适合这个工作就提出了离职。<br>
@@ -33,7 +33,7 @@
                 <strong>哔哩哔哩</strong>
                 (一个大型学习网站)，感谢各大up主提供的视频支持，也欢迎大家投稿！
             </p>
-            <p><a th:href="@{/}"><button class="btn btn-group-lg btn-success" style="width: 100%">开始浏览</button></a></p>
+            <p><a th:href="@{/}"><button class="btn btn-group-lg btn-success" style="width: 100%" th:text="${conf.hABtn}">开始浏览</button></a></p>
         </div>
     </div>
 </div>

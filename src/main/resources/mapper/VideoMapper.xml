@@ -19,6 +19,7 @@
         <result column="up_page" property="upPage"/>
         <result column="up_name" property="upName"/>
         <result column="up_face" property="upFace"/>
+        <result column="up_contact" property="upContact"/>
         <result column="face_name" property="faceName"/>
         <result column="is_auth" property="isAuth"/>
         <result column="major_id" property="majorId"/>
@@ -28,10 +29,8 @@
         <result column="deleted" property="deleted"/>
     </resultMap>
     <select id="findAllAuthors" resultType="com.hrong.major.model.vo.Author">
-        select t.*, a.titles
+        select *
         from vw_video_up t
-                 left join (SELECT up_name, GROUP_CONCAT(title) titles FROM video t GROUP BY t.up_name) a
-                           on t.upName = a.up_name
         where 1 =1
         <if test="upName != null and upName != ''">
             and t.upName like #{upName}
@@ -40,8 +39,6 @@
     <select id="countAllAuthors" resultType="int">
         select count(1)
         from vw_video_up t
-        left join (SELECT up_name, GROUP_CONCAT(title) titles FROM video t GROUP BY t.up_name) a
-        on t.upName = a.up_name
         where 1 =1
         <if test="upName != null and upName != ''">
             and t.upName like #{upName}

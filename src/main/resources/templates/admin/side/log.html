@@ -5,6 +5,12 @@
       xsi:schemaLocation="http://www.ultraq.net.nz/thymeleaf/layout ">
 <body>
 <div layout:fragment="content">
+    <div>
+        <span style="font-size: 1.5em">今日访问量:</span>
+        <span class="text-danger" style="font-size: 2em;font-weight: bolder" th:text="${todayCount}"></span>
+        <span style="font-size: 1.5em;margin-left: 2em">今日用户量:</span>
+        <span class="text-danger" style="font-size: 2em;font-weight: bolder" th:text="${todayUser}"></span>
+    </div>
     <div class="form-inline text-center">
         <select class="form-control" id="resource-type">
             <option value="">全部</option>

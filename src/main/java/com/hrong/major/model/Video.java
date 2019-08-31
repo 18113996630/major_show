@@ -127,6 +127,6 @@ public class Video implements Serializable {
      * 0为删除，1删除
      */
     private Integer deleted;
-
+    private String upContact;
 
 }

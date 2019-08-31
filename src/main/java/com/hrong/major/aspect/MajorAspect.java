@@ -6,6 +6,7 @@ import com.hrong.major.annotation.ClickLog;
 import com.hrong.major.model.ClickType;
 import com.hrong.major.model.Log;
 import com.hrong.major.service.LogService;
+import com.hrong.major.utils.IpUtils;
 import com.hrong.major.utils.RequestUtils;
 import lombok.extern.slf4j.Slf4j;
 import org.aspectj.lang.ProceedingJoinPoint;
@@ -21,7 +22,6 @@ import org.springframework.web.context.request.ServletRequestAttributes;
 import javax.annotation.Resource;
 import javax.servlet.http.HttpServletRequest;
 import java.time.LocalDateTime;
-import java.util.Date;
 import java.util.Objects;
 import java.util.concurrent.LinkedBlockingQueue;
 import java.util.concurrent.RejectedExecutionHandler;
@@ -100,8 +100,15 @@ public class MajorAspect {
 			Object response = joinPoint.proceed();
 			long endTime = System.currentTimeMillis();
 			long executeTime = endTime - startTime;
-			Log logInfo = new Log(null, resourceType, requestAddress, ipAddress, userAgent, systemName, systemVersion, systemBit, httpVersion, encoding, cookie, url, uri, String.valueOf(clientPort), method, params, LocalDateTime.now(), Math.toIntExact(executeTime));
-			executor.execute(() -> logService.save(logInfo));
+			String finalResourceType = resourceType;
+			executor.execute(() -> {
+				String address = IpUtils.getCity(ipAddress);
+				Log logInfo = new Log(null, finalResourceType, requestAddress, ipAddress, userAgent, systemName,
+						systemVersion, systemBit, httpVersion, encoding, cookie, url, uri,
+						String.valueOf(clientPort), method, params, LocalDateTime.now(),
+						Math.toIntExact(executeTime), address);
+				logService.save(logInfo);
+			});
 			return response;
 		} catch (Exception e) {
 			e.printStackTrace();
@@ -122,10 +129,5 @@ public class MajorAspect {
 			log.warn("【当前并发较高，超过200/s,使用备用线程保存日志数据，请优化线程池参数】");
 			rejectExecutor.execute(r);
 		}
-	}
-
-	private Date getExpiration() {
-		long time = 24 * 60 * 60 * 1000L;
-		return new Date(System.currentTimeMillis() + time);
 	}
 }

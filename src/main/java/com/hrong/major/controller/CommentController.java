@@ -2,6 +2,8 @@ package com.hrong.major.controller;
 
 
 import com.baomidou.mybatisplus.core.conditions.query.QueryWrapper;
+import com.hrong.major.annotation.ClickLog;
+import com.hrong.major.model.ClickType;
 import com.hrong.major.model.Comment;
 import com.hrong.major.model.CommentFeedback;
 import com.hrong.major.model.vo.Result;
@@ -34,6 +36,7 @@ public class CommentController {
 
 	@ResponseBody
 	@PostMapping(value = "/comment")
+	@ClickLog(type = ClickType.comment)
 	public Object addComment(HttpServletRequest request,@RequestBody Comment comment) {
 		String ip = RequestUtils.getIpAddress(request);
 		int count = commentService.count(new QueryWrapper<Comment>().eq("major_detail_id", comment.getMajorDetailId()).eq("ip", ip));
@@ -53,6 +56,7 @@ public class CommentController {
 
 	@ResponseBody
 	@PostMapping(value = "/comment/{id}")
+	@ClickLog(type = ClickType.comment_up)
 	public Object commentUp(HttpServletRequest request, @PathVariable int id) {
 		String ip = RequestUtils.getIpAddress(request);
 		int upCount = feedbackService.count(new QueryWrapper<CommentFeedback>().eq("comment_id", id).eq("ip", ip));

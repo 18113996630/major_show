@@ -40,30 +40,39 @@
             <p class="text-center text-danger text-nowrap" th:if="${detailVo.videos.size() gt 0}"
                th:text="视频在文字下方哦"></p>
             <br/>
-            <p><strong th:class="text-info" th:text="专业描述"></strong></p> &nbsp;&nbsp;
+            <p><strong th:class="text-info" th:text="${conf.dDesc}">专业描述</strong></p> &nbsp;&nbsp;
             <p class="text-justify major_info" th:text="${detailVo.detail.description}"></p>
             <hr/>
-            <p><strong th:class="text-info" th:text="核心课程"></strong></p> &nbsp;&nbsp;
+            <p><strong th:class="text-info" th:text="${conf.dCourse}">核心课程</strong></p> &nbsp;&nbsp;
             <p class="text-justify major_info" th:text="${detailVo.detail.course}"></p>
 
             <hr/>
-            <p><strong th:class="text-info" th:text="就业方向"></strong></p> &nbsp;&nbsp;
+            <p><strong th:class="text-info" th:text="${conf.dJob}">就业方向</strong></p> &nbsp;&nbsp;
             <p class="text-justify major_info" th:text="${detailVo.detail.job}"></p>
             <!-- 该专业的视频信息 -->
             <button class="btn btn-success btn-video-need" th:if="${detailVo.videos.isEmpty()}"
-                    th:onclick="video_need([[${detailVo.detail.id}]])" th:text="点我帮你找视频"></button>
-            <h2 class="content_split" th:if="${detailVo.videos.size() gt 0}" th:text="相关视频"></h2>
+                    th:onclick="video_need([[${detailVo.detail.id}]])" th:text="${conf.dBtnFind}">点我帮你找视频</button>
+            <h2 class="content_split" th:if="${detailVo.videos.size() gt 0}" th:text="${conf.dSplitor}">相关视频</h2>
             <ul class="video_ul" th:each="videoVo:${detailVo.videos}">
                 <li class="small_item"><a target="_blank" th:class="title" th:href="${videoVo.video.url}"
-                                          th:text="${videoVo.video.title}"></a><br/> <span
-                        th:text="'发布时间：'+${videoVo.video.pubtime}"></span>
+                                          th:text="${videoVo.video.title}"></a><br/>
                     <div class="row video_info">
                         <div class="col-xs-12 col-lg-6 col-md-6">
-                            <span class="text-justify">视频来源：</span>
+                            <span class="text-justify" th:text="${conf.dVTime}">发布时间：</span>
+                            <span class="text-warning" th:text="${videoVo.video.pubtime}"></span>
+                        </div>
+                        <div class="col-xs-12 col-lg-6 col-md-6">
+                            <span  class="text-justify" th:text="${conf.dVAuth}">是否取得授权：</span>
+                            <span class="text-danger" style="font-weight: bolder" th:text="${videoVo.video.isAuth == 1 ? '是':'正在联系作者'}"></span>
+                        </div>
+                    </div>
+                    <div class="row video_info">
+                        <div class="col-xs-12 col-lg-6 col-md-6">
+                            <span class="text-justify" th:text="${conf.dVSource}">视频来源：</span>
                             <strong th:class="text-danger" th:text="${videoVo.video.sourceName}"></strong>
                         </div>
                         <div class="col-xs-12 col-lg-6 col-md-6">
-                            <span class="text-justify">视频提供者：</span>
+                            <span class="text-justify" th:text="${dVAuthor}">视频提供者：</span>
                             <strong th:class="text-danger"> <a target="_blank" th:href="${videoVo.video.upPage}"
                                                                th:text="${videoVo.video.upName}"></a> </strong>
                         </div>
@@ -77,7 +86,7 @@
                     <hr>
                     <!-- 视频反馈 -->
                     <div class="video_feedback">
-                        <span class="text-info" th:text="这个视频怎么样+'?'"></span>
+                        <span class="text-info" th:text="${conf.dVHow}">这个视频怎么样?</span>
                         <button class="btn btn-default btn-up" th:disabled="${videoVo.isUpped}"
                                 th:id="${videoVo.video.id}+'up'"
                                 th:onclick="video_up([[${videoVo.video.id}]], [[${videoVo.upCount}]])"
@@ -104,16 +113,16 @@
                     <hr/>
                 </li>
             </ul>
-            <button class="btn btn-success btn-next" id="go_top_btn">回到顶部</button>
+            <button class="btn btn-success btn-next" id="go_top_btn" th:text="${conf.dBtnTop}">回到顶部</button>
             <!-- 后面还有同类专业时显示 -->
             <a class="btn btn-primary btn-next" th:href="@{'/major/info/'+${nextId}}"
-               th:if="${nextId} gt 0">查看下一个专业介绍</a>
+               th:if="${nextId} gt 0" th:text="${conf.dBtnNext}">查看下一个专业介绍</a>
             <a class="btn btn-warning btn-next" th:href="@{'/majors/'+${currentSubject.id}(page=1, size=8)}"
-               th:if="${nextId} gt 0">看看其它专业</a>
+               th:if="${nextId} gt 0" th:text="${conf.dBtnOther}">看看其它专业</a>
             <!-- 当前专业时同类专业中最后一个时显示 -->
             <a class="btn btn-warning btn-next" th:href="@{'/majors/'+${currentSubject.id}(page=1, size=8)}"
-               th:if="${nextId} eq 0">已经没有啦，看看其它专业</a>
-            <a class="btn btn-info btn-next" th:href="@{/contribute}">我也要投稿</a>
+               th:if="${nextId} eq 0" th:text="${conf.dBtnLast}">已经没有啦，看看其它专业</a>
+            <a class="btn btn-info btn-next" th:href="@{/contribute}" th:text="${conf.dBtnContribute}">我也要投稿</a>
         </div>
         <hr>
         <!-- 评论 -->
@@ -128,7 +137,7 @@
                     <input hidden="hidden" id="majorDetailId" name="majorDetailId" th:value="${detailVo.detail.id}"/>
                     <textarea class="form-control" id="content" name="content" required rows="5"></textarea>
                     <br>
-                    <button class="btn btn-primary btn-block" th:onclick="comment()" type="button">提交评论</button>
+                    <button class="btn btn-primary btn-block" th:onclick="comment()" th:text="${conf.dBtnComment}" type="button">提交评论</button>
                 </form>
                 <br>
                 <ul class="comment_ul">

@@ -7,6 +7,7 @@ import com.hrong.major.model.ClickType;
 import com.hrong.major.model.VideoNeeds;
 import com.hrong.major.model.vo.Result;
 import com.hrong.major.service.VideoNeedsService;
+import com.hrong.major.utils.IpUtils;
 import com.hrong.major.utils.RequestUtils;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Controller;
@@ -43,7 +44,8 @@ public class VideoNeedsController {
 	@PostMapping(value = "/{id}")
 	public Object needVideo(HttpServletRequest request, @PathVariable(value = "id")int id){
 		String ipAddress = RequestUtils.getIpAddress(request);
-		VideoNeeds videoNeeds = VideoNeeds.builder().ip(ipAddress).count(1).majorId(id).build();
+		String address = IpUtils.getCity(ipAddress);
+		VideoNeeds videoNeeds = VideoNeeds.builder().ip(ipAddress).address(address).count(1).majorId(id).build();
 		videoNeedsService.save(videoNeeds);
 		//查询申请该major-video的人数
 		int totalCount = videoNeedsService.count(new QueryWrapper<VideoNeeds>().eq("major_id", id));

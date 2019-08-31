@@ -13,7 +13,6 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.servlet.ModelAndView;
 
 import javax.annotation.Resource;
 import javax.servlet.http.HttpServletRequest;
@@ -33,9 +32,9 @@ public class LoginController {
 		User userDb = userService.getOne(new QueryWrapper<User>()
 				.eq("account", user.getAccount())
 				.eq("password", user.getPassword()));
-		ModelAndView modelAndView = new ModelAndView();
 		if (userDb == null) {
 			model.addAttribute("msg", "你猜不出来的");
+			model.addAttribute("user", new UserVo());
 			return "admin/login/login";
 		} else {
 			String token = JwtUtils.getTokenByAccount(user.getAccount());

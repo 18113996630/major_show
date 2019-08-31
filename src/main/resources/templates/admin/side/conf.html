@@ -1,0 +1,241 @@
+<!DOCTYPE html>
+<html lang="en" layout:decorate="~{admin/layouts/layout}"
+      xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+      xmlns:th="http://www.thymeleaf.org" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+      xsi:schemaLocation="http://www.ultraq.net.nz/thymeleaf/layout ">
+<body>
+<div layout:fragment="content">
+    <form class="form-horizontal" method="post" th:action="@{/admin/configuration}" th:object="${configuration}">
+        <div class="form-group">
+            <input hidden="hidden" name="id" th:value="${configuration.id}" type="text">
+            <label class="col-md-2 control-label" for="webName" th:text="网站名字"></label>
+            <div class="col-md-8">
+                <input class="form-control" id="webName" name="webName" placeholder="网站名字" th:field="*{webName}"
+                       th:value="${configuration.webName}" type="text">
+            </div>
+        </div>
+        <div class="form-group">
+            <label class="col-md-2 control-label" for="headSubject" th:text="head-专业种类"></label>
+            <div class="col-md-8">
+                <input class="form-control" id="headSubject" name="headSubject" placeholder="专业名称" th:field="*{headSubject}"
+                       th:value="${configuration.headSubject}" type="text">
+            </div>
+        </div>
+        <div class="form-group">
+            <label class="col-md-2 control-label" for="headMajor" th:text="head-专业"></label>
+            <div class="col-md-8">
+                <input class="form-control" id="headMajor" name="headMajor" placeholder="head-专业" th:field="*{headMajor}"
+                       th:value="${configuration.headMajor}" type="text">
+            </div>
+        </div>
+        <div class="form-group">
+            <label class="col-md-2 control-label" for="headTop" th:text="head-排行"></label>
+            <div class="col-md-8">
+                <input class="form-control" id="headTop" name="headTop" placeholder="head-排行" th:field="*{headTop}"
+                       th:value="${configuration.headTop}" type="text">
+            </div>
+        </div>
+        <div class="form-group">
+            <label class="col-md-2 control-label" for="headAbout" th:text="head-关于我"></label>
+            <div class="col-md-8">
+                <input class="form-control" id="headAbout" name="headAbout" placeholder="head-关于我" th:field="*{headAbout}"
+                       th:value="${configuration.headAbout}" type="text">
+            </div>
+        </div>
+        <div class="form-group">
+            <label class="col-md-2 control-label" for="headContact" th:text="head-联系"></label>
+            <div class="col-md-8">
+                <input class="form-control" id="headContact" name="headContact" placeholder="head-联系" th:field="*{headContact}"
+                       th:value="${configuration.headContact}" type="text">
+            </div>
+        </div>
+        <div class="form-group">
+            <label class="col-md-2 control-label" for="headContribute" th:text="head-投稿"></label>
+            <div class="col-md-8">
+                <input class="form-control" id="headContribute" name="headContribute" placeholder="head-投稿" th:field="*{headContribute}"
+                       th:value="${configuration.headContribute}" type="text">
+            </div>
+        </div>
+        <div class="form-group">
+            <label class="col-md-2 control-label" for="footer" th:text="footer"></label>
+            <div class="col-md-8">
+                <input class="form-control" id="footer" name="footer" placeholder="footer" th:field="*{footer}"
+                       th:value="${configuration.footer}" type="text">
+            </div>
+        </div>
+        <div class="form-group">
+            <label class="col-md-2 control-label" for="dDesc" th:text="详情-专业描述"></label>
+            <div class="col-md-8">
+                <input class="form-control" id="dDesc" name="dDesc" placeholder="详情-专业描述" th:field="*{dDesc}"
+                       th:value="${configuration.dDesc}" type="text">
+            </div>
+        </div>
+        <div class="form-group">
+            <label class="col-md-2 control-label" for="dCourse" th:text="详情-课程"></label>
+            <div class="col-md-8">
+                <input class="form-control" id="dCourse" name="dCourse" placeholder="详情-课程" th:field="*{dCourse}"
+                       th:value="${configuration.dCourse}" type="text">
+            </div>
+        </div>
+        <div class="form-group">
+            <label class="col-md-2 control-label" for="dJob" th:text="详情-专业前景"></label>
+            <div class="col-md-8">
+                <input class="form-control" id="dJob" name="dJob" placeholder="详情-专业前景" th:field="*{dJob}"
+                       th:value="${configuration.dJob}" type="text">
+            </div>
+        </div>
+        <div class="form-group">
+            <label class="col-md-2 control-label" for="dBtnFind" th:text="视频查找按钮"></label>
+            <div class="col-md-8">
+                <input class="form-control" id="dBtnFind" name="dBtnFind" placeholder="视频查找按钮" th:field="*{dBtnFind}"
+                       th:value="${configuration.dBtnFind}" type="text">
+            </div>
+        </div>
+        <div class="form-group">
+            <label class="col-md-2 control-label" for="dSplitor" th:text="详情-文字视频分割"></label>
+            <div class="col-md-8">
+                <input class="form-control" id="dSplitor" name="dSplitor" placeholder="详情-文字视频分割" th:field="*{dSplitor}"
+                       th:value="${configuration.dSplitor}" type="text">
+            </div>
+        </div>
+        <div class="form-group">
+            <label class="col-md-2 control-label" for="dVTime" th:text="详情-视频时间"></label>
+            <div class="col-md-8">
+                <input class="form-control" id="dVTime" name="dVTime" placeholder="详情-视频时间" th:field="*{dVTime}"
+                       th:value="${configuration.dVTime}" type="text">
+            </div>
+        </div>
+        <div class="form-group">
+            <label class="col-md-2 control-label" for="dVAuth" th:text="详情-视频是否授权"></label>
+            <div class="col-md-8">
+                <input class="form-control" id="dVAuth" name="dVAuth" placeholder="详情-视频是否授权" th:field="*{dVAuth}"
+                       th:value="${configuration.dVAuth}" type="text">
+            </div>
+        </div>
+        <div class="form-group">
+            <label class="col-md-2 control-label" for="dVSource" th:text="详情-视频来源app"></label>
+            <div class="col-md-8">
+                <input class="form-control" id="dVSource" name="dVSource" placeholder="详情-视频来源app" th:field="*{dVSource}"
+                       th:value="${configuration.dVSource}" type="text">
+            </div>
+        </div>
+        <div class="form-group">
+            <label class="col-md-2 control-label" for="dVAuthor" th:text="详情-视频作者"></label>
+            <div class="col-md-8">
+                <input class="form-control" id="dVAuthor" name="dVAuthor" placeholder="详情-视频作者" th:field="*{dVAuthor}"
+                       th:value="${configuration.dVAuthor}" type="text">
+            </div>
+        </div>
+        <div class="form-group">
+            <label class="col-md-2 control-label" for="dVHow" th:text="详情-视频怎么样"></label>
+            <div class="col-md-8">
+                <input class="form-control" id="dVHow" name="dVHow" placeholder="详情-视频怎么样" th:field="*{dVHow}"
+                       th:value="${configuration.dVHow}" type="text">
+            </div>
+        </div>
+        <div class="form-group">
+            <label class="col-md-2 control-label" for="dBtnTop" th:text="详情-按钮-回到最上方"></label>
+            <div class="col-md-8">
+                <input class="form-control" id="dBtnTop" name="dBtnTop" placeholder="详情-按钮-回到最上方" th:field="*{dBtnTop}"
+                       th:value="${configuration.dBtnTop}" type="text">
+            </div>
+        </div>
+        <div class="form-group">
+            <label class="col-md-2 control-label" for="dBtnNext" th:text="详情-按钮-下个专业"></label>
+            <div class="col-md-8">
+                <input class="form-control" id="dBtnNext" name="dBtnNext" placeholder="详情-按钮-下个专业" th:field="*{dBtnNext}"
+                       th:value="${configuration.dBtnNext}" type="text">
+            </div>
+        </div>
+        <div class="form-group">
+            <label class="col-md-2 control-label" for="dBtnOther" th:text="详情-按钮-其他专业"></label>
+            <div class="col-md-8">
+                <input class="form-control" id="dBtnOther" name="dBtnOther" placeholder="详情-按钮-其他专业" th:field="*{dBtnOther}"
+                       th:value="${configuration.dBtnOther}" type="text">
+            </div>
+        </div>
+        <div class="form-group">
+            <label class="col-md-2 control-label" for="dBtnLast" th:text="详情-按钮-最后一个专业"></label>
+            <div class="col-md-8">
+                <input class="form-control" id="dBtnLast" name="dBtnLast" placeholder="详情-按钮-最后一个专业" th:field="*{dBtnLast}"
+                       th:value="${configuration.dBtnLast}" type="text">
+            </div>
+        </div>
+        <div class="form-group">
+            <label class="col-md-2 control-label" for="dBtnContribute" th:text="详情-按钮-投稿"></label>
+            <div class="col-md-8">
+                <input class="form-control" id="dBtnContribute" name="dBtnContribute" placeholder="详情-按钮-投稿" th:field="*{dBtnContribute}"
+                       th:value="${configuration.dBtnContribute}" type="text">
+            </div>
+        </div>
+        <div class="form-group">
+            <label class="col-md-2 control-label" for="dBtnComment" th:text="详情-按钮-提交评论"></label>
+            <div class="col-md-8">
+                <input class="form-control" id="dBtnComment" name="dBtnComment" placeholder="详情-按钮-提交评论" th:field="*{dBtnComment}"
+                       th:value="${configuration.dBtnComment}" type="text">
+            </div>
+        </div>
+        <div class="form-group">
+            <label class="col-md-2 control-label" for="hATitle" th:text="head-关于-标题"></label>
+            <div class="col-md-8">
+                <input class="form-control" id="hATitle" name="hATitle" placeholder="head-关于-标题" th:field="*{hATitle}"
+                       th:value="${configuration.hATitle}" type="text">
+            </div>
+        </div>
+        <div class="form-group">
+            <label class="col-md-2 control-label" for="hAP1" th:text="head-关于-p1"></label>
+            <div class="col-md-8">
+                <input class="form-control" id="hAP1" name="hAP1" placeholder="head-关于-p1" th:field="*{hAP1}"
+                       th:value="${configuration.hAP1}" type="text">
+            </div>
+        </div>
+        <div class="form-group">
+            <label class="col-md-2 control-label" for="hAC1" th:text="head-关于-c1"></label>
+            <div class="col-md-8">
+                <input class="form-control" id="hAC1" name="hAC1" placeholder="head-关于-c1" th:field="*{hAC1}"
+                       th:value="${configuration.hAC1}" type="text">
+            </div>
+        </div>
+        <div class="form-group">
+            <label class="col-md-2 control-label" for="hAP2" th:text="head-关于-p2"></label>
+            <div class="col-md-8">
+                <input class="form-control" id="hAP2" name="hAP2" placeholder="head-关于-p2" th:field="*{hAP2}"
+                       th:value="${configuration.hAP2}" type="text">
+            </div>
+        </div>
+        <div class="form-group">
+            <label class="col-md-2 control-label" for="hAC2" th:text="head-关于-c2"></label>
+            <div class="col-md-8">
+                <input class="form-control" id="hAC2" name="hAC2" placeholder="head-关于-c2" th:field="*{hAC2}"
+                       th:value="${configuration.hAC2}" type="text">
+            </div>
+        </div>
+        <div class="form-group">
+            <label class="col-md-2 control-label" for="hABtn" th:text="head-关于-按钮"></label>
+            <div class="col-md-8">
+                <input class="form-control" id="hABtn" name="hABtn" placeholder="head-关于-按钮" th:field="*{hABtn}"
+                       th:value="${configuration.hABtn}" type="text">
+            </div>
+        </div>
+        <div class="form-group">
+            <label class="col-md-2 control-label" for="hCContent" th:text="head-联系我"></label>
+            <div class="col-md-8">
+                <input class="form-control" id="hCContent" name="hCContent" placeholder="head-联系我" th:field="*{hCContent}"
+                       th:value="${configuration.hCContent}" type="text">
+            </div>
+        </div>
+        <button class="btn btn-lg btn-primary btn-block" type="submit">保存</button>
+    </form>
+
+
+    <!--    </from>-->
+
+    <!-- 额外引入js -->
+    <footer>
+        <div th:replace="admin/commons/footer :: footer(~{::script})">
+            <script th:src="@{/js/admin/ad_major_detail.js}"></script>
+        </div>
+    </footer>
+</div>
+</body>
+</html>

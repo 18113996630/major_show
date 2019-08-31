@@ -28,7 +28,7 @@
         </encoder>
         <!--滚动策略 按照时间来滚动 每日创建一个日志文件-->
         <rollingPolicy class="ch.qos.logback.core.rolling.TimeBasedRollingPolicy">
-            <fileNamePattern>/log/info-log%d.log</fileNamePattern>
+            <fileNamePattern>logs/info-log%d.log</fileNamePattern>
         </rollingPolicy>
     </appender>
     <!--文件输出error日志的配置-->
@@ -44,7 +44,7 @@
         </encoder>
         <!--滚动策略 按照时间来滚动-->
         <rollingPolicy class="ch.qos.logback.core.rolling.TimeBasedRollingPolicy">
-            <fileNamePattern>/log/error-log%d.log</fileNamePattern>
+            <fileNamePattern>logs/error-log%d.log</fileNamePattern>
         </rollingPolicy>
     </appender>
     <root level="INFO">
