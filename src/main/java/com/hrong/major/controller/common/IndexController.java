@@ -7,6 +7,7 @@ import com.hrong.major.constant.CacheConstant;
 import com.hrong.major.model.ClickType;
 import com.hrong.major.model.Log;
 import com.hrong.major.model.Video;
+import com.hrong.major.model.vo.MessageVo;
 import com.hrong.major.model.vo.SearchVo;
 import com.hrong.major.service.LogService;
 import com.hrong.major.service.MajorService;
@@ -49,7 +50,8 @@ public class IndexController {
 
 	@ClickLog(type = ClickType.contact)
 	@GetMapping("/contact")
-	public String contact() {
+	public String contact(Model model) {
+		model.addAttribute("message", new MessageVo());
 		return "contact/contact";
 	}
 

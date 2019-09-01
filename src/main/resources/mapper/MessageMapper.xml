@@ -1,0 +1,37 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.hrong.major.dao.MessageMapper">
+
+    <!-- 通用查询映射结果 -->
+    <resultMap id="BaseResultMap" type="com.hrong.major.model.Message">
+        <id column="id" property="id"/>
+        <result column="time" property="time"/>
+        <result column="content" property="content"/>
+        <result column="ip" property="ip"/>
+        <result column="user_id" property="userId"/>
+        <result column="status" property="status"/>
+        <association property="userId" javaType="com.hrong.major.model.User">
+            <id column="id" property="id"/>
+            <result column="account" property="account"/>
+            <result column="password" property="password"/>
+            <result column="name" property="name"/>
+            <result column="contact" property="contact"/>
+            <result column="city" property="city"/>
+        </association>
+    </resultMap>
+    <select id="getMessage" resultType="com.hrong.major.model.vo.MessageVo">
+        select m.*, u.contact as contact,u.city as city from message m left join user u on m.user_id=u.id where 1=1
+        <if test="status != null and status != ''">
+            and m.status = #{status}
+        </if>
+        order by m.time
+    </select>
+    <select id="countMessage" resultType="int">
+        select count(1) as city from message m left join user u on m.user_id=u.id where 1=1
+        <if test="status != null and status != ''">
+            and m.status = #{status}
+        </if>
+        order by m.time
+    </select>
+
+</mapper>

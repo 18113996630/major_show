@@ -86,7 +86,7 @@ function comment() {
                     window.location.reload()
                 }
                 if (result.code === 500) {
-                    layer.msg(result.message)
+                    layer.msg(result.data)
                 }
             },
             error: function (error) {
@@ -106,7 +106,7 @@ function comment_up(id) {
                 window.location.reload()
             }
             if (result.code === 500) {
-                layer.msg(result.message)
+                layer.msg(result.data)
             }
         }
     });

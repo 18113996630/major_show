@@ -2,43 +2,52 @@ package com.hrong.major.model;
 
 import com.baomidou.mybatisplus.annotation.IdType;
 import com.baomidou.mybatisplus.annotation.TableId;
-import java.io.Serializable;
 import lombok.Data;
 import lombok.EqualsAndHashCode;
-import lombok.experimental.Accessors;
+import lombok.NoArgsConstructor;
+
+import java.io.Serializable;
 
 /**
  * <p>
- * 
+ *
  * </p>
  *
  * @author hrong
  * @since 2019-08-22
  */
 @Data
+@NoArgsConstructor
 @EqualsAndHashCode(callSuper = false)
-@Accessors(chain = true)
 public class User implements Serializable {
 
-    private static final long serialVersionUID = 1L;
+	private static final long serialVersionUID = 1L;
 
-    @TableId(value = "id", type = IdType.AUTO)
-    private Integer id;
+	@TableId(value = "id", type = IdType.AUTO)
+	private Integer id;
 
-    /**
-     * 账号
-     */
-    private String account;
+	/**
+	 * 账号
+	 */
+	private String account;
 
-    /**
-     * 密码
-     */
-    private String password;
+	/**
+	 * 密码
+	 */
+	private String password;
 
-    /**
-     * 名字
-     */
-    private String name;
+	/**
+	 * 名字
+	 */
+	private String name;
+	/**
+	 * 联系方式
+	 */
+	private String contact;
+	/**
+	 * 所在城市
+	 */
+	private String city;
 
 
 }

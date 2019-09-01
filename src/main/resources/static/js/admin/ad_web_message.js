@@ -1,6 +1,6 @@
-table = $('#video_needs_table');
+table = $('#web_message_table');
 table.bootstrapTable({
-    url: "/admin/video/needsInfo", // 获取表格数据的url
+    url: "/admin/contact/messages", // 获取表格数据的url
     method: 'get',
     contentType: "application/x-www-form-urlencoded",
     cache: false, // 设置为 false 禁用 AJAX 数据缓存， 默认为true
@@ -23,7 +23,7 @@ table.bootstrapTable({
         return {//如果是在服务器端实现分页，limit、offset这两个参数是必须的
             pageSize: params.limit, // 每页显示数量
             pageNumber: (params.offset / params.limit) + 1, //当前页码
-            upName: '%' + $('#up-name').val() + '%'
+            status: $('#status').val()
         };
     },
     columns: [
@@ -39,34 +39,49 @@ table.bootstrapTable({
             }
         },
         {
-            title: '专业名称',
-            field: 'majorName',
-            align: 'center',
-            valign: 'middle'
-        },
-        {
-            title: '需求数量',
-            field: 'count',
-            align: 'center',
-            valign: 'middle'
-        },
-        {
-            title: 'ip',
+            title: '留言ip',
             field: 'ip',
             align: 'center',
             valign: 'middle'
         },
         {
-            title: '所在城市',
-            field: 'address',
+            title: '留言内容',
+            field: 'content',
             align: 'center',
             valign: 'middle'
         },
         {
-            title: '请求时间',
+            title: '留言时间',
             field: 'time',
             align: 'center',
             valign: 'middle'
+        },
+        {
+            title: '联系方式',
+            field: 'contact',
+            align: 'center',
+            valign: 'middle'
+        },
+        {
+            title: '所在城市',
+            field: 'city',
+            align: 'center',
+            valign: 'middle'
+        },
+        {
+            title: '是否查看',
+            field: 'status',
+            align: 'center',
+            valign: 'middle',
+            formatter: function (value, row, index) {
+                var res = '';
+                if (value == 1) {
+                    res = '已查看';
+                } else {
+                    res = '待处理';
+                }
+                return res;
+            }
         },
         {
             title: '操作',
@@ -74,7 +89,7 @@ table.bootstrapTable({
             align: 'center',
             valign: 'middle',
             formatter: function (value, row, index) {
-                return '<button class="btn btn-primary btn-sm" onclick="fix(\'' + row.id + '\')">解决</button> '
+                return '<button class="btn btn-primary btn-sm" onclick="fix(\'' + row.id + '\')">更改状态</button> '
 
             }
         }
@@ -82,9 +97,13 @@ table.bootstrapTable({
     locale: 'zh-CN'//中文支持
 });
 
+function searchMessages() {
+    table.bootstrapTable('refresh', {url: '/admin/contact/messages'});
+}
+
 function fix(id) {
     $.ajax({
-        url: "/admin/video/need/" + id,
+        url: "/admin/contact/message/" + id,
         type: "POST",
         success: function (result) {
             layer.msg(result.data);

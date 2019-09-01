@@ -6,6 +6,7 @@ import com.baomidou.mybatisplus.core.conditions.query.QueryWrapper;
 import com.hrong.major.model.Log;
 import com.hrong.major.service.LogService;
 import lombok.extern.slf4j.Slf4j;
+import org.apache.http.client.config.RequestConfig;
 import org.apache.http.client.methods.CloseableHttpResponse;
 import org.apache.http.client.methods.HttpGet;
 import org.apache.http.impl.client.CloseableHttpClient;
@@ -36,6 +37,7 @@ public class IpUtils {
 		Log logDb = logs.size() == 0 ? null : logs.get(0);
 		boolean isNeed = logDb == null || logDb.getAddress() == null || address.equalsIgnoreCase(logDb.getAddress());
 		if (isNeed) {
+			log.info("未在日志表中发现该ip，开始从第三方api获取city信息");
 			boolean random = new Random().nextBoolean();
 			if (random) {
 				address = IpUtils.getCityByIpWithBaidu(ip);
@@ -59,7 +61,7 @@ public class IpUtils {
 	 *
 	 * @return 返回结果 String
 	 */
-	public static String getCityByIpWithBaidu(String ip) {
+	private static String getCityByIpWithBaidu(String ip) {
 		try {
 			if (ip == null || "".equals(ip)) {
 				return null;
@@ -80,7 +82,7 @@ public class IpUtils {
 	 *
 	 * @return 返回结果 String
 	 */
-	public static String getCityByIpWithTaobao(String ip) {
+	private static String getCityByIpWithTaobao(String ip) {
 		try {
 			if (ip == null || "".equals(ip)) {
 				return null;
@@ -104,6 +106,11 @@ public class IpUtils {
 		String content = null;
 		CloseableHttpClient closeableHttpClient = HttpClientBuilder.create().build();
 		HttpGet httpGet = new HttpGet(url);
+		//设置超时时间，避免产生长时间的阻塞效果
+		RequestConfig requestConfig = RequestConfig.custom()
+				.setConnectTimeout(3000).setConnectionRequestTimeout(1000)
+				.setSocketTimeout(3000).build();
+		httpGet.setConfig(requestConfig);
 		httpGet.setHeader("user-agent", "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/76.0.3809.132 Safari/537.36");
 		CloseableHttpResponse httpResponse = null;
 		try {

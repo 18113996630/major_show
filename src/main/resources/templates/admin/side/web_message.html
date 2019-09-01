@@ -1,0 +1,29 @@
+<!DOCTYPE html>
+<html lang="en" layout:decorate="~{admin/layouts/layout}"
+      xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+      xmlns:th="http://www.thymeleaf.org" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+      xsi:schemaLocation="http://www.ultraq.net.nz/thymeleaf/layout ">
+<body>
+<div layout:fragment="content">
+    <div class="form-inline text-center">
+        <select class="form-control" id="status">
+            <option value="">全部</option>
+            <option value="1">已查看</option>
+            <option value="0">待处理</option>
+        </select>
+        <button class="btn btn-group-lg btn-primary form-control" th:onclick="searchMessages()" type="button">
+            <span aria-hidden="true" class="glyphicon glyphicon-search"></span>搜索
+        </button>
+    </div>
+    <div class="table-responsive">
+        <table class="table table-striped" id="web_message_table"></table>
+    </div>
+    <!-- 额外引入js -->
+    <footer>
+        <div th:replace="admin/commons/footer :: footer(~{::script})">
+            <script th:src="@{/js/admin/ad_web_message.js}"></script>
+        </div>
+    </footer>
+</div>
+</body>
+</html>
