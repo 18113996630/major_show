@@ -33,7 +33,7 @@ public class AdminController {
 	@Resource
 	private ConfigurationService configurationService;
 
-	private static String getToday(){
+	private static String getToday() {
 		SimpleDateFormat dateFormat = new SimpleDateFormat("yyyy-MM-dd");
 		return dateFormat.format(new Date());
 	}
@@ -49,7 +49,7 @@ public class AdminController {
 	}
 
 	@GetMapping(value = "/login")
-	public String login(Model model){
+	public String login(Model model) {
 		model.addAttribute("user", new User());
 		return "admin/login/login";
 	}
@@ -66,7 +66,7 @@ public class AdminController {
 	 * 专业表格
 	 */
 	@GetMapping(value = "/major")
-	public String major(Model model){
+	public String major(Model model) {
 		//用于下拉选项赋值
 		model.addAttribute("subjects", CacheConstant.subjects);
 		return "admin/side/major";
@@ -76,7 +76,7 @@ public class AdminController {
 	 * 视频表格
 	 */
 	@GetMapping(value = "/video")
-	public String video(Model model){
+	public String video(Model model) {
 		model.addAttribute("majors", majorService.list());
 		return "admin/side/video";
 	}
@@ -85,7 +85,7 @@ public class AdminController {
 	 * 视频审核
 	 */
 	@GetMapping(value = "/video/contribute")
-	public String videoContribute(Model model){
+	public String videoContribute(Model model) {
 		model.addAttribute("majors", majorService.list());
 		return "admin/side/video_contribute";
 	}
@@ -94,7 +94,7 @@ public class AdminController {
 	 * 专业详情表格
 	 */
 	@GetMapping(value = "/major/detail")
-	public String videoDetail(Model model){
+	public String videoDetail(Model model) {
 		//用于下拉选项赋值
 		model.addAttribute("subjects", CacheConstant.subjects);
 		return "admin/side/major_detail";
@@ -104,7 +104,7 @@ public class AdminController {
 	 * 视频表格
 	 */
 	@GetMapping(value = "/video/author")
-	public String videoAuthor(){
+	public String videoAuthor() {
 		return "admin/side/video_author";
 	}
 
@@ -112,7 +112,7 @@ public class AdminController {
 	 * 日志详情表格
 	 */
 	@GetMapping(value = "/log")
-	public String log(Model model){
+	public String log(Model model) {
 		List<Log> resources = logService.findResourceType();
 		List<Log> todayLogs = logService.list(new QueryWrapper<Log>().select("ip").apply("DATE_FORMAT(time,'%Y-%m-%d') = {0}", getToday()));
 		model.addAttribute("resources", resources);
@@ -125,16 +125,24 @@ public class AdminController {
 	 * 配置详情表格
 	 */
 	@GetMapping(value = "/conf")
-	public String conf(Model model){
+	public String conf(Model model) {
 		model.addAttribute("configuration", configurationService.list().get(0));
 		return "admin/side/conf";
 	}
 
-/**
+	/**
 	 * 配置详情表格
 	 */
 	@GetMapping(value = "/video/needs")
-	public String videoNeed(Model model){
+	public String videoNeed(Model model) {
 		return "admin/side/video_needs";
+	}
+
+	/**
+	 * 留言
+	 */
+	@GetMapping(value = "/contact/message")
+	public String webMessage() {
+		return "admin/side/web_message";
 	}
 }
