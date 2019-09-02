@@ -45,7 +45,7 @@ public class MajorInterceptor implements HandlerInterceptor {
 						return false;
 					}
 				}
-				log.info("IP:{}请求{}被拦截，即将重定向到登录页面", RequestUtils.getIpAddress(request), url);
+				log.info("IP:{}请求{}被拦截，即将重定向到登录页面", RequestUtils.getIp(request), url);
 				response.setStatus(403);
 				//ajax请求
 				String requestType = request.getHeader("X-Requested-With");

@@ -61,6 +61,7 @@ public class MajorController extends BaseController<Major> {
 		model.addAttribute("currentSubject", currentSubject);
 		model.addAttribute("subjects", subjects);
 		model.addAttribute("searchVo", new SearchVo());
+		log.info("分页获取{}下的专业", currentSubject.getName());
 		return "major/major";
 	}
 
@@ -71,6 +72,7 @@ public class MajorController extends BaseController<Major> {
 	@PostMapping(value = "/majors")
 	public String queryMajorsByShortName(Model model, @Validated @ModelAttribute SearchVo major){
 		List<MajorVo> majors = majorService.findMajorsByName(major.getName());
+		log.info("模糊查询专业信息，输入：{}， 查询结果数量：{}", major.getName(), majors.size());
 		model.addAttribute("currentSubject", new Subject().setId(0));
 		model.addAttribute("data", majors);
 		//启用与专业类别一起展示的方式

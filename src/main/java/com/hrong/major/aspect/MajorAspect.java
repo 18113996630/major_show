@@ -69,7 +69,7 @@ public class MajorAspect {
 	public Object aroundController(ProceedingJoinPoint joinPoint) throws Throwable {
 		try {
 			HttpServletRequest request = ((ServletRequestAttributes) Objects.requireNonNull(RequestContextHolder.getRequestAttributes())).getRequest();
-			String ipAddress = RequestUtils.getIpAddress(request);
+			String ipAddress = RequestUtils.getIp(request);
 			String userAgent = request.getHeader("user-agent");
 			String systemName = System.getProperty("os.name");
 			String systemVersion = System.getProperty("os.version");

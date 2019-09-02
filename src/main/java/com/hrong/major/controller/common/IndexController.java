@@ -13,6 +13,7 @@ import com.hrong.major.model.vo.SearchVo;
 import com.hrong.major.service.LogService;
 import com.hrong.major.service.MajorService;
 import com.hrong.major.utils.RequestUtils;
+import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -23,6 +24,7 @@ import javax.servlet.http.HttpServletRequest;
 /**
  * @Author hrong
  **/
+@Slf4j
 @Controller
 public class IndexController {
 
@@ -34,7 +36,9 @@ public class IndexController {
 	@ClickLog(type = ClickType.subject)
 	@GetMapping("/")
 	public String index(Model model, HttpServletRequest request) {
-		int isFirstVisit = logService.count(new QueryWrapper<Log>().eq("ip", RequestUtils.getIpAddress(request)));
+		String ip = RequestUtils.getIp(request);
+		log.info("ip:{}访问index页面", ip);
+		int isFirstVisit = logService.count(new QueryWrapper<Log>().eq("ip", ip));
 		if (isFirstVisit == 0) {
 			return "about/about";
 		}

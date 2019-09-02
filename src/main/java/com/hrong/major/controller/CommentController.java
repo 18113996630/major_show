@@ -10,6 +10,7 @@ import com.hrong.major.model.vo.Result;
 import com.hrong.major.service.CommentFeedbackService;
 import com.hrong.major.service.CommentService;
 import com.hrong.major.utils.RequestUtils;
+import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
@@ -27,6 +28,7 @@ import javax.servlet.http.HttpServletRequest;
  * @author hrong
  * @since 2019-08-27
  */
+@Slf4j
 @Controller
 public class CommentController {
 	@Resource
@@ -38,15 +40,18 @@ public class CommentController {
 	@PostMapping(value = "/comment")
 	@ClickLog(type = ClickType.comment)
 	public Object addComment(HttpServletRequest request,@RequestBody Comment comment) {
-		String ip = RequestUtils.getIpAddress(request);
+		String ip = RequestUtils.getIp(request);
+		log.info("ip:{}提价评论：{}", ip, comment.getContent());
 		int count = commentService.count(new QueryWrapper<Comment>().eq("major_detail_id", comment.getMajorDetailId()).eq("ip", ip));
 		int maxCommentOfOneDetail = 3;
 		if (count >= maxCommentOfOneDetail){
+			log.info("当前专业下已有三条评论，此次评论无效");
 			return Result.err(500, "同一个专业提交的评论数不能超过三条哦");
 		}
 		//查看是否有相同内容评论
 		int isSame = commentService.count(new QueryWrapper<Comment>().eq("major_detail_id", comment.getMajorDetailId()).eq("content", comment.getContent()));
 		if (isSame != 0) {
+			log.info("发现相同内容的评论");
 			return Result.err(500, "已经有该评论啦~快去给你的知音点个赞~");
 		}
 		comment.setIp(ip);
@@ -58,7 +63,8 @@ public class CommentController {
 	@PostMapping(value = "/comment/{id}")
 	@ClickLog(type = ClickType.comment_up)
 	public Object commentUp(HttpServletRequest request, @PathVariable int id) {
-		String ip = RequestUtils.getIpAddress(request);
+		String ip = RequestUtils.getIp(request);
+		log.info("ip：{}给id为{}的评论点赞", ip, id);
 		int upCount = feedbackService.count(new QueryWrapper<CommentFeedback>().eq("comment_id", id).eq("ip", ip));
 		if (upCount > 0) {
 			return Result.err(500, "您已经点过赞啦~");

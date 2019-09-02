@@ -38,7 +38,8 @@ public class MessageController {
 
 	@PostMapping("/contact/message")
 	public Object addMessage(HttpServletRequest request, Model model, @ModelAttribute MessageVo messageVo){
-		String ip = RequestUtils.getIpAddress(request);
+		String ip = RequestUtils.getIp(request);
+		log.info("ip:{}提交留言：{}", ip, messageVo.getContact());
 		String city = IpUtils.getCity(ip);
 		User userDb = userService.getOne(new QueryWrapper<User>().eq("contact", messageVo.getContact()));
 		if (userDb == null) {

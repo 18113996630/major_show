@@ -71,9 +71,8 @@ public class MajorDetailServiceImpl extends ServiceImpl<MajorDetailMapper, Major
 
 	@Override
 	public Integer findNextMajorDetailIdByCurrentMajorDetailId(Serializable id) {
-		MajorDetail currentMajorDetail = majorDetailMapper.selectById(id);
 		//当前major
-		Major currentMajor = majorMapper.selectById(currentMajorDetail.getMajorId());
+		Major currentMajor = majorMapper.selectById(id);
 		//根据order_number排序后处于当前major后面的major
 		Major nextMajor = majorMapper.selectOne(new QueryWrapper<Major>()
 				.select("id", "name")

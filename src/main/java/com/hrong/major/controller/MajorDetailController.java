@@ -53,19 +53,22 @@ public class MajorDetailController {
 	@ClickLog(type = ClickType.major)
 	@GetMapping(value = "/{id}")
 	public String getMajorInfoById(HttpServletRequest request, Model model, @PathVariable(value = "id") int id) {
+		String ip = RequestUtils.getIp(request);
 		//当前专业详情
 		MajorDetail majorDetail = majorDetailService.getOne(new QueryWrapper<MajorDetail>().eq("major_id", id));
 
 		//文字详情和视频信息
-		MajorDetailWithVideoVo detail = majorDetailService.findDetailVoById(majorDetail.getId(), RequestUtils.getIpAddress(request));
+		MajorDetailWithVideoVo detail = majorDetailService.findDetailVoById(majorDetail.getId(), ip);
 		//下一个专业的id
 		Integer nextDetailId = majorDetailService.findNextMajorDetailIdByCurrentMajorDetailId(id);
+		Major currentMajor = majorService.getById(id);
 		//当前专业所属类别
-		Subject currentSubject = subjectService.getById(majorService.getById(id).getSubjectId());
+		Subject currentSubject = subjectService.getById(currentMajor.getSubjectId());
 		//当前专业附近的专业
 		List<Major> majors = majorService.findAroundMajors(id);
 		//当前专业详情的评论
-		List<CommentVo> comments = commentService.findCommentsByDetailId(majorDetail.getId(), RequestUtils.getIpAddress(request));
+		List<CommentVo> comments = commentService.findCommentsByDetailId(majorDetail.getId(), RequestUtils.getIp(request));
+		log.info("ip:{}查看{}下的{}专业详情，详情id为：{}", ip, currentSubject.getName(), currentMajor.getName(), majorDetail.getId());
 
 		model.addAttribute("detailVo", detail);
 		model.addAttribute("nextId", nextDetailId);

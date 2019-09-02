@@ -64,7 +64,7 @@ function video_need(id) {
         btn = $(".btn-video-need");
         btn.addClass('disabled');
         btn.prop('disabled', true);
-        btn.text('其他' + result.message + '个小伙伴也想看');
+        btn.text('其他' + result.data + '个小伙伴也想看');
         layer.msg('知道啦~我会尽快找的，记得回来看哟~');
     })
 }

@@ -4,8 +4,10 @@ package com.hrong.major.controller;
 import com.baomidou.mybatisplus.core.conditions.query.QueryWrapper;
 import com.hrong.major.annotation.ClickLog;
 import com.hrong.major.model.ClickType;
+import com.hrong.major.model.MajorDetail;
 import com.hrong.major.model.VideoNeeds;
 import com.hrong.major.model.vo.Result;
+import com.hrong.major.service.MajorDetailService;
 import com.hrong.major.service.VideoNeedsService;
 import com.hrong.major.utils.IpUtils;
 import com.hrong.major.utils.RequestUtils;
@@ -33,7 +35,8 @@ import javax.servlet.http.HttpServletRequest;
 public class VideoNeedsController {
 	@Resource
 	private VideoNeedsService videoNeedsService;
-
+	@Resource
+	private MajorDetailService majorDetailService;
 	/**
 	 * major视频申请
 	 * @param id majorId
@@ -43,9 +46,11 @@ public class VideoNeedsController {
 	@ClickLog(type = ClickType.video_need)
 	@PostMapping(value = "/{id}")
 	public Object needVideo(HttpServletRequest request, @PathVariable(value = "id")int id){
-		String ipAddress = RequestUtils.getIpAddress(request);
-		String address = IpUtils.getCity(ipAddress);
-		VideoNeeds videoNeeds = VideoNeeds.builder().ip(ipAddress).address(address).count(1).majorId(id).build();
+		String ip = RequestUtils.getIp(request);
+		MajorDetail detail = majorDetailService.getById(id);
+		log.info("ip:{}想看{}专业的视频", ip, detail.getName());
+		String address = IpUtils.getCity(ip);
+		VideoNeeds videoNeeds = VideoNeeds.builder().ip(ip).address(address).count(1).majorId(detail.getId()).build();
 		videoNeedsService.save(videoNeeds);
 		//查询申请该major-video的人数
 		int totalCount = videoNeedsService.count(new QueryWrapper<VideoNeeds>().eq("major_id", id));
