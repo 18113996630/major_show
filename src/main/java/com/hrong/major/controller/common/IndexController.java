@@ -64,4 +64,16 @@ public class IndexController {
 		return "contribute/contribute";
 	}
 
+	@ClickLog(type = ClickType.login)
+	@GetMapping("/login")
+	public String login(){
+		return "login/login";
+	}
+
+	@ClickLog(type = ClickType.register)
+	@GetMapping("/register")
+	public String register(){
+		return "register/register";
+	}
+
 }

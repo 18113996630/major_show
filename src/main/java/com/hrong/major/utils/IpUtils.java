@@ -108,8 +108,8 @@ public class IpUtils {
 		HttpGet httpGet = new HttpGet(url);
 		//设置超时时间，避免产生长时间的阻塞效果
 		RequestConfig requestConfig = RequestConfig.custom()
-				.setConnectTimeout(3000).setConnectionRequestTimeout(1000)
-				.setSocketTimeout(3000).build();
+				.setConnectTimeout(4000).setConnectionRequestTimeout(2000)
+				.setSocketTimeout(4000).build();
 		httpGet.setConfig(requestConfig);
 		httpGet.setHeader("user-agent", "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/76.0.3809.132 Safari/537.36");
 		CloseableHttpResponse httpResponse = null;

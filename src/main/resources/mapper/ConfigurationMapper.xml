@@ -14,8 +14,11 @@
         <result column="head_contribute" property="headContribute" />
         <result column="footer" property="footer" />
         <result column="d_desc" property="dDesc" />
+        <result column="d_desc_btn" property="dDescBtn" />
         <result column="d_course" property="dCourse" />
+        <result column="d_course_btn" property="dCourseBtn" />
         <result column="d_job" property="dJob" />
+        <result column="d_job_btn" property="dJobBtn" />
         <result column="d_btn_find" property="dBtnFind" />
         <result column="d_splitor" property="dSplitor" />
         <result column="d_v_time" property="dVTime" />

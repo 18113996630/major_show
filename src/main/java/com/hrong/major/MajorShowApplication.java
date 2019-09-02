@@ -16,6 +16,7 @@ import java.util.List;
 /**
  * @author 1011486768
  */
+//@EnableScheduling
 @SpringBootApplication
 public class MajorShowApplication {
 

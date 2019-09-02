@@ -71,6 +71,13 @@
             </div>
         </div>
         <div class="form-group">
+            <label class="col-md-2 control-label" for="dDescBtn" th:text="详情-专业描述-按钮"></label>
+            <div class="col-md-8">
+                <input class="form-control" id="dDescBtn" name="dDescBtn" placeholder="详情-专业描述-按钮" th:field="*{dDescBtn}"
+                       th:value="${configuration.dDesc}" type="text">
+            </div>
+        </div>
+        <div class="form-group">
             <label class="col-md-2 control-label" for="dCourse" th:text="详情-课程"></label>
             <div class="col-md-8">
                 <input class="form-control" id="dCourse" name="dCourse" placeholder="详情-课程" th:field="*{dCourse}"
@@ -78,9 +85,23 @@
             </div>
         </div>
         <div class="form-group">
+            <label class="col-md-2 control-label" for="dCourseBtn" th:text="详情-课程-按钮"></label>
+            <div class="col-md-8">
+                <input class="form-control" id="dCourseBtn" name="dCourseBtn" placeholder="详情-课程-按钮" th:field="*{dCourseBtn}"
+                       th:value="${configuration.dCourse}" type="text">
+            </div>
+        </div>
+        <div class="form-group">
             <label class="col-md-2 control-label" for="dJob" th:text="详情-专业前景"></label>
             <div class="col-md-8">
                 <input class="form-control" id="dJob" name="dJob" placeholder="详情-专业前景" th:field="*{dJob}"
+                       th:value="${configuration.dJob}" type="text">
+            </div>
+        </div>
+        <div class="form-group">
+            <label class="col-md-2 control-label" for="dJobBtn" th:text="详情-专业前景-按钮"></label>
+            <div class="col-md-8">
+                <input class="form-control" id="dJobBtn" name="dJobBtn" placeholder="详情-专业前景-按钮" th:field="*{dJobBtn}"
                        th:value="${configuration.dJob}" type="text">
             </div>
         </div>
@@ -227,13 +248,9 @@
         <button class="btn btn-lg btn-primary btn-block" type="submit">保存</button>
     </form>
 
-
-    <!--    </from>-->
-
     <!-- 额外引入js -->
     <footer>
-        <div th:replace="admin/commons/footer :: footer(~{::script})">
-            <script th:src="@{/js/admin/ad_major_detail.js}"></script>
+        <div th:replace="admin/commons/footer :: footer(~{})">
         </div>
     </footer>
 </div>

@@ -1,0 +1,29 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head th:replace="admin/commons/header :: common-header(~{::title}, ~{::link})">
+    <title>登录</title>
+    <link rel="stylesheet" th:href="@{/css/admin/login.css}">
+</head>
+<body>
+<div class="container">
+    <form class="form-signin" th:action="@{/admin/login}" th:method="post" th:object="${user}">
+        <label class="sr-only" for="account">账号：</label>
+        <input autofocus class="form-control" id="account" placeholder="请输入账号" required th:field="*{account}" type="text">
+        <br>
+        <label class="sr-only" for="password">密码：</label>
+        <input class="form-control" id="password" placeholder="请输入密码" required th:field="*{password}"
+               type="password">
+        <div class="checkbox">
+            <label>
+                <input type="checkbox" value="remember"> Remember Me
+            </label>
+        </div>
+        <button class="btn btn-lg btn-primary btn-block" type="submit">登录</button>
+    </form>
+</div>
+<footer>
+    <div th:replace="admin/commons/footer :: footer(~{})">
+    </div>
+</footer>
+</body>
+</html>

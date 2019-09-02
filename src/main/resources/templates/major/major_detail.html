@@ -40,18 +40,29 @@
             <p class="text-center text-danger text-nowrap" th:if="${detailVo.videos.size() gt 0}"
                th:text="视频在文字下方哦"></p>
             <br/>
-            <p><strong th:class="text-info" th:text="${conf.dDesc}">专业描述</strong></p> &nbsp;&nbsp;
-            <p class="text-justify major_info" th:text="${detailVo.detail.description}"></p>
+            <p>
+                <strong th:class="text-info" th:text="${conf.dDesc}">专业描述</strong>
+                <button class="btn btn-default detail_update_btn" id="detail_desc_btn" th:onclick="updateDesc([[${detailVo.detail.id}]])" th:text="${conf.dDescBtn}">信息有误,我要修改</button>
+            </p>
+            <p class="text-justify major_info" id="detail_desc" th:text="${detailVo.detail.description}"></p>
             <hr/>
-            <p><strong th:class="text-info" th:text="${conf.dCourse}">核心课程</strong></p> &nbsp;&nbsp;
-            <p class="text-justify major_info" th:text="${detailVo.detail.course}"></p>
+            <p>
+                <strong th:class="text-info" th:text="${conf.dCourse}">核心课程</strong>
+                <button class="btn btn-default detail_update_btn" id="detail_course_btn" th:onclick="updateCourse([[${detailVo.detail.id}]])" th:text="${conf.dCourseBtn}">信息有误,我要修改</button>
+            </p> &nbsp;&nbsp;
+            <p class="text-justify major_info" id="detail_course" th:text="${detailVo.detail.course}"></p>
 
             <hr/>
-            <p><strong th:class="text-info" th:text="${conf.dJob}">就业方向</strong></p> &nbsp;&nbsp;
-            <p class="text-justify major_info" th:text="${detailVo.detail.job}"></p>
+            <p>
+
+                <strong th:class="text-info" th:text="${conf.dJob}">就业方向</strong>
+                <button class="btn btn-default detail_update_btn" id="detail_job_btn" th:onclick="updateJob([[${detailVo.detail.id}]])" th:text="${conf.dJobBtn}">信息有误,我要修改</button>
+            </p> &nbsp;&nbsp;
+            <p class="text-justify major_info" id="detail_job" th:text="${detailVo.detail.job}"></p>
             <!-- 该专业的视频信息 -->
             <button class="btn btn-success btn-video-need" th:if="${detailVo.videos.isEmpty()}"
-                    th:onclick="video_need([[${detailVo.detail.id}]])" th:text="${conf.dBtnFind}">点我帮你找视频</button>
+                    th:onclick="video_need([[${detailVo.detail.id}]])" th:text="${conf.dBtnFind}">点我帮你找视频
+            </button>
             <h2 class="content_split" th:if="${detailVo.videos.size() gt 0}" th:text="${conf.dSplitor}">相关视频</h2>
             <ul class="video_ul" th:each="videoVo:${detailVo.videos}">
                 <li class="small_item"><a target="_blank" th:class="title" th:href="${videoVo.video.url}"
@@ -62,8 +73,9 @@
                             <span class="text-warning" th:text="${videoVo.video.pubtime}"></span>
                         </div>
                         <div class="col-xs-12 col-lg-6 col-md-6">
-                            <span  class="text-justify" th:text="${conf.dVAuth}">是否取得授权：</span>
-                            <span class="text-danger" style="font-weight: bolder" th:text="${videoVo.video.isAuth == 1 ? '是':'正在联系作者'}"></span>
+                            <span class="text-justify" th:text="${conf.dVAuth}">是否取得授权：</span>
+                            <span class="text-danger" style="font-weight: bolder"
+                                  th:text="${videoVo.video.isAuth == 1 ? '是':'正在联系作者'}"></span>
                         </div>
                     </div>
                     <div class="row video_info">
@@ -72,9 +84,10 @@
                             <strong th:class="text-danger" th:text="${videoVo.video.sourceName}"></strong>
                         </div>
                         <div class="col-xs-12 col-lg-6 col-md-6">
-                            <span class="text-justify">视频提供者：</span>
-                            <strong th:class="text-danger" th:text="${dVAuthor}">
-                                <a target="_blank" th:href="${videoVo.video.upPage}" th:text="${videoVo.video.upName}"></a>
+                            <span class="text-justify" th:text="${conf.dVAuthor}">视频提供者：</span>
+                            <strong th:class="text-danger">
+                                <a target="_blank" th:href="${videoVo.video.upPage}"
+                                   th:text="${videoVo.video.upName}"></a>
                             </strong>
                         </div>
                     </div>
@@ -128,9 +141,12 @@
         <hr>
         <!-- 评论 -->
         <div class="col-xs-12 col-sm-12 col-md-12 col-lg-12 common">
-            <div>
+            <div th:if="${commentsCount} gt 0">
                 <span class="comment_count" th:text="${commentsCount}"></span>
                 <span>条评论</span>
+            </div>
+            <div th:if="${commentsCount} eq 0">
+                <span>来做第一个吃螃蟹的人</span>
             </div>
             <br>
             <div>
@@ -138,14 +154,17 @@
                     <input hidden="hidden" id="majorDetailId" name="majorDetailId" th:value="${detailVo.detail.id}"/>
                     <textarea class="form-control" id="content" name="content" required rows="5"></textarea>
                     <br>
-                    <button class="btn btn-primary btn-block" th:onclick="comment()" th:text="${conf.dBtnComment}" type="button">提交评论</button>
+                    <button class="btn btn-primary btn-block" th:onclick="comment()" th:text="${conf.dBtnComment}"
+                            type="button">提交评论
+                    </button>
                 </form>
                 <br>
                 <ul class="comment_ul">
                     <li class="comment_li" th:each="comment : ${comments}">
                         <span class="comment_content" th:text="${comment.content}"></span>
                         <span th:text="${comment.time}"></span>
-                        <button class="btn btn-default btn-up" th:disabled="${comment.isUp}" th:onclick="comment_up([[${comment.id}]])">
+                        <button class="btn btn-default btn-up" th:disabled="${comment.isUp}"
+                                th:onclick="comment_up([[${comment.id}]])">
                             <span aria-hidden="true" class="glyphicon glyphicon-thumbs-up"></span>
                         </button>
                         <span th:text="${comment.upCount}"></span>

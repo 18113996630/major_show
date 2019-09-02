@@ -176,3 +176,13 @@
     /*float: right;*/
     border: none;
 }
+
+.detail_update_btn {
+    float: right;
+    font-weight: bold;
+    color: indianred;
+}
+.update_area {
+    line-height: 2em;
+    font-size: 1.3em;
+}

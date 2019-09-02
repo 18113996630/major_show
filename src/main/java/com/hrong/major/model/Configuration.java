@@ -64,16 +64,19 @@ public class Configuration implements Serializable {
      * 详情-专业描述
      */
     private String dDesc;
+    private String dDescBtn;
 
     /**
      * 详情-课程
      */
     private String dCourse;
+    private String dCourseBtn;
 
     /**
      * 详情-专业前景
      */
     private String dJob;
+    private String dJobBtn;
 
     /**
      * 详情-文字视频分割
