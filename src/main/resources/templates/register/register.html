@@ -6,20 +6,36 @@
 </head>
 <body>
 <div class="container">
-    <form class="form-signin" th:action="@{/register}" th:method="post" th:object="${user}">
-        <label class="sr-only" for="account">请填写账号：</label>
-        <input autofocus class="form-control" id="account" placeholder="请输入账号" required th:field="*{account}" type="text">
-        <br>
-        <label class="sr-only" for="_password">请输入密码：</label>
-        <input class="form-control" id="_password" placeholder="请输入密码" required type="password">
-        <label class="sr-only" for="password">再次输入密码：</label>
-        <input class="form-control" id="password" placeholder="请输入密码" required th:field="*{password}" type="password">
-        <div class="checkbox">
-            <label>
-                <input type="checkbox" value="remember"> Remember Me
-            </label>
+    <form class="form-horizontal" th:action="@{/register}" th:method="post" th:object="${user}">
+        <div class="form-group">
+            <label class="col-xs-12 col-sm-3 col-md-3 col-lg-3 control-label text-left" for="account">请填写登录账号：</label>
+            <div class="col-xs-12 col-sm-9 col-md-9 col-lg-9">
+                <input autofocus class="form-control" id="account" placeholder="请输入账号" required th:field="*{account}"
+                       type="text">
+            </div>
         </div>
-        <button class="btn btn-lg btn-primary btn-block" type="submit">登录</button>
+        <div class="form-group">
+            <label class="col-xs-12 col-sm-3 col-md-3 col-lg-3 control-label text-left" for="_password">请输入登录密码：</label>
+            <div class="col-xs-12 col-sm-9 col-md-9 col-lg-9">
+                <input class="form-control" id="_password" placeholder="请输入密码" required type="password">
+            </div>
+        </div>
+        <div class="form-group">
+            <label class="col-xs-12 col-sm-3 col-md-3 col-lg-3 control-label text-left" for="password">再次输入密码：</label>
+            <div class="col-xs-12 col-sm-9 col-md-9 col-lg-9">
+                <input class="form-control" id="password" placeholder="请再次输入密码" required th:field="*{password}"
+                       type="password">
+            </div>
+        </div>
+        <div class="form-group">
+            <label class="col-xs-12 col-sm-3 col-md-3 col-lg-3 control-label text-left" for="name">用户昵称：</label>
+            <div class="col-xs-12 col-sm-9 col-md-9 col-lg-9">
+                <input class="form-control" id="name" placeholder="用户昵称" required th:field="*{name}" type="password">
+            </div>
+        </div>
+        <div class="text-center">
+            <button class="btn btn-lg btn-primary" type="submit">注册</button>
+        </div>
     </form>
 </div>
 <footer>

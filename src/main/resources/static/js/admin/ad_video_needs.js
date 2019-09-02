@@ -87,7 +87,7 @@ function fix(id) {
         url: "/admin/video/need/" + id,
         type: "POST",
         success: function (result) {
-            layer.msg(result.data);
+            layer.msg(result.message);
             table.bootstrapTable('refresh');
         },
         error: function (error) {

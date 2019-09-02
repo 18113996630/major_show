@@ -12,6 +12,7 @@ import org.apache.http.client.methods.HttpGet;
 import org.apache.http.impl.client.CloseableHttpClient;
 import org.apache.http.impl.client.HttpClientBuilder;
 import org.apache.http.util.EntityUtils;
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Component;
 
 import javax.annotation.PostConstruct;
@@ -27,15 +28,19 @@ import java.util.Random;
 @Component
 public class IpUtils {
 	private static final String BAIDU_AK = "Kl6VANEIjV2QmmIILGMNYFrwnzprBufa";
+	private static final String PROD_ENV = "prod";
 	private static LogService service;
+	private static boolean isProd = false;
 	@Resource
 	private LogService logService;
+	@Value(value = "${spring.profiles.active}")
+	private String env;
 
 	public static String getCity(String ip){
 		String address = "未知";
 		List<Log> logs = service.list(new QueryWrapper<Log>().eq("ip", ip));
 		Log logDb = logs.size() == 0 ? null : logs.get(0);
-		boolean isNeed = logDb == null || logDb.getAddress() == null || address.equalsIgnoreCase(logDb.getAddress());
+		boolean isNeed = isProd && (logDb == null || logDb.getAddress() == null || address.equalsIgnoreCase(logDb.getAddress()));
 		if (isNeed) {
 			log.info("未在日志表中发现该ip，开始从第三方api获取city信息");
 			boolean random = new Random().nextBoolean();
@@ -54,6 +59,15 @@ public class IpUtils {
 			}
 		}
 		return address;
+	}
+
+	@PostConstruct
+	public void init(){
+		service = logService;
+		if (PROD_ENV.equalsIgnoreCase(env)) {
+			log.info("当前环境为：生产环境，开启ip查询");
+			isProd = true;
+		}
 	}
 
 	/**
@@ -135,8 +149,5 @@ public class IpUtils {
 		return content;
 	}
 
-	@PostConstruct
-	public void init(){
-		service = logService;
-	}
+
 }

@@ -1,9 +1,11 @@
 package com.hrong.major.controller;
 
 
+import com.baomidou.mybatisplus.core.conditions.query.QueryWrapper;
 import com.hrong.major.annotation.ClickLog;
 import com.hrong.major.model.ClickType;
 import com.hrong.major.model.Major;
+import com.hrong.major.model.MajorDetail;
 import com.hrong.major.model.Subject;
 import com.hrong.major.model.vo.CommentVo;
 import com.hrong.major.model.vo.MajorDetailWithVideoVo;
@@ -51,16 +53,19 @@ public class MajorDetailController {
 	@ClickLog(type = ClickType.major)
 	@GetMapping(value = "/{id}")
 	public String getMajorInfoById(HttpServletRequest request, Model model, @PathVariable(value = "id") int id) {
+		//当前专业详情
+		MajorDetail majorDetail = majorDetailService.getOne(new QueryWrapper<MajorDetail>().eq("major_id", id));
+
 		//文字详情和视频信息
-		MajorDetailWithVideoVo detail = majorDetailService.findDetailVoById(id, RequestUtils.getIpAddress(request));
+		MajorDetailWithVideoVo detail = majorDetailService.findDetailVoById(majorDetail.getId(), RequestUtils.getIpAddress(request));
 		//下一个专业的id
 		Integer nextDetailId = majorDetailService.findNextMajorDetailIdByCurrentMajorDetailId(id);
 		//当前专业所属类别
-		Subject currentSubject = subjectService.getById(majorService.getById(detail.getDetail().getMajorId()).getSubjectId());
+		Subject currentSubject = subjectService.getById(majorService.getById(id).getSubjectId());
 		//当前专业附近的专业
 		List<Major> majors = majorService.findAroundMajors(id);
 		//当前专业详情的评论
-		List<CommentVo> comments = commentService.findCommentsByDetailId(id, RequestUtils.getIpAddress(request));
+		List<CommentVo> comments = commentService.findCommentsByDetailId(majorDetail.getId(), RequestUtils.getIpAddress(request));
 
 		model.addAttribute("detailVo", detail);
 		model.addAttribute("nextId", nextDetailId);

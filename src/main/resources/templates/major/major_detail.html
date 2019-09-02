@@ -164,10 +164,11 @@
                         <span class="comment_content" th:text="${comment.content}"></span>
                         <span th:text="${comment.time}"></span>
                         <button class="btn btn-default btn-up" th:disabled="${comment.isUp}"
-                                th:onclick="comment_up([[${comment.id}]])">
+                                th:id="'common-up'+${comment.id}"
+                                th:onclick="comment_up([[${comment.id}]], [[${comment.upCount}]])">
                             <span aria-hidden="true" class="glyphicon glyphicon-thumbs-up"></span>
+                            <span th:text="${comment.upCount}"></span>
                         </button>
-                        <span th:text="${comment.upCount}"></span>
                     </li>
                 </ul>
             </div>

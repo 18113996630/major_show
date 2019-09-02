@@ -64,7 +64,7 @@ function video_need(id) {
         btn = $(".btn-video-need");
         btn.addClass('disabled');
         btn.prop('disabled', true);
-        btn.text('其他' + result.data + '个小伙伴也想看');
+        btn.text('其他' + result.message + '个小伙伴也想看');
         layer.msg('知道啦~我会尽快找的，记得回来看哟~');
     })
 }
@@ -86,7 +86,7 @@ function comment() {
                     window.location.reload()
                 }
                 if (result.code === 500) {
-                    layer.msg(result.data)
+                    layer.msg(result.message)
                 }
             },
             error: function (error) {
@@ -95,7 +95,7 @@ function comment() {
     }
 }
 
-function comment_up(id) {
+function comment_up(id, count) {
     $.ajax({
         type: 'POST',
         url: "/comment/"+id,
@@ -103,10 +103,13 @@ function comment_up(id) {
         contentType: "application/json;charset=UTF-8",
         success: function (result) {
             if (result.code === 200){
-                window.location.reload()
+                layer.msg('点赞成功');
+                var btn = $('#' + 'common-up' + id);
+                btn.attr('disabled', true);
+                btn.html('<span aria-hidden="true" class="glyphicon glyphicon-thumbs-up"></span><span>'+(count + 1)+'</span>')
             }
             if (result.code === 500) {
-                layer.msg(result.data)
+                layer.msg(result.message)
             }
         }
     });

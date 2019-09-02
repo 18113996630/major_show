@@ -106,7 +106,7 @@ function fix(id) {
         url: "/admin/contact/message/" + id,
         type: "POST",
         success: function (result) {
-            layer.msg(result.data);
+            layer.msg(result.message);
             table.bootstrapTable('refresh');
         },
         error: function (error) {

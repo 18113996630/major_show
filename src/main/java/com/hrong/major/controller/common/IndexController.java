@@ -6,6 +6,7 @@ import com.hrong.major.annotation.ClickLog;
 import com.hrong.major.constant.CacheConstant;
 import com.hrong.major.model.ClickType;
 import com.hrong.major.model.Log;
+import com.hrong.major.model.User;
 import com.hrong.major.model.Video;
 import com.hrong.major.model.vo.MessageVo;
 import com.hrong.major.model.vo.SearchVo;
@@ -66,13 +67,15 @@ public class IndexController {
 
 	@ClickLog(type = ClickType.login)
 	@GetMapping("/login")
-	public String login(){
+	public String login(Model model){
+		model.addAttribute("user", new User());
 		return "login/login";
 	}
 
 	@ClickLog(type = ClickType.register)
 	@GetMapping("/register")
-	public String register(){
+	public String register(Model model){
+		model.addAttribute("user", new User());
 		return "register/register";
 	}
 

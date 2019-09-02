@@ -25,7 +25,7 @@ public interface VideoNeedsMapper extends BaseMapper<VideoNeeds> {
 	 * @param page 分页参数
 	 * @return vos
 	 */
-	@Select(value = "select t.*, m.name as majorName from video_needs t left join major m on t.major_id=m.id where t.status=0 order by t.time desc")
+	@Select(value = "select t.*, m.name as majorName from video_needs t left join major_detail m on t.major_id=m.id where t.status=0 order by t.time desc")
 	List<VideoNeedsVo> findVideoNeeds(@Param("page") Page page);
 
 }
