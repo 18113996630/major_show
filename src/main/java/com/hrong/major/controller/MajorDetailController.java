@@ -4,6 +4,7 @@ package com.hrong.major.controller;
 import com.baomidou.mybatisplus.core.conditions.query.QueryWrapper;
 import com.hrong.major.annotation.ClickLog;
 import com.hrong.major.model.ClickType;
+import com.hrong.major.model.DetailUpdate;
 import com.hrong.major.model.Major;
 import com.hrong.major.model.MajorDetail;
 import com.hrong.major.model.Subject;
@@ -19,6 +20,7 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
+import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 
 import javax.annotation.Resource;
@@ -82,5 +84,15 @@ public class MajorDetailController {
 		model.addAttribute("commentsCount", comments.size());
 		return "major/major_detail";
 	}
+	/**
+	 * 根据专业id查询详情
+	 */
+	@ClickLog(type = ClickType.detail_update)
+	@PostMapping
+	public String detailUpdate(HttpServletRequest request, DetailUpdate detailUpdate) {
+		System.out.println(detailUpdate);
+		return null;
+	}
+
 }
 

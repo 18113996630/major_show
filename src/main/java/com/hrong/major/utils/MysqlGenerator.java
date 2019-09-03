@@ -82,7 +82,7 @@ public class MysqlGenerator {
 		strategy.setEntityLombokModel(true);
 
 		// 需要生成的表
-		strategy.setInclude("message");
+		strategy.setInclude("detail_update");
 
 		strategy.setSuperServiceClass(null);
 		strategy.setSuperServiceImplClass(null);

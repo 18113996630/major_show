@@ -64,6 +64,10 @@ public enum ClickType {
 	 * 注册
 	 */
 	register,
+	/**
+	 * 详情修改
+	 */
+	detail_update,
 
 	ClickType() {
 	}

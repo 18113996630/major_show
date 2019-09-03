@@ -82,7 +82,7 @@ function comment() {
             // data: {content: $('#content').val(), majorDetailId:$('#majorDetailId').val()},
             data: formSerializeJson('comment-form'),
             success: function (result) {
-                if (result.code === 200){
+                if (result.code === 200) {
                     window.location.reload()
                 }
                 if (result.code === 500) {
@@ -98,15 +98,15 @@ function comment() {
 function comment_up(id, count) {
     $.ajax({
         type: 'POST',
-        url: "/comment/"+id,
+        url: "/comment/" + id,
         dataType: "json",
         contentType: "application/json;charset=UTF-8",
         success: function (result) {
-            if (result.code === 200){
+            if (result.code === 200) {
                 layer.msg('点赞成功');
                 var btn = $('#' + 'common-up' + id);
                 btn.attr('disabled', true);
-                btn.html('<span aria-hidden="true" class="glyphicon glyphicon-thumbs-up"></span><span>'+(count + 1)+'</span>')
+                btn.html('<span aria-hidden="true" class="glyphicon glyphicon-thumbs-up"></span><span>' + (count + 1) + '</span>')
             }
             if (result.code === 500) {
                 layer.msg(result.message)
@@ -138,7 +138,7 @@ function updateDesc(detailId) {
     var login = true;
     if (!login) {
         //跳转至登录页面
-        return ;
+        return;
     }
     //修改按钮
     var btn = $('#detail_desc_btn');
@@ -149,23 +149,24 @@ function updateDesc(detailId) {
     //使按钮失效
     btn.attr('disabled', true);
     //隐藏p标签
-    detail.css("display","none");
+    detail.css("display", "none");
     //隐藏查看更多
     detail.next().css('display', 'none');
     //拼接textarea
     detail.after("<div class='clearfloat'></div>");
-    detail.after("<button text='修改' class='btn btn-primary' style='float: right;width: 40%;' onclick='update_detail()'>修改</button>");
+    detail.after("<button text='修改' class='btn btn-primary' style='float: right;width: 40%;' onclick='update_detail(" + detailId + ", \"description\")'>修改</button>");
     detail.after("<button text='取消' class='btn btn-info' style='float: left; width: 40%;' onclick='update_cancel()'>取消</button>");
-    detail.after("<textarea id='desc_area' class='form-control update_area' rows='7'></textarea>");
-    $('#desc_area').val(detail_desc_content)
+    detail.after("<textarea id='description_reason' class='form-control update_area' rows='3' placeholder='请填写修改理由'></textarea>");
+    detail.after("<textarea id='description_area' class='form-control update_area' rows='7'></textarea>");
+    $('#description_area').val(detail_desc_content)
 }
 
-function updateCourse(id) {
+function updateCourse(detailId) {
     //先校验是否登录
     var login = true;
     if (!login) {
         //跳转至登录页面
-        return ;
+        return;
     }
     //修改按钮
     var btn = $('#detail_course_btn');
@@ -176,23 +177,24 @@ function updateCourse(id) {
     //使按钮失效
     btn.attr('disabled', true);
     //隐藏p标签
-    course.css("display","none");
+    course.css("display", "none");
     //隐藏查看更多
     course.next().css('display', 'none');
     //拼接textarea
     course.after("<div class='clearfloat'></div>");
-    course.after("<button text='修改' class='btn btn-primary' style='float: right;width: 40%;' onclick='update_detail()'>修改</button>");
+    course.after("<button text='修改' class='btn btn-primary' style='float: right;width: 40%;' onclick='update_detail(" + detailId + ", \"course\")'>修改</button>");
     course.after("<button text='取消' class='btn btn-info' style='float: left; width: 40%;' onclick='update_cancel()'>取消</button>");
+    course.after("<textarea id='course_reason' class='form-control update_area' rows='3' placeholder='请填写修改理由'></textarea>");
     course.after("<textarea id='course_area' class='form-control update_area' rows='7'></textarea>");
     $('#course_area').val(detail_course_content)
 }
 
-function updateJob(id) {
+function updateJob(detailId) {
     //先校验是否登录
     var login = true;
     if (!login) {
         //跳转至登录页面
-        return ;
+        return;
     }
     //修改按钮
     var btn = $('#detail_job_btn');
@@ -203,23 +205,33 @@ function updateJob(id) {
     //使按钮失效
     btn.attr('disabled', true);
     //隐藏p标签
-    detail.css("display","none");
+    detail.css("display", "none");
     //隐藏查看更多
     detail.next().css('display', 'none');
     //拼接textarea
     detail.after("<div class='clearfloat'></div>");
-    detail.after("<button text='修改' class='btn btn-primary' style='float: right;width: 40%;' onclick='update_detail()'>修改</button>");
+    detail.after("<button text='修改' class='btn btn-primary' style='float: right;width: 40%;' onclick='update_detail(" + detailId + ", \"job\")'>修改</button>");
     detail.after("<button text='取消' class='btn btn-info' style='float: left; width: 40%;' onclick='update_cancel()'>取消</button>");
+    detail.after("<textarea id='job_reason' class='form-control update_area' rows='3' placeholder='请填写修改理由'></textarea>");
     detail.after("<textarea id='job_area' class='form-control update_area' rows='7'></textarea>");
     $('#job_area').val(detail_job_content)
 }
 
 /**
  * 更新专业描述、专业课程、专业前景相关
+ * id: desc course job
  */
-function update_detail() {
-
+function update_detail(id, divId) {
+    content = $('#' + divId + '_area').val();
+    reason = $('#' + divId + '_reason').val();
+    if (content === '' || reason === '') {
+        layer.msg('修改内容或修改原因不能为空~');
+        return;
+    }
+    $.post('/major/info', {majorDetailId: id, content: content, type: divId, reason: reason} , function (data) {
+    });
 }
+
 function update_cancel() {
     window.location.reload();
 }
