@@ -6,6 +6,7 @@ import com.hrong.major.model.MajorDetail;
 import com.hrong.major.model.vo.MajorDetailVoWithSubject;
 import com.hrong.major.model.vo.Result;
 import com.hrong.major.service.MajorDetailService;
+import com.hrong.major.service.MajorService;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.DeleteMapping;
@@ -29,6 +30,8 @@ import java.util.Map;
 @RequestMapping(value = "/admin/major")
 public class AdminMajorDetailController {
 
+	@Resource
+	private MajorService majorService;
 	@Resource
 	private MajorDetailService detailDetailService;
 	/**
@@ -55,6 +58,9 @@ public class AdminMajorDetailController {
 	@PostMapping(value = "/detail")
 	public Object saveOrUpdateSubject(@RequestBody MajorDetail detail) {
 		try {
+			Integer majorId = detail.getMajorId();
+			String majorName = majorService.getById(majorId).getName();
+			detail.setName(majorName);
 			detailDetailService.saveOrUpdate(detail);
 		} catch (Exception e) {
 			log.error(e.getMessage());

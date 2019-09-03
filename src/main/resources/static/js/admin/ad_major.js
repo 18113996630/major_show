@@ -133,6 +133,7 @@ function showQuery(data) {
     $("#id").val(data.id);
     $("#name").val(data.name);
     $("#code").val(data.code);
+    $("#subjectId").val(data.subjectId);
     $("#orderNumber").val(data.orderNumber);
     // 显示模态框
     $('#infoModal').modal('show');

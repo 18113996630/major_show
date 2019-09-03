@@ -97,6 +97,7 @@ public class AdminController {
 	public String videoDetail(Model model) {
 		//用于下拉选项赋值
 		model.addAttribute("subjects", CacheConstant.subjects);
+		model.addAttribute("majors", majorService.list());
 		return "admin/side/major_detail";
 	}
 

@@ -36,10 +36,11 @@
                     <form class="form-group-lg form-horizontal" role="form" th:id="major_form">
                         <input id="id" name="id" type="hidden" value="">
                         <div class="form-group">
-                            <label class="col-md-3 control-label" for="name" th:text="专业名称"></label>
+                            <label class="col-md-3 control-label" for="majorId" th:text="专业名称"></label>
                             <div class="col-md-8">
-                                <input class="form-control" id="name" name="name" placeholder="专业名称" type="text"
-                                       value="">
+                                <select class="form-control" id="majorId" name="majorId">
+                                    <option th:each="major:${majors}" th:text="${major.name}" th:value="${major.id}"></option>
+                                </select>
                             </div>
                         </div>
                         <div class="form-group">
@@ -50,9 +51,9 @@
                             </div>
                         </div>
                         <div class="form-group">
-                            <label class="col-md-3 control-label" for="code">学制</label>
+                            <label class="col-md-3 control-label" for="year">学制</label>
                             <div class="col-md-8">
-                                <input class="form-control" id="year" name="code" placeholder="学制信息" type="text"
+                                <input class="form-control" id="year" name="year" placeholder="学制信息" type="text"
                                        value="">
                             </div>
                         </div>
@@ -64,24 +65,24 @@
                             </div>
                         </div>
                         <div class="form-group">
-                            <label class="col-md-3 control-label" for="description">核心课程</label>
+                            <label class="col-md-3 control-label" for="course">核心课程</label>
                             <div class="col-md-8">
                                 <textarea class="form-control desc_text_area" id="course"
-                                          name="description"></textarea>
+                                          name="course"></textarea>
                             </div>
                         </div>
                         <div class="form-group">
-                            <label class="col-md-3 control-label" for="description">就业前景</label>
+                            <label class="col-md-3 control-label" for="job">就业前景</label>
                             <div class="col-md-8">
                                 <textarea class="form-control desc_text_area" id="job"
-                                          name="description"></textarea>
+                                          name="job"></textarea>
                             </div>
                         </div>
                         <div class="form-group">
-                            <label class="col-md-3 control-label" for="description">能力要求</label>
+                            <label class="col-md-3 control-label" for="ability">能力要求</label>
                             <div class="col-md-8">
                                 <textarea class="form-control desc_text_area" id="ability"
-                                          name="description"></textarea>
+                                          name="ability"></textarea>
                             </div>
                         </div>
                     </form>

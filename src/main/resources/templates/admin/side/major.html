@@ -50,6 +50,14 @@
                             </div>
                         </div>
                         <div class="form-group">
+                            <label class="col-md-3 control-label" for="subjectId">所属专业类别</label>
+                            <div class="col-md-8">
+                                <select class="form-control" id="subjectId" name="subjectId">
+                                    <option th:each="subject:${subjects}" th:text="${subject.name}" th:value="${subject.id}"></option>
+                                </select>
+                            </div>
+                        </div>
+                        <div class="form-group">
                             <label class="col-md-3 control-label" for="orderNumber">排序号</label>
                             <div class="col-md-8">
                                 <input class="form-control" id="orderNumber" name="orderNumber" placeholder="排序号"
