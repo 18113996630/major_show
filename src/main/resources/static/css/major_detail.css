@@ -186,3 +186,10 @@
     line-height: 2em;
     font-size: 1.3em;
 }
+.active-btn {
+    background-color: #e6e6e6;
+    border: 2px solid #bf8282;
+    font-size: x-large;
+    font-weight: bolder;
+    color: #8f4242;
+}

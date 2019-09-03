@@ -22,7 +22,7 @@
         <result column="params" property="params"/>
         <result column="time" property="time"/>
         <result column="execute_time" property="executeTime"/>
-        <result column="address" property="address"/>
+        <result column="city" property="city"/>
     </resultMap>
     <select id="findLogsByIpAndResource" resultMap="BaseResultMap">
         select * from log t where 1=1

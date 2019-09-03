@@ -53,7 +53,7 @@ table.bootstrapTable({
         },
         {
             title: '所在城市',
-            field: 'address',
+            field: 'city',
             align: 'center',
             valign: 'middle'
         },

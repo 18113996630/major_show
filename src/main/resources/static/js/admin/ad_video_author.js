@@ -23,7 +23,8 @@ table.bootstrapTable({
         return {//如果是在服务器端实现分页，limit、offset这两个参数是必须的
             pageSize: params.limit, // 每页显示数量
             pageNumber: (params.offset / params.limit) + 1, //当前页码
-            upName: '%' + $('#up-name').val() + '%'
+            upName: '%' + $('#up-name').val() + '%',
+            isAuth: $('#is-auth').val()
         };
     },
     columns: [
@@ -43,6 +44,21 @@ table.bootstrapTable({
             field: 'upName',
             align: 'center',
             valign: 'middle'
+        },
+        {
+            title: '是否授权',
+            field: 'isAuth',
+            align: 'center',
+            valign: 'middle',
+            formatter: function (value, row, index) {
+                var res = '';
+                if (value == 1) {
+                    res = '已授权';
+                } else {
+                    res = '暂未授权';
+                }
+                return res;
+            }
         },
         {
             title: '视频数量',

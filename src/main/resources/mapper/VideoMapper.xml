@@ -35,6 +35,10 @@
         <if test="upName != null and upName != ''">
             and t.upName like #{upName}
         </if>
+        <if test="isAuth != null and isAuth != ''">
+            and t.isAuth = #{isAuth}
+        </if>
+        order by  t.count desc
     </select>
     <select id="countAllAuthors" resultType="int">
         select count(1)
@@ -43,6 +47,10 @@
         <if test="upName != null and upName != ''">
             and t.upName like #{upName}
         </if>
+        <if test="isAuth != null and isAuth != ''">
+            and t.isAuth = #{isAuth}
+        </if>
+        order by  t.count desc
     </select>
 
 </mapper>

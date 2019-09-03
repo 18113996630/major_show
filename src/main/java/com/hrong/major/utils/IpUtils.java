@@ -19,6 +19,7 @@ import javax.annotation.PostConstruct;
 import javax.annotation.Resource;
 import java.io.IOException;
 import java.util.List;
+import java.util.Objects;
 import java.util.Random;
 
 /**
@@ -30,17 +31,27 @@ public class IpUtils {
 	private static final String BAIDU_AK = "Kl6VANEIjV2QmmIILGMNYFrwnzprBufa";
 	private static final String PROD_ENV = "prod";
 	private static LogService service;
-	private static boolean isProd = false;
+	private static boolean isProd = true;
 	@Resource
 	private LogService logService;
 	@Value(value = "${spring.profiles.active}")
 	private String env;
 
+
+	@PostConstruct
+	public void init(){
+		service = logService;
+		if (PROD_ENV.equalsIgnoreCase(env)) {
+			log.info("当前环境为：生产环境，开启ip查询");
+			isProd = true;
+		}
+	}
+
 	public static String getCity(String ip){
 		String address = "未知";
-		List<Log> logs = service.list(new QueryWrapper<Log>().eq("ip", ip));
+		List<Log> logs = service.list(new QueryWrapper<Log>().eq("ip", ip).ne("city", "").ne("city", "未知"));
 		Log logDb = logs.size() == 0 ? null : logs.get(0);
-		boolean isNeed = isProd && (logDb == null || logDb.getAddress() == null || address.equalsIgnoreCase(logDb.getAddress()));
+		boolean isNeed = isProd && (logDb == null || logDb.getClass() == null || address.equalsIgnoreCase(logDb.getCity()));
 		if (isNeed) {
 			log.info("未在日志表中发现该ip，开始从第三方api获取city信息");
 			boolean random = new Random().nextBoolean();
@@ -57,17 +68,11 @@ public class IpUtils {
 				}
 				address = address == null ? "未知" : address;
 			}
+		}else {
+			address = Objects.requireNonNull(logDb).getCity();
 		}
+		log.info("获取结果:{}", address);
 		return address;
-	}
-
-	@PostConstruct
-	public void init(){
-		service = logService;
-		if (PROD_ENV.equalsIgnoreCase(env)) {
-			log.info("当前环境为：生产环境，开启ip查询");
-			isProd = true;
-		}
 	}
 
 	/**
@@ -116,7 +121,6 @@ public class IpUtils {
 	}
 
 	private static String httpGet(String url) {
-		log.info("请求地址：{}", url);
 		String content = null;
 		CloseableHttpClient closeableHttpClient = HttpClientBuilder.create().build();
 		HttpGet httpGet = new HttpGet(url);

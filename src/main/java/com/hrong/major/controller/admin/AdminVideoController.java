@@ -121,10 +121,10 @@ public class AdminVideoController {
 
 	@ResponseBody
 	@GetMapping(value = "/video/authors")
-	public Object authors(int pageNumber, int pageSize ,String upName) {
+	public Object authors(int pageNumber, int pageSize ,String upName, String isAuth) {
 		Map<String, Object> res = new HashMap<>(2);
-		List<Author> videos = videoService.findAllAuthors(new Page(pageNumber, pageSize),upName);
-		int total = videoService.countAllAuthors(upName);
+		List<Author> videos = videoService.findAllAuthors(new Page(pageNumber, pageSize),upName, isAuth);
+		int total = videoService.countAllAuthors(upName, isAuth);
 		res.put("total", total);
 		res.put("rows", videos);
 		return res;

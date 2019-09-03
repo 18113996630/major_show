@@ -115,6 +115,6 @@ public class Log implements Serializable {
 	 * 花费的时间
 	 */
 	private Integer executeTime;
-	private String address;
+	private String city;
 
 }

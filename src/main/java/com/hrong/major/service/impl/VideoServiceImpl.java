@@ -46,12 +46,12 @@ public class VideoServiceImpl extends ServiceImpl<VideoMapper, Video> implements
 	}
 
 	@Override
-	public List<Author> findAllAuthors(Page page, String upName) {
-		return videoMapper.findAllAuthors(page, upName);
+	public List<Author> findAllAuthors(Page page, String upName, String isAuth) {
+		return videoMapper.findAllAuthors(page, upName, isAuth);
 	}
 
 	@Override
-	public int countAllAuthors(String upName) {
-		return videoMapper.countAllAuthors(upName);
+	public int countAllAuthors(String upName, String isAuth) {
+		return videoMapper.countAllAuthors(upName, isAuth);
 	}
 }

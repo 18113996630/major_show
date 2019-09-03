@@ -47,13 +47,15 @@ public interface VideoService extends IService<Video> {
 	 * 查找up
 	 * @param page 分页参数
 	 * @param upName up名字
+	 * @param isAuth 是否授权
 	 * @return ups
 	 */
-	List<Author> findAllAuthors(Page page, String upName);
+	List<Author> findAllAuthors(Page page, String upName, String isAuth);
 	/**
 	 * up计数
 	 * @param upName up名字
+	 * @param isAuth 是否授权
 	 * @return ups
 	 */
-	int countAllAuthors(String upName);
+	int countAllAuthors(String upName, String isAuth);
 }

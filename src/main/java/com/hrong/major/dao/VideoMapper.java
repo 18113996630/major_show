@@ -68,16 +68,21 @@ public interface VideoMapper extends BaseMapper<Video> {
 
 	/**
 	 * 查找up
-	 * @param page 分页参数
+	 *
+	 * @param page   分页参数
 	 * @param upName up名字
+	 * @param isAuth 是否授权
 	 * @return ups
 	 */
-	List<Author> findAllAuthors(@Param("page") Page page, @Param("upName") String upName);
+	List<Author> findAllAuthors(@Param("page") Page page, @Param("upName") String upName, @Param("isAuth") String isAuth);
+
 	/**
 	 * up计数
+	 *
 	 * @param upName up名字
+	 * @param isAuth 是否授权
 	 * @return ups
 	 */
-	int countAllAuthors(@Param("upName") String upName);
+	int countAllAuthors(@Param("upName") String upName, @Param("isAuth") String isAuth);
 
 }

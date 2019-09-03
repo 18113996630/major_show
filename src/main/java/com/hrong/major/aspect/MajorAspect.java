@@ -69,7 +69,7 @@ public class MajorAspect {
 	public Object aroundController(ProceedingJoinPoint joinPoint) throws Throwable {
 		try {
 			HttpServletRequest request = ((ServletRequestAttributes) Objects.requireNonNull(RequestContextHolder.getRequestAttributes())).getRequest();
-			String ipAddress = RequestUtils.getIp(request);
+			String ip = RequestUtils.getIp(request);
 			String userAgent = request.getHeader("user-agent");
 			String systemName = System.getProperty("os.name");
 			String systemVersion = System.getProperty("os.version");
@@ -102,11 +102,11 @@ public class MajorAspect {
 			long executeTime = endTime - startTime;
 			String finalResourceType = resourceType;
 			executor.execute(() -> {
-				String address = IpUtils.getCity(ipAddress);
-				Log logInfo = new Log(null, finalResourceType, requestAddress, ipAddress, userAgent, systemName,
+				String city = IpUtils.getCity(ip);
+				Log logInfo = new Log(null, finalResourceType, requestAddress, ip, userAgent, systemName,
 						systemVersion, systemBit, httpVersion, encoding, cookie, url, uri,
 						String.valueOf(clientPort), method, params, LocalDateTime.now(),
-						Math.toIntExact(executeTime), address);
+						Math.toIntExact(executeTime), city);
 				logService.save(logInfo);
 			});
 			return response;

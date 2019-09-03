@@ -6,6 +6,11 @@
 <body>
 <div layout:fragment="content">
     <div class="form-inline text-center">
+        <select class="form-control" id="is-auth">
+            <option value="">全部</option>
+            <option value="0">未授权</option>
+            <option value="1">已授权</option>
+        </select>
         <input class="input-group input-group-lg form-control" id="up-name" placeholder="up名字" type="text">
         <button class="btn btn-group-lg btn-primary form-control" th:onclick="searchAuthors()" type="button">
             <span aria-hidden="true" class="glyphicon glyphicon-search"></span>搜索

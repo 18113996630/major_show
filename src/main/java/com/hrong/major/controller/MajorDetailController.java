@@ -74,6 +74,7 @@ public class MajorDetailController {
 
 		model.addAttribute("detailVo", detail);
 		model.addAttribute("nextId", nextDetailId);
+		model.addAttribute("currentMajorId", id);
 		//从详情查询subject下的majors
 		model.addAttribute("currentSubject", currentSubject);
 		//显示该专业前后几个专业

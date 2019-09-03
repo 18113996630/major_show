@@ -28,4 +28,4 @@ target/
 hs_err_pid*
 /application-*.properties
 /src/main/resources/application-prod.properties
-/src/main/java/com/hrong/major/controller/admin/
+/logs/

@@ -14,7 +14,7 @@
             <h4 class="text-primary" th:text="其他同类专业"></h4>
             <a th:each="major:${majors}" th:href="@{'/major/info/'+${major.id}}">
                 <button class="btn"
-                        th:classappend="${major.id} % 3 eq 0 ? 'btn-success' : (${major.id} % 2 eq 0 ? 'btn-warning' : 'btn-info')"
+                        th:classappend="${major.id eq currentMajorId ? 'active-btn' : (major.id % 3 eq 0 ? 'btn-success' : (major.id % 2 eq 0 ? 'btn-warning' : 'btn-info'))}"
                         th:text="${major.name}">
                 </button>
             </a>
@@ -42,13 +42,13 @@
             <br/>
             <p>
                 <strong th:class="text-info" th:text="${conf.dDesc}">专业描述</strong>
-                <button class="btn btn-default detail_update_btn" id="detail_desc_btn" th:onclick="updateDesc([[${detailVo.detail.id}]])" th:text="${conf.dDescBtn}">信息有误,我要修改</button>
+<!--                <button class="btn btn-default detail_update_btn" id="detail_desc_btn" th:onclick="updateDesc([[${detailVo.detail.id}]])" th:text="${conf.dDescBtn}">信息有误,我要修改</button>-->
             </p>
             <p class="text-justify major_info" id="detail_desc" th:text="${detailVo.detail.description}"></p>
             <hr/>
             <p>
                 <strong th:class="text-info" th:text="${conf.dCourse}">核心课程</strong>
-                <button class="btn btn-default detail_update_btn" id="detail_course_btn" th:onclick="updateCourse([[${detailVo.detail.id}]])" th:text="${conf.dCourseBtn}">信息有误,我要修改</button>
+<!--                <button class="btn btn-default detail_update_btn" id="detail_course_btn" th:onclick="updateCourse([[${detailVo.detail.id}]])" th:text="${conf.dCourseBtn}">信息有误,我要修改</button>-->
             </p> &nbsp;&nbsp;
             <p class="text-justify major_info" id="detail_course" th:text="${detailVo.detail.course}"></p>
 
@@ -56,7 +56,7 @@
             <p>
 
                 <strong th:class="text-info" th:text="${conf.dJob}">就业方向</strong>
-                <button class="btn btn-default detail_update_btn" id="detail_job_btn" th:onclick="updateJob([[${detailVo.detail.id}]])" th:text="${conf.dJobBtn}">信息有误,我要修改</button>
+<!--                <button class="btn btn-default detail_update_btn" id="detail_job_btn" th:onclick="updateJob([[${detailVo.detail.id}]])" th:text="${conf.dJobBtn}">信息有误,我要修改</button>-->
             </p> &nbsp;&nbsp;
             <p class="text-justify major_info" id="detail_job" th:text="${detailVo.detail.job}"></p>
             <!-- 该专业的视频信息 -->
