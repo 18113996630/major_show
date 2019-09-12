@@ -10,6 +10,7 @@ import javax.validation.constraints.NotBlank;
  * @Author hrong
  * 专业查询vo
  **/
+
 @Data
 public class SearchVo {
 	@NotBlank(message = "搜索条件不能为空哦~")

@@ -12,6 +12,7 @@ import com.hrong.major.model.vo.MessageVo;
 import com.hrong.major.model.vo.SearchVo;
 import com.hrong.major.service.LogService;
 import com.hrong.major.service.MajorService;
+import com.hrong.major.service.SearchService;
 import com.hrong.major.utils.RequestUtils;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Controller;
@@ -32,6 +33,8 @@ public class IndexController {
 	private LogService logService;
 	@Resource
 	private MajorService majorService;
+	@Resource
+	private SearchService searchService;
 
 	@ClickLog(type = ClickType.subject)
 	@GetMapping("/")
@@ -44,6 +47,7 @@ public class IndexController {
 		}
 		model.addAttribute("subjects", CacheConstant.subjects);
 		model.addAttribute("searchVo", new SearchVo());
+		model.addAttribute("searches", searchService.getPopularSearches());
 		return "index";
 	}
 

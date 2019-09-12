@@ -49,7 +49,7 @@ public class CommentController {
 			return Result.err(500, "同一个专业提交的评论数不能超过三条哦");
 		}
 		//查看是否有相同内容评论
-		int isSame = commentService.count(new QueryWrapper<Comment>().eq("major_detail_id", comment.getMajorDetailId()).eq("content", comment.getContent()));
+		int isSame = commentService.count(new QueryWrapper<Comment>().eq("major_detail_id", comment.getMajorDetailId()).eq("name", comment.getContent()));
 		if (isSame != 0) {
 			log.info("发现相同内容的评论");
 			return Result.err(500, "已经有该评论啦~快去给你的知音点个赞~");

@@ -16,12 +16,18 @@
                 <button type="button" class="btn btn-primary btn-xs" data-toggle="offcanvas">Toggle nav</button>
             </p>-->
             <!-- 信息展示位置 -->
-            <div  class="show_div">
+            <div class="show_div">
                 <img alt="" class="show_img" th:src="@{cover/cover.png}">
             </div>
             <div class="index_search">
                 <div th:replace="commons/search :: search-component"></div>
             </div>
+            <span class="hot-search-span">热门搜索：</span>
+            <form th:each="search:${searches}" th:id="form+${search.id}">
+                <button th:onclick="searchHot([[${seach.name}}]], [[${search.id}]])" th:text="${search.name}">
+                        <!--class="btn btn-search" -->
+                        <!--th:classappend="${search.searchCount % 3 eq 0 ? 'btn-success' : (search.searchCount % 2 eq 0 ? 'btn-warning' : 'btn-info')}"-->
+            </form>
             <!-- 专业种类展示 -->
             <h2 class="center-block" th:text="专业种类"></h2>
             <div class="row">
@@ -58,7 +64,9 @@
     </div>
 </div>
 <footer>
-    <div th:replace="commons/footer :: footer(~{})"></div>
+    <div th:replace="commons/footer :: footer(~{::script})">
+        <script th:src="@{/js/index.js}"></script>
+    </div>
 </footer>
 </body>
 </html>

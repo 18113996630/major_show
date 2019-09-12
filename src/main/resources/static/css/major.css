@@ -61,3 +61,11 @@
     word-break: break-all !important;
     white-space: normal !important;
 }
+.hot-search-span{
+    font-size: 1.5em;
+    font-weight: bold;
+    color: #ab9645;
+}
+.btn-search {
+    margin-right: 1.5em;
+}

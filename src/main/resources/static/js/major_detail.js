@@ -69,7 +69,7 @@ function video_need(id) {
 }
 
 function comment() {
-    if ($('#content').val() == '') {
+    if ($('#name').val() == '') {
         layer.msg('评论内容不能为空哦~')
     } else {
         $.ajax({
@@ -78,7 +78,7 @@ function comment() {
             dataType: "json",//预期服务器返回的数据类型
             contentType: "application/json;charset=UTF-8",
             url: "/comment",//url
-            // data: {content: $('#content').val(), majorDetailId:$('#majorDetailId').val()},
+            // data: {name: $('#name').val(), majorDetailId:$('#majorDetailId').val()},
             data: formSerializeJson('comment-form'),
             success: function (result) {
                 if (result.code === 200) {

@@ -133,7 +133,7 @@ function showQuery(data) {
     $("#majorId option[value='"+data.majorId+"']").attr("selected", "selected");
     $("#type").val(data.type);
     $("#contentBefore").val(data.contentBefore);
-    $("#content").val(data.content);
+    $("#name").val(data.content);
     $("#ip").val(data.ip);
     $("#city").val(data.city);
     $("#time").val(data.time);

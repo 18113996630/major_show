@@ -106,7 +106,7 @@ public class IpUtils {
 			String url = "https://api.map.baidu.com/location/ip" + "?ip=" + ip + "&ak=" + BAIDU_AK + "&coor=bd09ll";
 			String content = httpGet(url);
 			if (content != null) {
-				return JSON.parseObject(content).getJSONObject("content").getString("address");
+				return JSON.parseObject(content).getJSONObject("name").getString("address");
 			}
 		} catch (Exception e) {
 			return null;

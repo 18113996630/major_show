@@ -13,6 +13,7 @@ import com.hrong.major.model.Subject;
 import com.hrong.major.model.vo.MajorVo;
 import com.hrong.major.model.vo.SearchVo;
 import com.hrong.major.service.MajorService;
+import com.hrong.major.service.SearchService;
 import com.hrong.major.service.SubjectService;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Controller;
@@ -42,6 +43,8 @@ public class MajorController extends BaseController<Major> {
 	private MajorService majorService;
 	@Resource
 	private SubjectService subjectService;
+	@Resource
+	private SearchService searchService;
 
 	/**
 	 * 分页获取专业信息
@@ -61,6 +64,7 @@ public class MajorController extends BaseController<Major> {
 		model.addAttribute("currentSubject", currentSubject);
 		model.addAttribute("subjects", subjects);
 		model.addAttribute("searchVo", new SearchVo());
+		model.addAttribute("searches", searchService.getPopularSearches());
 		log.info("分页获取{}下的专业", currentSubject.getName());
 		return "major/major";
 	}
@@ -70,7 +74,7 @@ public class MajorController extends BaseController<Major> {
 	 */
 	@ClickLog(type = ClickType.majors)
 	@PostMapping(value = "/majors")
-	public String queryMajorsByShortName(Model model, @Validated @ModelAttribute SearchVo major){
+	public String queryMajorsByShortName(Model model, @ModelAttribute SearchVo major){
 		List<MajorVo> majors = majorService.findMajorsByName(major.getName());
 		log.info("模糊查询专业信息，输入：{}， 查询结果数量：{}", major.getName(), majors.size());
 		model.addAttribute("currentSubject", new Subject().setId(0));
@@ -79,6 +83,26 @@ public class MajorController extends BaseController<Major> {
 		model.addAttribute("majors", null);
 		//不显示分页按钮
 		model.addAttribute("totalPages", null);
+		model.addAttribute("subjects", CacheConstant.subjects);
+		model.addAttribute("searches", searchService.getPopularSearches());
+		return "major/major";
+	}
+
+	/**
+	 * 根据输入模糊查询专业
+	 */
+	@ClickLog(type = ClickType.majors)
+	@GetMapping(value = "/majors/hot")
+	public String queryMajorsByHotSearch(Model model, @RequestParam String content){
+		List<MajorVo> majors = majorService.findMajorsByName(content);
+		log.info("点击热门搜索，搜索词：{}， 查询结果数量：{}", content, majors.size());
+		model.addAttribute("currentSubject", new Subject().setId(0));
+		model.addAttribute("data", majors);
+		//启用与专业类别一起展示的方式
+		model.addAttribute("majors", null);
+		//不显示分页按钮
+		model.addAttribute("totalPages", null);
+		model.addAttribute("searchVo", new SearchVo());
 		model.addAttribute("subjects", CacheConstant.subjects);
 		return "major/major";
 	}

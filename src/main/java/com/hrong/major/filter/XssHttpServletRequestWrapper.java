@@ -26,7 +26,7 @@ public class XssHttpServletRequestWrapper extends HttpServletRequestWrapper {
 	 */
 	@Override
 	public String getParameter(String name) {
-		if(("content".equals(name) || name.endsWith("WithHtml")) && !isIncludeRichText){
+		if(("name".equals(name) || name.endsWith("WithHtml")) && !isIncludeRichText){
 			return super.getParameter(name);
 		}
 		name = JsoupUtil.clean(name);
