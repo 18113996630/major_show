@@ -3,9 +3,7 @@ package com.hrong.major.utils;
 import com.alibaba.fastjson.JSON;
 import com.alibaba.fastjson.JSONObject;
 import com.baomidou.mybatisplus.core.conditions.query.QueryWrapper;
-import com.hrong.major.model.Log;
 import com.hrong.major.model.User;
-import com.hrong.major.service.LogService;
 import com.hrong.major.service.UserService;
 import lombok.extern.slf4j.Slf4j;
 import org.apache.http.client.config.RequestConfig;
@@ -20,7 +18,6 @@ import org.springframework.stereotype.Component;
 import javax.annotation.PostConstruct;
 import javax.annotation.Resource;
 import java.io.IOException;
-import java.util.List;
 import java.util.Objects;
 import java.util.Random;
 
@@ -153,7 +150,7 @@ public class IpUtils {
 			httpResponse = closeableHttpClient.execute(httpGet);
 			content = EntityUtils.toString(httpResponse.getEntity());
 		} catch (Exception e) {
-			e.printStackTrace();
+			log.error("ip-api请求发生错误:{}", e.getMessage());
 		} finally {
 			try {
 				if (httpResponse != null) {
