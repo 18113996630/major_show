@@ -49,5 +49,6 @@ public class User implements Serializable {
 	 */
 	private String city;
 
+	private String ip;
 
 }

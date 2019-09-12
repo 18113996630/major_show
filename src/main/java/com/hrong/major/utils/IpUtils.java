@@ -4,7 +4,9 @@ import com.alibaba.fastjson.JSON;
 import com.alibaba.fastjson.JSONObject;
 import com.baomidou.mybatisplus.core.conditions.query.QueryWrapper;
 import com.hrong.major.model.Log;
+import com.hrong.major.model.User;
 import com.hrong.major.service.LogService;
+import com.hrong.major.service.UserService;
 import lombok.extern.slf4j.Slf4j;
 import org.apache.http.client.config.RequestConfig;
 import org.apache.http.client.methods.CloseableHttpResponse;
@@ -30,30 +32,36 @@ import java.util.Random;
 public class IpUtils {
 	private static final String BAIDU_AK = "Kl6VANEIjV2QmmIILGMNYFrwnzprBufa";
 	private static final String PROD_ENV = "prod";
-	private static LogService service;
+	private static UserService userServiceStatic;
 	private static boolean isProd = true;
 	@Resource
-	private LogService logService;
+	private UserService userService;
 	@Value(value = "${spring.profiles.active}")
 	private String env;
 
 
 	@PostConstruct
-	public void init(){
-		service = logService;
+	public void init() {
+		userServiceStatic = userService;
 		if (PROD_ENV.equalsIgnoreCase(env)) {
 			log.info("当前环境为：生产环境，开启ip查询");
 			isProd = true;
 		}
 	}
 
-	public static String getCity(String ip){
+	/**
+	 * 根据ip获取城市信息
+	 *
+	 * @param ip 传入ip
+	 * @return 城市信息
+	 */
+	public static String getCity(String ip) {
 		String address = "未知";
-		List<Log> logs = service.list(new QueryWrapper<Log>().eq("ip", ip).ne("city", "").ne("city", "未知"));
-		Log logDb = logs.size() == 0 ? null : logs.get(0);
-		boolean isNeed = isProd && (logDb == null || logDb.getClass() == null || address.equalsIgnoreCase(logDb.getCity()));
+		User user = userServiceStatic.getOne(new QueryWrapper<User>().eq("ip", ip));
+
+		boolean isNeed = isProd && (user == null || user.getIp() == null || address.equalsIgnoreCase(user.getCity()));
 		if (isNeed) {
-			log.info("未在日志表中发现该ip，开始从第三方api获取city信息");
+			log.info("未在用户表中发现该ip所在城市信息，开始从第三方api获取city信息");
 			boolean random = new Random().nextBoolean();
 			if (random) {
 				address = IpUtils.getCityByIpWithBaidu(ip);
@@ -68,10 +76,20 @@ public class IpUtils {
 				}
 				address = address == null ? "未知" : address;
 			}
-		}else {
-			address = Objects.requireNonNull(logDb).getCity();
+			if (user == null) {
+				user = new User();
+				user.setIp(ip);
+				user.setCity(address);
+				userServiceStatic.saveOrUpdate(user);
+			} else if (!"未知".equals(address)) {
+				log.info("将ip为：{}的user的city信息更新为：{}", ip, address);
+				user.setCity(address);
+				userServiceStatic.saveOrUpdate(user);
+			}
+		} else {
+			address = Objects.requireNonNull(user).getCity();
 		}
-		log.info("获取结果:{}", address);
+		log.info("ip:{}，城市:{}", ip, address);
 		return address;
 	}
 
@@ -95,7 +113,7 @@ public class IpUtils {
 		}
 		return null;
 	}
-	
+
 	/**
 	 * 淘宝开放接口通过IP地址获取地理位置
 	 *

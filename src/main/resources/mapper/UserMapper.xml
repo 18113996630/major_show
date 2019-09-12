@@ -10,6 +10,7 @@
         <result column="name" property="name" />
         <result column="contact" property="contact" />
         <result column="city" property="city" />
+        <result column="ip" property="ip" />
     </resultMap>
 
 </mapper>

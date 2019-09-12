@@ -1,14 +1,20 @@
 package com.hrong.major.conf;
 
+import com.hrong.major.filter.XSSFilter;
 import com.hrong.major.interceptor.MajorInterceptor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Value;
+import org.springframework.boot.web.servlet.FilterRegistrationBean;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.web.servlet.config.annotation.InterceptorRegistration;
 import org.springframework.web.servlet.config.annotation.InterceptorRegistry;
 import org.springframework.web.servlet.config.annotation.ResourceHandlerRegistry;
 import org.springframework.web.servlet.config.annotation.WebMvcConfigurer;
+
+import java.util.Collections;
+import java.util.HashMap;
+import java.util.Map;
 
 /**
  * @Author hrong
@@ -35,6 +41,23 @@ public class WebConf implements WebMvcConfigurer {
 		interceptor.excludePathPatterns("/**/admin/login/**");
 		interceptor.excludePathPatterns("/**/admin/css/**");
 		interceptor.excludePathPatterns("/**/admin/js/**");
+	}
+
+	/**
+	 * xss过滤拦截器
+	 */
+	@Bean
+	public FilterRegistrationBean xssFilterRegistrationBean() {
+		FilterRegistrationBean filterRegistrationBean = new FilterRegistrationBean();
+		filterRegistrationBean.setFilter(new XSSFilter());
+		filterRegistrationBean.setOrder(1);
+		filterRegistrationBean.setEnabled(true);
+		filterRegistrationBean.addUrlPatterns("/*");
+		Map<String, String> initParameters = new HashMap<>(2);
+		initParameters.put("excludes", "/favicon.ico,/img/*,/js/*,/css/*");
+		initParameters.put("isIncludeRichText", "true");
+		filterRegistrationBean.setInitParameters(initParameters);
+		return filterRegistrationBean;
 	}
 
 	@Override

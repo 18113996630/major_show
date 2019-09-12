@@ -1,4 +1,4 @@
-package com.hrong.major.model;
+package com.hrong.major.model.vo;
 
 import com.baomidou.mybatisplus.annotation.FieldFill;
 import com.baomidou.mybatisplus.annotation.IdType;
@@ -21,14 +21,13 @@ import java.io.Serializable;
 @Data
 @EqualsAndHashCode(callSuper = false)
 @Accessors(chain = true)
-public class DetailUpdate implements Serializable {
+public class DetailUpdateVo implements Serializable {
 
 	private static final long serialVersionUID = 1L;
 
 	/**
 	 * id
 	 */
-	@TableId(value = "id", type = IdType.AUTO)
 	private Integer id;
 
 	/**
@@ -51,25 +50,26 @@ public class DetailUpdate implements Serializable {
 	private String reason;
 
 	/**
-	 * 专业详情id
+	 * 专业名字
+	 *
 	 */
-	private Integer majorDetailId;
-
+	private String majorName;
 	/**
 	 * 用户id
 	 */
-	private Integer userId;
+	private String ip;
+	private String city;
 
 	/**
 	 * 提交时间
 	 */
-	@TableField(fill = FieldFill.INSERT)
 	private String time;
 
 	/**
 	 * 状态(0-待处理 1-已通过 -1-未通过)
 	 */
 	private Integer status;
+
 
 
 }

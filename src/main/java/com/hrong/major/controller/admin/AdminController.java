@@ -94,11 +94,19 @@ public class AdminController {
 	 * 专业详情表格
 	 */
 	@GetMapping(value = "/major/detail")
-	public String videoDetail(Model model) {
+	public String majorDetail(Model model) {
 		//用于下拉选项赋值
 		model.addAttribute("subjects", CacheConstant.subjects);
 		model.addAttribute("majors", majorService.list());
 		return "admin/side/major_detail";
+	}
+	/**
+	 * 专业详情修改表格
+	 */
+	@GetMapping(value = "/major/detail/update")
+	public String majorDetailUpdateTable(Model model) {
+		model.addAttribute("majors", majorService.list());
+		return "admin/side/major_detail_update";
 	}
 
 	/**

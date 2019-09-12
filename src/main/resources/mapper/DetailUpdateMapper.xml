@@ -4,14 +4,43 @@
 
     <!-- 通用查询映射结果 -->
     <resultMap id="BaseResultMap" type="com.hrong.major.model.DetailUpdate">
-        <id column="id" property="id" />
-        <result column="content" property="content" />
-        <result column="type" property="type" />
-        <result column="reason" property="reason" />
-        <result column="major_detail_id" property="majorDetailId" />
-        <result column="user_id" property="userId" />
-        <result column="time" property="time" />
-        <result column="status" property="status" />
+        <id column="id" property="id"/>
+        <result column="content" property="content"/>
+        <result column="content_before" property="contentBefore"/>
+        <result column="type" property="type"/>
+        <result column="reason" property="reason"/>
+        <result column="major_detail_id" property="majorDetailId"/>
+        <result column="user_id" property="userId"/>
+        <result column="time" property="time"/>
+        <result column="status" property="status"/>
     </resultMap>
+    <select id="findMajorsDetailUpdateByMajorNameAndStatus"
+            resultType="com.hrong.major.model.vo.DetailUpdateVo">
+        select t.*, m.name as majorName,u.ip,u.city from detail_update t left join major_detail m on t.major_detail_id=m.id left join
+        user u on t.user_id=u.id where 1=1
+        <if test="majorDetailId != null and majorDetailId != ''">
+            and m.id = #{majorDetailId}
+        </if>
+        <if test="status != null and status != ''">
+            and t.status = #{status}
+        </if>
+        order by t.time desc
+    </select>
+
+    <select id="countMajorsDetailUpdateByMajorNameAndStatus" resultType="java.lang.Integer">
+        select count(1) from detail_update t left join major_detail m on t.major_detail_id=m.id left join
+        user u on t.user_id=u.id where 1=1
+        <if test="majorDetailId != null and majorDetailId != ''">
+            and m.id = #{majorDetailId}
+        </if>
+        <if test="status != null and status != ''">
+            and t.status = #{status}
+        </if>
+        order by t.time desc
+    </select>
+    <select id="findMajorsDetailUpdateById" resultType="com.hrong.major.model.vo.DetailUpdateVo">
+        select t.*, m.name,u.ip,u.city from detail_update t left join major_detail m on t.major_detail_id=m.id left join
+                                                    user u on t.user_id=u.id where t.id=#{id}
+    </select>
 
 </mapper>

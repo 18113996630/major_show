@@ -45,6 +45,7 @@ public class MessageController {
 		if (userDb == null) {
 			userDb = new User();
 			userDb.setCity(city);
+			userDb.setIp(ip);
 			userDb.setContact(messageVo.getContact());
 			userService.save(userDb);
 			log.info("用户保存成功，userId为：{}，开始保存留言信息",userDb.getId());

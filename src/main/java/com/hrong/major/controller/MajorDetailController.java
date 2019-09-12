@@ -1,6 +1,7 @@
 package com.hrong.major.controller;
 
 
+import com.alibaba.fastjson.JSONObject;
 import com.baomidou.mybatisplus.core.conditions.query.QueryWrapper;
 import com.hrong.major.annotation.ClickLog;
 import com.hrong.major.model.ClickType;
@@ -8,12 +9,17 @@ import com.hrong.major.model.DetailUpdate;
 import com.hrong.major.model.Major;
 import com.hrong.major.model.MajorDetail;
 import com.hrong.major.model.Subject;
+import com.hrong.major.model.User;
 import com.hrong.major.model.vo.CommentVo;
 import com.hrong.major.model.vo.MajorDetailWithVideoVo;
+import com.hrong.major.model.vo.Result;
 import com.hrong.major.service.CommentService;
+import com.hrong.major.service.DetailUpdateService;
 import com.hrong.major.service.MajorDetailService;
 import com.hrong.major.service.MajorService;
 import com.hrong.major.service.SubjectService;
+import com.hrong.major.service.UserService;
+import com.hrong.major.utils.IpUtils;
 import com.hrong.major.utils.RequestUtils;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Controller;
@@ -22,6 +28,7 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.ResponseBody;
 
 import javax.annotation.Resource;
 import javax.servlet.http.HttpServletRequest;
@@ -48,6 +55,10 @@ public class MajorDetailController {
 	private MajorService majorService;
 	@Resource
 	private CommentService commentService;
+	@Resource
+	private DetailUpdateService detailUpdateService;
+	@Resource
+	private UserService userService;
 
 	/**
 	 * 根据专业id查询详情
@@ -89,11 +100,10 @@ public class MajorDetailController {
 	 * 根据专业id查询详情
 	 */
 	@ClickLog(type = ClickType.detail_update)
+	@ResponseBody
 	@PostMapping
-	public String detailUpdate(HttpServletRequest request, DetailUpdate detailUpdate) {
-		System.out.println(detailUpdate);
-		return null;
+	public Object detailUpdate(HttpServletRequest request, DetailUpdate detailUpdate) {
+		return detailUpdateService.addUpdateInfo(RequestUtils.getIp(request), detailUpdate);
 	}
-
 }
 

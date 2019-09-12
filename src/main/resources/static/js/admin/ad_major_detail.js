@@ -154,7 +154,6 @@ function recoveryMajor(id) {
 
 function showQuery(data) {
     data = data.data;
-    console.log(data);
     $("#id").val(data.id);
     $("#name").val(data.name);
     $("#code").val(data.code);
