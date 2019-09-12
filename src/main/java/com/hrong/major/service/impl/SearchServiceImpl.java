@@ -1,10 +1,10 @@
 package com.hrong.major.service.impl;
 
 import com.baomidou.mybatisplus.core.conditions.query.QueryWrapper;
-import com.hrong.major.model.Search;
-import com.hrong.major.dao.SearchMapper;
-import com.hrong.major.service.SearchService;
 import com.baomidou.mybatisplus.extension.service.impl.ServiceImpl;
+import com.hrong.major.dao.SearchMapper;
+import com.hrong.major.model.Search;
+import com.hrong.major.service.SearchService;
 import org.springframework.stereotype.Service;
 
 import javax.annotation.Resource;
@@ -26,6 +26,6 @@ public class SearchServiceImpl extends ServiceImpl<SearchMapper, Search> impleme
 
 	@Override
 	public List<Search> getPopularSearches() {
-		return searchMapper.selectList(new QueryWrapper<Search>().orderByDesc("search_count").last("limit 5"));
+		return searchMapper.selectList(new QueryWrapper<Search>().orderByDesc("search_count").last("limit 6"));
 	}
 }

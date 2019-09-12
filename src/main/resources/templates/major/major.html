@@ -32,6 +32,14 @@
                     <button class="btn btn-info btn-lg" type="submit">搜一搜</button>
                 </div>
             </form>
+            <div class="clearfloat"></div>
+            <div class="hot-div">
+                <span class="hot-search-span">热门搜索：</span>
+                <form class="form-group form-hot-search" th:action="@{/majors}" th:each="search:${searches}" th:method="post" th:object="${searchVo}">
+                    <input hidden="hidden" name="name" th:value="${search.name}" type="text">
+                    <button class="btn btn-search"  th:classappend="${search.searchCount % 3 eq 0 ? 'btn-success' : (search.searchCount % 2 eq 0 ? 'btn-warning' : 'btn-info')}" th:text="${search.name}" type="submit"></button>
+                </form>
+            </div>
             <!--<span class="hot-search-span">热门搜索：</span>
             <a th:each="search:${searches}" th:href="@{'/majors/hot?content='+${search.name}}">
                 <button class="btn btn-search"

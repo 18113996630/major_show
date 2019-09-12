@@ -100,24 +100,5 @@ public class MajorController extends BaseController<Major> {
 		return "major/major";
 	}
 
-	/**
-	 * 根据输入模糊查询专业
-	 */
-	@ClickLog(type = ClickType.majors)
-	@GetMapping(value = "/majors/hot")
-	public String queryMajorsByHotSearch(Model model, @RequestParam String content){
-		List<MajorVo> majors = majorService.findMajorsByName(content);
-		log.info("点击热门搜索，搜索词：{}， 查询结果数量：{}", content, majors.size());
-		model.addAttribute("currentSubject", new Subject().setId(0));
-		model.addAttribute("data", majors);
-		//启用与专业类别一起展示的方式
-		model.addAttribute("majors", null);
-		//不显示分页按钮
-		model.addAttribute("totalPages", null);
-		model.addAttribute("searchVo", new SearchVo());
-		model.addAttribute("subjects", CacheConstant.subjects);
-		return "major/major";
-	}
-
 }
 

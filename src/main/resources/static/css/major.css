@@ -69,3 +69,17 @@
 .btn-search {
     margin-right: 1.5em;
 }
+.hot-search-span{
+    font-size: 1.5em;
+    font-weight: bold;
+    color: #ab9645;
+}
+.btn-search {
+    margin-right: 1.5em;
+}
+.form-hot-search{
+    display: inline-block;
+}
+.hot-div{
+    margin-top: 1.2em;
+}
