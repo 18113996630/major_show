@@ -1,7 +1,8 @@
 <!DOCTYPE html>
 <html lang="en" xmlns:th="http://www.thymeleaf.org">
-<head th:replace="commons/header :: common-header(~{}, ~{::link})">
+<head th:replace="commons/header :: common-header(~{::title}, ~{::link})">
     <link rel="stylesheet" th:href="@{/css/top.css}">
+    <title>排行榜</title>
 </head>
 <body>
 <!-- Header -->

@@ -80,7 +80,6 @@ public class XssHttpServletRequestWrapper extends HttpServletRequestWrapper {
 		if (req instanceof XssHttpServletRequestWrapper) {
 			return ((XssHttpServletRequestWrapper) req).getOrgRequest();
 		}
-
 		return req;
 	}
 }
