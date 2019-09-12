@@ -23,10 +23,10 @@
                 <div th:replace="commons/search :: search-component"></div>
             </div>
             <span class="hot-search-span">热门搜索：</span>
-            <form th:each="search:${searches}" th:id="form+${search.id}">
-                <button th:onclick="searchHot([[${seach.name}}]], [[${search.id}]])" th:text="${search.name}">
-                        <!--class="btn btn-search" -->
-                        <!--th:classappend="${search.searchCount % 3 eq 0 ? 'btn-success' : (search.searchCount % 2 eq 0 ? 'btn-warning' : 'btn-info')}"-->
+            <form class="form-group form-hot-search" th:action="@{/majors}" th:each="search:${searches}" th:method="post" th:object="${searchVo}">
+                <input hidden="hidden" name="name" th:value="${search.name}" type="text">
+                <button class="btn btn-search"  th:classappend="${search.searchCount % 3 eq 0 ? 'btn-success' : (search.searchCount % 2 eq 0 ? 'btn-warning' : 'btn-info')}" th:text="${search.name}" type="submit"></button>
+<!--                th:onclick="searchHot([[${search.name}]], [[${search.id}]])"-->
             </form>
             <!-- 专业种类展示 -->
             <h2 class="center-block" th:text="专业种类"></h2>

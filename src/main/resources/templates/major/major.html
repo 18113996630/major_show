@@ -32,12 +32,12 @@
                     <button class="btn btn-info btn-lg" type="submit">搜一搜</button>
                 </div>
             </form>
-            <span class="hot-search-span">热门搜索：</span>
+            <!--<span class="hot-search-span">热门搜索：</span>
             <a th:each="search:${searches}" th:href="@{'/majors/hot?content='+${search.name}}">
                 <button class="btn btn-search"
                         th:classappend="${search.searchCount % 3 eq 0 ? 'btn-success' : (search.searchCount % 2 eq 0 ? 'btn-warning' : 'btn-info')}"
                         th:text="${search.name}"></button>
-            </a>
+            </a>-->
             <div class="clearfloat"></div>
             <h3 class="text-center text-warning" th:if="not ${majors} and ${data.isEmpty()}" th:text="没有找到相关专业哦"></h3>
             <!-- 展示专业信息 -->

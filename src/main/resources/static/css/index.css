@@ -31,3 +31,6 @@
 .btn-search {
     margin-right: 1.5em;
 }
+.form-hot-search{
+    display: inline-block;
+}
