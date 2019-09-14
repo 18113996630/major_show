@@ -127,6 +127,10 @@ public class Configuration implements Serializable {
      * 详情-按钮-投稿
      */
     private String dBtnContribute;
+ /**
+     * 详情-留言提示
+     */
+    private String msg;
 
     /**
      * 详情-按钮-提交评论

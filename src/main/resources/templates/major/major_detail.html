@@ -147,7 +147,7 @@
                 <span>条评论</span>
             </div>
             <div th:if="${commentsCount} eq 0">
-                <span>来做第一个吃螃蟹的人</span>
+                <span th:text="${conf.msg}">快来给学弟学妹分享一下吧~</span>
             </div>
             <br>
             <div>

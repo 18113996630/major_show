@@ -30,6 +30,7 @@
         <result column="d_btn_next" property="dBtnNext" />
         <result column="d_btn_other" property="dBtnOther" />
         <result column="d_btn_contribute" property="dBtnContribute" />
+        <result column="msg" property="msg" />
         <result column="d_btn_last" property="dBtnLast" />
         <result column="d_btn_comment" property="dBtnComment" />
         <result column="h_a_title" property="hATitle" />

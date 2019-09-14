@@ -190,6 +190,13 @@
             </div>
         </div>
         <div class="form-group">
+            <label class="col-md-2 control-label" for="msg" th:text="详情-评论提示"></label>
+            <div class="col-md-8">
+                <input class="form-control" id="msg" name="msg" placeholder="详情-评论提示" th:field="*{msg}"
+                       th:value="${configuration.msg}" type="text">
+            </div>
+        </div>
+        <div class="form-group">
             <label class="col-md-2 control-label" for="dBtnComment" th:text="详情-按钮-提交评论"></label>
             <div class="col-md-8">
                 <input class="form-control" id="dBtnComment" name="dBtnComment" placeholder="详情-按钮-提交评论" th:field="*{dBtnComment}"
