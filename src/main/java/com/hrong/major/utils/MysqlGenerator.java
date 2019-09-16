@@ -82,7 +82,7 @@ public class MysqlGenerator {
 		strategy.setEntityLombokModel(true);
 
 		// 需要生成的表
-		strategy.setInclude("search");
+		strategy.setInclude("blacklist");
 
 		strategy.setSuperServiceClass(null);
 		strategy.setSuperServiceImplClass(null);

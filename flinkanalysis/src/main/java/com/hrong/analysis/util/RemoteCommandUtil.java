@@ -5,6 +5,8 @@ import ch.ethz.ssh2.Session;
 import ch.ethz.ssh2.StreamGobbler;
 import lombok.extern.slf4j.Slf4j;
 import org.apache.commons.lang3.StringUtils;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 import java.io.BufferedReader;
 import java.io.IOException;
@@ -16,9 +18,8 @@ import java.nio.charset.Charset;
  * @Author hrong
  * @Description
  **/
-@Slf4j
 public class RemoteCommandUtil {
-
+	private static Logger log = LoggerFactory.getLogger(RemoteCommandUtil.class);
 	public static void main(String[] args) throws InterruptedException {
 		String ip = "192.168.0.50";
 		String userName = "hadoop";
@@ -44,7 +45,7 @@ public class RemoteCommandUtil {
 			conn.connect();
 			flg = conn.authenticateWithPassword(userName, password);
 			if (flg) {
-				log.info("=========登录成功=========" + conn);
+				log.info("=========登录成功=========");
 				return conn;
 			}
 		} catch (IOException e) {

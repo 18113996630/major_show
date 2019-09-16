@@ -1,19 +1,26 @@
 package com.hrong.analysis.ip
 
 import java.util
+import java.util.Date
 
-import com.hrong.analysis.entity.Log
+import com.hrong.analysis.entity.{Blacklist, Log}
 import com.hrong.analysis.source.NginxLogSource
-import com.hrong.analysis.util.{ArrayUtils, LogParseUtil}
+import com.hrong.analysis.util.{ArrayUtil, LogParseUtil}
 import org.apache.commons.lang3.time.FastDateFormat
+import org.apache.flink.api.java.functions.KeySelector
 import org.apache.flink.cep.PatternSelectFunction
 import org.apache.flink.cep.pattern.conditions.{IterativeCondition, RichIterativeCondition}
 import org.apache.flink.cep.scala.CEP
 import org.apache.flink.cep.scala.pattern.Pattern
 import org.apache.flink.streaming.api.TimeCharacteristic
-import org.apache.flink.streaming.api.functions.AssignerWithPunctuatedWatermarks
+import org.apache.flink.streaming.api.functions.{AssignerWithPeriodicWatermarks, AssignerWithPunctuatedWatermarks}
+import org.apache.flink.streaming.api.functions.timestamps.AscendingTimestampExtractor
 import org.apache.flink.streaming.api.scala.{StreamExecutionEnvironment, _}
 import org.apache.flink.streaming.api.watermark.Watermark
+import org.apache.flink.streaming.api.windowing.time.Time
+
+import scala.collection.JavaConverters._
+import scala.collection.mutable.ArrayBuffer
 
 /**
   * ip检测规则：
@@ -29,100 +36,83 @@ object IllegalIpAnalysis {
     //设置eventTime为流数据时间类型
     env.setStreamTimeCharacteristic(TimeCharacteristic.EventTime)
     //自定义的nginx-source，已实现去重功能
-    val sourceData: DataStream[Log] = env.addSource(new NginxLogSource)
-    /*val requestLog: DataStream[Log] = sourceData
+    val sourceData = env.addSource(new NginxLogSource)
+    val requestLog = sourceData
       .filter(log => {
         //过滤静态资源请求
         val method = log.getRequestMethod
         if (method != null && (method.contains("cover") || method.contains("css")
           | method.contains("js") || method.contains("layer") || method.contains("fonts")
-          | method.contains("img") || method.contains("face"))) {
+          | method.contains("img") || method.contains("face")) || method.contains("favicon")) {
           false
         } else {
           true
         }
-      })*/
-
-    val requestLog = env.fromElements(ArrayUtils.getLog(1), ArrayUtils.getLog(2),
-      ArrayUtils.getLog(3), ArrayUtils.getLog(4),
-      ArrayUtils.getLog(5), ArrayUtils.getLog(46)).assignTimestampsAndWatermarks(new AssignerWithPunctuatedWatermarks[Log] {
-      // 事件时间
-      var currentMaxTimestamp = 0L
-      val maxOutOfOrder = 2L
-      var lastEmittedWatermark: Long = Long.MinValue
-
-      override def checkAndGetNextWatermark(lastElement: Log, extractedTimestamp: Long): Watermark = {
-        val potentialWM = currentMaxTimestamp - maxOutOfOrder
-        // 保证水印能依次递增
-        if (potentialWM >= lastEmittedWatermark) {
-          lastEmittedWatermark = potentialWM
-        }
-        new Watermark(lastEmittedWatermark)
+      })
+      //模拟数据
+      /*val requestLog = env.fromElements(ArrayUtil.getLog(1), ArrayUtil.getLog(2),
+        ArrayUtil.getLog(3), ArrayUtil.getLog(4),
+        ArrayUtil.getLog(5), ArrayUtil.getLog(7),
+        ArrayUtil.getLog(7), ArrayUtil.getLog(8),
+        ArrayUtil.getLog(20), ArrayUtil.getLog(10),
+        ArrayUtil.getLog(11), ArrayUtil.getLog(12),
+        ArrayUtil.getLog(12), ArrayUtil.getLog(14))*/
+      .assignTimestampsAndWatermarks(new AscendingTimestampExtractor[Log] {
+      override def extractAscendingTimestamp(element: Log): Long = {
+        element.getTime
       }
+    }).keyBy(log => log.getIp)
 
-      override def extractTimestamp(element: Log, previousElementTimestamp: Long): Long = {
-        val timestamp = element.getTime
-        if (timestamp > currentMaxTimestamp) {
-          currentMaxTimestamp = timestamp
-        }
-        timestamp
-      }
-    })
 
+    requestLog.print("请求日志数据：")
     //使用cep处理：请求地址依次递增：https://www.subjectshow.com/major/info/1 https://www.subjectshow.com/major/info/2
-    //获取请求地址最末尾的数字，判断是否是连续的，如果连续状态持续十次，则判定为异常ip
-    val pattern = Pattern.begin[Log]("start").where(log => {
-      if (log.getRequestMethod.contains("/major/info/")) {
-        true
-      } else {
-        false
-      }
-    }).followedBy("middle").where(new RichIterativeCondition[Log] {
+    //获取请求地址最末尾的数字，判断是否是连续递增的，如果状态持续次数过多，则判定为异常ip
+    val pattern = Pattern.begin[Log]("start")
+      .where(log => log.getRequestMethod.contains("/major/info/"))
+      .followedBy("middle").where(new RichIterativeCondition[Log] {
       override def filter(t: Log, context: IterativeCondition.Context[Log]): Boolean = {
-        //GET /major/info/25 HTTP/1.1
         //当前请求参数id
         val majorId = LogParseUtil.getRequestMajorId(t)
         //第一次请求参数id
         val startId = LogParseUtil.getRequestMajorId(context.getEventsForPattern("start").iterator().next())
-        val iteratorOfMiddle = context.getEventsForPattern("middle").iterator()
-        val params = new util.ArrayList[Integer]()
-        var count = 0
-        while (iteratorOfMiddle.hasNext) {
-          val item = iteratorOfMiddle.next()
-          params.add(LogParseUtil.getRequestMajorId(item))
-          count += 1
-        }
-        val isContinuous = ArrayUtils.isContinuousArray(params)
-        if (majorId - startId == 1) {
-          println("第二个 startId:", startId, "当前id:", majorId, "context获取到的数据:", params," 有"+count+"个")
-          true
-        } else if (isContinuous) {
-          println("连续的 startId:", startId, "当前id:", majorId, "context获取到的数据:", params," 有"+count+"个")
-          true
-        } else {
-          println("未匹配上 startId:", startId, "当前id:", majorId, "context获取到的数据:", params," 有"+count+"个")
-          false
-        }
+        majorId > startId
       }
     }).times(4)
+      //      .within(Time.seconds(10L))
+//      .times(3, 10)
 
     val result = CEP.pattern(requestLog, pattern)
-    result.select(new PatternSelectFunction[Log, String] {
-      override def select(pattern: util.Map[String, util.List[Log]]): String = {
-        var res: String = ""
+    result.select(new PatternSelectFunction[Log, Blacklist] {
+      override def select(pattern: util.Map[String, util.List[Log]]): Blacklist = {
+        var result: Blacklist = null
         if (pattern != null) {
-          val size = pattern.get("middle").size()
-          var middle = ""
-          for (num <- 0 until size) {
-            middle += pattern.get("middle").get(num).getUser + "  "
+          //请求路径中的数字
+          val requestParams = ArrayBuffer[Integer]()
+          //请求详情，方便后台查看
+          val detail = ArrayBuffer[String]()
+          //第一个匹配上的日志对象
+          val startLog = pattern.get("start").get(0)
+          //将能匹配上的数据的参数存入list，进行连续性判断
+          requestParams.append(LogParseUtil.getRequestMajorId(startLog))
+          detail.append(LogParseUtil.getDetailOfLog(startLog))
+
+          for (num <- 0 until pattern.get("middle").size()) {
+            requestParams.append(LogParseUtil.getRequestMajorId(pattern.get("middle").get(num)))
+            detail.append(LogParseUtil.getDetailOfLog(pattern.get("middle").get(num)))
           }
-          res = "start:【" + pattern.get("start").get(0).getUser + "】 ->" +
-            "middle: 【" + middle + "】 ->"
+          //若满足参数连续则将该ip返回进行后续操作
+          if (ArrayUtil.isContinuousArray(requestParams.asJava)) {
+            result = new Blacklist()
+
+            result.setIp(startLog.getIp)
+            result.setCheckTime(sdf.format(new Date()))
+            result.setDetail(detail.toString())
+            System.out.println(result)
+          }
         }
-        res
+        result
       }
     }).print()
-
     env.execute("source Job starting")
   }
 }

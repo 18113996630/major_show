@@ -7,6 +7,7 @@ import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.Date;
 import java.util.Locale;
+import java.util.Optional;
 
 /**
  * @Author hrong
@@ -16,6 +17,11 @@ import java.util.Locale;
 public class LogParseUtil {
 	private static SimpleDateFormat formatter = new SimpleDateFormat("dd/MMM/yyyy:hh:mm:ss Z", Locale.ENGLISH);
 	private static SimpleDateFormat format = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
+
+	public static void main(String[] args) throws ParseException {
+		Date date = formatter.parse("16/Sep/2019:13:02:42 +0800");
+		System.out.println(format.format(date));
+	}
 
 	/**
 	 * 解析nginx日志
@@ -57,5 +63,22 @@ public class LogParseUtil {
 			return Integer.valueOf(id);
 		}
 		return 0;
+	}
+
+	/**
+	 * 获取日志的部分参数详情
+	 * @param log 日志
+	 * @return detail
+	 */
+	public static String getDetailOfLog(Log log){
+		if (log == null) {
+			return null;
+		}
+		String time = log.getTimeFormat();
+		String requestMethod = log.getRequestMethod();
+		String userAgent = log.getUserAgent();
+		String referer = log.getReferer();
+//		return String.format("%s | %s | %s | %s \r\n", time, requestMethod, referer, userAgent);
+		return String.format("\n%s | %s \r\n", time, requestMethod);
 	}
 }
