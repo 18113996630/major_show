@@ -3,25 +3,19 @@ package com.hrong.analysis.source;
 import ch.ethz.ssh2.Connection;
 import com.hrong.analysis.entity.Log;
 import com.hrong.analysis.util.LogParseUtil;
-import com.hrong.analysis.util.PropertyUtil;
 import com.hrong.analysis.util.RemoteCommandUtil;
 import org.apache.flink.configuration.Configuration;
 import org.apache.flink.streaming.api.functions.source.RichSourceFunction;
 
-import java.text.DateFormat;
-import java.text.SimpleDateFormat;
-import java.util.Date;
-
 /**
  * @Author hrong
- * @Description 读取nginx日志文件
+ * @Description
  **/
 public class NginxLogSource extends RichSourceFunction<Log> {
-	private static String ip = PropertyUtil.get("ip");
-	private static String user = PropertyUtil.get("account");
-	private static String password = PropertyUtil.get("password");
-	private static String script = PropertyUtil.get("script");
-	private static int interval = Integer.parseInt(PropertyUtil.get("interval"));
+	private static String ip = "";
+	private static String user = "";
+	private static String password = "";
+	private static String script = "tail -n 20 /usr/local/nginx/logs/access.log";
 	private Connection connection = null;
 
 	@Override
@@ -46,7 +40,7 @@ public class NginxLogSource extends RichSourceFunction<Log> {
 						}
 					}
 				}
-				Thread.sleep(interval);
+				Thread.sleep(5000);
 			}
 		}
 	}
