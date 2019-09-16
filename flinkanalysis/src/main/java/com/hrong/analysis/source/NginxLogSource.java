@@ -12,9 +12,9 @@ import org.apache.flink.streaming.api.functions.source.RichSourceFunction;
  * @Description
  **/
 public class NginxLogSource extends RichSourceFunction<Log> {
-	private static String ip = "39.106.190.74";
-	private static String user = "root";
-	private static String password = "Hr0729!@#";
+	private static String ip = "";
+	private static String user = "";
+	private static String password = "";
 	private static String script = "tail -n 20 /usr/local/nginx/logs/access.log";
 	private Connection connection = null;
 
