@@ -55,8 +55,7 @@ public class IpUtils {
 	public static String getCity(String ip) {
 		String address = "未知";
 		User user = userServiceStatic.getOne(new QueryWrapper<User>().eq("ip", ip));
-
-		boolean isNeed = isProd && (user == null || user.getIp() == null || address.equalsIgnoreCase(user.getCity()));
+		boolean isNeed = isProd && (user == null || address.equalsIgnoreCase(user.getCity()));
 		if (isNeed) {
 			log.info("未在用户表中发现该ip所在城市信息，开始从第三方api获取city信息");
 			boolean random = new Random().nextBoolean();

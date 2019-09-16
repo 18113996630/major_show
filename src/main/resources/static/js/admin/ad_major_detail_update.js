@@ -108,7 +108,8 @@ table.bootstrapTable({
             formatter: function (value, row, index) {
                 return '<button class="btn btn-primary btn-sm" onclick="show(\'' + row.id + '\')">查看</button> ' +
                     '<button class="btn btn-primary btn-sm" onclick="agree(\'' + row.id + '\')">通过</button> ' +
-                    '<button class="btn btn-primary btn-sm" onclick="negative(\'' + row.id + '\')">否定</button> ';
+                    '<button class="btn btn-primary btn-sm" onclick="negative(\'' + row.id + '\')">否定</button> '+
+                    '<button class="btn btn-primary btn-sm" onclick="deleteRequest(\'' + row.id + '\')">删除</button> ';
             }
         }
     ],
@@ -133,6 +134,7 @@ function showQuery(data) {
     $("#majorId option[value='"+data.majorId+"']").attr("selected", "selected");
     $("#type").val(data.type);
     $("#contentBefore").val(data.contentBefore);
+    $("#content").val(data.content);
     $("#name").val(data.content);
     $("#ip").val(data.ip);
     $("#city").val(data.city);
@@ -161,6 +163,19 @@ function negative(id) {
         success: function () {
             table.bootstrapTable('refresh');
             layer.msg('审核未通过', {icon: 1})
+        },
+        error: function () {
+            alert("操作失败");
+        }
+    });
+}
+function deleteRequest(id) {
+    $.ajax({
+        url: "/admin/major/detail/update/" + id,
+        type: "DELETE",
+        success: function () {
+            table.bootstrapTable('refresh');
+            layer.msg('删除成功', {icon: 1})
         },
         error: function () {
             alert("操作失败");

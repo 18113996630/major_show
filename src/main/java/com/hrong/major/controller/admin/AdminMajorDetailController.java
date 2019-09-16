@@ -130,4 +130,10 @@ public class AdminMajorDetailController {
 		detailUpdateService.saveOrUpdate(update);
 		return Result.success("操作成功");
 	}
+	@ResponseBody
+	@DeleteMapping(value = "/detail/update/{id}")
+	public Object deleteUpdate(@PathVariable int id){
+		detailUpdateService.removeById(id);
+		return Result.success("操作成功");
+	}
 }

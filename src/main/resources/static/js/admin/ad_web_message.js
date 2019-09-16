@@ -89,7 +89,8 @@ table.bootstrapTable({
             align: 'center',
             valign: 'middle',
             formatter: function (value, row, index) {
-                return '<button class="btn btn-primary btn-sm" onclick="fix(\'' + row.id + '\')">更改状态</button> '
+                return '<button class="btn btn-primary btn-sm" onclick="fix(\'' + row.id + '\')">更改状态</button> ' +
+                    '<button class="btn btn-primary btn-sm" onclick="deleteMsg(\'' + row.id + '\')">删除</button> ';
 
             }
         }
@@ -105,6 +106,20 @@ function fix(id) {
     $.ajax({
         url: "/admin/contact/message/" + id,
         type: "POST",
+        success: function (result) {
+            layer.msg(result.data);
+            table.bootstrapTable('refresh');
+        },
+        error: function (error) {
+            alert(error);
+        }
+    });
+}
+
+function deleteMsg(id) {
+    $.ajax({
+        url: "/admin/contact/message/" + id,
+        type: "DELETE",
         success: function (result) {
             layer.msg(result.data);
             table.bootstrapTable('refresh');

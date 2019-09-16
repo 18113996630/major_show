@@ -3,7 +3,6 @@ package com.hrong.major.controller.admin;
 import com.baomidou.mybatisplus.core.conditions.query.QueryWrapper;
 import com.baomidou.mybatisplus.core.conditions.update.UpdateWrapper;
 import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
-import com.hrong.major.model.MajorDetail;
 import com.hrong.major.model.Video;
 import com.hrong.major.model.VideoNeeds;
 import com.hrong.major.model.vo.Author;
@@ -67,23 +66,7 @@ public class AdminVideoController {
 	@ResponseBody
 	@PostMapping(value = "/video")
 	public Object saveOrUpdateSubject(@RequestBody Video video) {
-		try {
-			if (video.getId() == null) {
-				Integer majorDetailId = majorDetailService.getOne(new QueryWrapper<MajorDetail>().select("id").eq("major_id", video.getMajorId())).getId();
-				video.setMajorDetailId(majorDetailId);
-				videoService.saveOrUpdate(video);
-			}else {
-				//更新major_detail_id
-				Integer majorId = video.getMajorId();
-				Integer majorDetailId = majorDetailService.getOne(new QueryWrapper<MajorDetail>().eq("major_id", majorId)).getId();
-				video.setMajorDetailId(majorDetailId);
-				videoService.saveOrUpdate(video);
-			}
-		} catch (Exception e) {
-			log.error(e.getMessage());
-			return Result.err(500, String.format("后台保存出错:%s", e.getMessage()));
-		}
-		return Result.success("保存成功");
+		return videoService.saveOrUpdateVideo(video);
 	}
 
 	@ResponseBody

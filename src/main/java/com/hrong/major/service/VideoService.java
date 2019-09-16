@@ -4,6 +4,7 @@ import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
 import com.baomidou.mybatisplus.extension.service.IService;
 import com.hrong.major.model.Video;
 import com.hrong.major.model.vo.Author;
+import com.hrong.major.model.vo.Result;
 import com.hrong.major.model.vo.TopVideoAuthorVo;
 import com.hrong.major.model.vo.VideoVoWithMajorName;
 
@@ -58,4 +59,11 @@ public interface VideoService extends IService<Video> {
 	 * @return ups
 	 */
 	int countAllAuthors(String upName, String isAuth);
+
+	/**
+	 * 更新或者保存视频信息
+	 * @param video 视频
+	 * @return 操作结果
+	 */
+	Result saveOrUpdateVideo(Video video);
 }

@@ -224,7 +224,6 @@ springboot+mybatis-plus
     1. **增加详情修改表：detail_update**
     2. **等待网站备案后再完成剩余功能**
 
-3. **增加异常访问检测机制**
 
 ### 20190910
  
@@ -235,6 +234,11 @@ springboot+mybatis-plus
     1. **修改user表，增加ip字段**
 2. **增加xss防御**
 
+### 20190914
+1. **增加异常访问检测机制**
+    1. **使用flink流处理进行检测:读取nginx-log进行处理**
+    - 自定义source
+    - 数据去重
 
 
 

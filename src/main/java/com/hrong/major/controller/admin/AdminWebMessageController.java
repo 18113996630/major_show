@@ -7,6 +7,7 @@ import com.hrong.major.model.vo.Result;
 import com.hrong.major.service.MessageService;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Controller;
+import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
@@ -28,6 +29,7 @@ public class AdminWebMessageController {
 
 	@Resource
 	private MessageService messageService;
+
 	/**
 	 * 表格初始化
 	 */
@@ -41,8 +43,9 @@ public class AdminWebMessageController {
 		res.put("rows", messages);
 		return res;
 	}
-/**
-	 * 表格初始化
+
+	/**
+	 * 留言更改状态
 	 */
 	@ResponseBody
 	@PostMapping("/contact/message/{id}")
@@ -52,6 +55,16 @@ public class AdminWebMessageController {
 		message.setStatus(status);
 		messageService.saveOrUpdate(message);
 		return Result.success("状态更改成功");
+	}
+
+	/**
+	 * 删除留言
+	 */
+	@ResponseBody
+	@DeleteMapping("/contact/message/{id}")
+	public Object deleteMessage(@PathVariable int id) {
+		messageService.removeById(id);
+		return Result.success("删除留言成功");
 	}
 
 }
