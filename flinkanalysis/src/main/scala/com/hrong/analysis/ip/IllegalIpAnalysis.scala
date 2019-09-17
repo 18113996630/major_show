@@ -1,26 +1,17 @@
 package com.hrong.analysis.ip
 
-import java.util
-import java.util.Date
-
-import com.hrong.analysis.entity.{Blacklist, Log}
+import com.hrong.analysis.entity.Log
 import com.hrong.analysis.source.NginxLogSource
-import com.hrong.analysis.util.{ArrayUtil, LogParseUtil}
 import org.apache.commons.lang3.time.FastDateFormat
-import org.apache.flink.api.java.functions.KeySelector
-import org.apache.flink.cep.PatternSelectFunction
-import org.apache.flink.cep.pattern.conditions.{IterativeCondition, RichIterativeCondition}
-import org.apache.flink.cep.scala.CEP
-import org.apache.flink.cep.scala.pattern.Pattern
 import org.apache.flink.streaming.api.TimeCharacteristic
-import org.apache.flink.streaming.api.functions.{AssignerWithPeriodicWatermarks, AssignerWithPunctuatedWatermarks}
-import org.apache.flink.streaming.api.functions.timestamps.AscendingTimestampExtractor
+import org.apache.flink.streaming.api.functions.AssignerWithPeriodicWatermarks
+import org.apache.flink.streaming.api.scala.function.WindowFunction
 import org.apache.flink.streaming.api.scala.{StreamExecutionEnvironment, _}
 import org.apache.flink.streaming.api.watermark.Watermark
+import org.apache.flink.streaming.api.windowing.assigners.TumblingEventTimeWindows
 import org.apache.flink.streaming.api.windowing.time.Time
-
-import scala.collection.JavaConverters._
-import scala.collection.mutable.ArrayBuffer
+import org.apache.flink.streaming.api.windowing.windows.TimeWindow
+import org.apache.flink.util.Collector
 
 /**
   * ip检测规则：
@@ -37,34 +28,60 @@ object IllegalIpAnalysis {
     env.setStreamTimeCharacteristic(TimeCharacteristic.EventTime)
     //自定义的nginx-source，已实现去重功能
     val sourceData = env.addSource(new NginxLogSource)
+    import org.apache.flink.api.scala._
     val requestLog = sourceData
-      .filter(log => {
-        //过滤静态资源请求
-        val method = log.getRequestMethod
-        if (method != null && (method.contains("cover") || method.contains("css")
-          | method.contains("js") || method.contains("layer") || method.contains("fonts")
-          | method.contains("img") || method.contains("face")) || method.contains("favicon")) {
-          false
-        } else {
-          true
+      .filter(log => log.getRequestMethod.contains("/major/info/"))
+      .assignTimestampsAndWatermarks(new AssignerWithPeriodicWatermarks[Log] {
+        // 事件时间
+        var currentMaxTimestamp = 0L
+        val maxOutOfOrder = 3000L
+        var lastEmittedWatermark: Long = Long.MinValue
+
+        // Returns the current watermark
+        override def getCurrentWatermark: Watermark = {
+          // 允许延迟三秒
+          val potentialWM = currentMaxTimestamp - maxOutOfOrder
+          // 保证水印能依次递增
+          if (potentialWM >= lastEmittedWatermark) {
+            lastEmittedWatermark = potentialWM
+          }
+          new Watermark(lastEmittedWatermark)
+        }
+
+        override def extractTimestamp(element: Log, previousElementTimestamp: Long): Long = {
+          // 将元素的时间字段值作为该数据的timestamp
+          val time = element.getTime
+          if (time > currentMaxTimestamp) {
+            currentMaxTimestamp = time
+          }
+          val outData = String.format("key: %s    EventTime: %s    waterMark:  %s",
+            element.getIp,
+            sdf.format(time),
+            sdf.format(getCurrentWatermark.getTimestamp))
+          println(outData)
+          time
         }
       })
-      //模拟数据
-      /*val requestLog = env.fromElements(ArrayUtil.getLog(1), ArrayUtil.getLog(2),
-        ArrayUtil.getLog(3), ArrayUtil.getLog(4),
-        ArrayUtil.getLog(5), ArrayUtil.getLog(7),
-        ArrayUtil.getLog(7), ArrayUtil.getLog(8),
-        ArrayUtil.getLog(20), ArrayUtil.getLog(10),
-        ArrayUtil.getLog(11), ArrayUtil.getLog(12),
-        ArrayUtil.getLog(12), ArrayUtil.getLog(14))*/
-      .assignTimestampsAndWatermarks(new AscendingTimestampExtractor[Log] {
-      override def extractAscendingTimestamp(element: Log): Long = {
-        element.getTime
-      }
-    }).keyBy(log => log.getIp)
+    requestLog.print("中间数据：")
+    requestLog.keyBy(_.getIp)
+      .window(TumblingEventTimeWindows.of(Time.seconds(5L)))
+      .apply(new WindowFunction[Log, Log, String, TimeWindow] {
+        override def apply(key: String, window: TimeWindow, input: Iterable[Log], out: Collector[Log]): Unit = {
+          val iterator = input.iterator
+          while(iterator.hasNext){
+            val log = iterator.next()
+            println("有数据：", log)
+            out.collect(log)
+          }
+        }
+      }).print("结果：：")
 
 
-    requestLog.print("请求日志数据：")
+
+
+
+
+    /*requestLog.print("请求日志数据：")
     //使用cep处理：请求地址依次递增：https://www.subjectshow.com/major/info/1 https://www.subjectshow.com/major/info/2
     //获取请求地址最末尾的数字，判断是否是连续递增的，如果状态持续次数过多，则判定为异常ip
     val pattern = Pattern.begin[Log]("start")
@@ -77,7 +94,7 @@ object IllegalIpAnalysis {
         val startId = LogParseUtil.getRequestMajorId(context.getEventsForPattern("start").iterator().next())
         majorId > startId
       }
-    }).times(4)
+    })
       //      .within(Time.seconds(10L))
 //      .times(3, 10)
 
@@ -86,6 +103,7 @@ object IllegalIpAnalysis {
       override def select(pattern: util.Map[String, util.List[Log]]): Blacklist = {
         var result: Blacklist = null
         if (pattern != null) {
+          println("成功匹配")
           //请求路径中的数字
           val requestParams = ArrayBuffer[Integer]()
           //请求详情，方便后台查看
@@ -112,7 +130,7 @@ object IllegalIpAnalysis {
         }
         result
       }
-    }).print()
+    }).print()*/
     env.execute("source Job starting")
   }
 }

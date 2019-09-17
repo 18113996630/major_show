@@ -42,6 +42,7 @@ public class NginxLogSource extends RichSourceFunction<Log> {
 						}
 					}
 				}
+				System.out.println("开始下一次收集");
 				Thread.sleep(5000);
 			}
 		}
