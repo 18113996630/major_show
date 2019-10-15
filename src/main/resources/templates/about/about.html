@@ -8,37 +8,21 @@
 <!-- Header -->
 <div th:replace="commons/header :: header"></div>
 <div>
-    <div class="container">
-        <div class="welcome_info">
-            <h2 class="text-center" th:text="${conf.hATitle}">欢迎第一次来到 <strong class="welcome_website">Subject Show</strong></h2>
-            <h3 class="welcome_title" th:text="${conf.hAP1}">做这个网站有什么目的</h3>
-            <p class="text-justify">
-                创建这个网站的目的是为了让大家更加了解大学的各个专业。<br>
-                对于还没有上大学的同学们，最好对各个专业有个大概的认知，不然等到自己填志愿的时候...我该选什么专业？这个专业是做什么的，听起来很厉害的样子？<br>
-                对于正在上大学的同学们，能提前了解到所学专业需要掌握哪些知识技能，毕业以后是做什么工作的就最好不过啦~
-            </p>
-            <h3 class="welcome_title" th:text="${conf.hAP2}">为什么要做这个网站</h3>
-            <p class="text-justify">
-                我是一个土木工程专业的程序猿。<br>
-                高考的时候为了毕业好找工作选了土木工程这个专业，大学期间没有仔细了解毕业后可能会做的工作，导致在工地待了两个月因为自己不适合这个工作就提出了离职。<br>
-                并不是说土木工程这个专业不好，只是如果能提前了解一下，就可以大概率的避免这种情况的发生。<br>
-                所以，这就是做这个网站的原因。
-            </p>
-            <h3 class="welcome_title">最后</h3>
-            <p class="text-justify">
-                一个菜鸟程序员做的网站，望大家多多包涵，有任何建议请点击导航栏的<strong style="color: blueviolet;font-size: large">联系我</strong>随时与我联系！
-            </p>
-            <p class="text-justify">
-                该网站视频内容来源于
-                <strong>哔哩哔哩</strong>
-                (一个大型学习网站)，感谢各大up主提供的视频支持，也欢迎大家投稿！
-            </p>
-            <p><a th:href="@{/}"><button class="btn btn-group-lg btn-success" style="width: 100%" th:text="${conf.hABtn}">开始浏览</button></a></p>
-        </div>
+    <!--    <div class="container">-->
+    <div class="welcome_info">
+        <img alt="" src="img/p1.jpg" th:src="@{img/p1.jpg}">
+        <img alt="" src="img/p2.jpg" th:src="@{img/p2.jpg}">
+        <img alt="" src="img/p3.jpg" th:src="@{img/p3.jpg}">
     </div>
+    <p><a th:href="@{/}">
+        <button class="btn btn-group-lg btn-success" style="width: 50%;margin: 0 25%" th:text="${conf.hABtn}">开始浏览
+        </button>
+    </a></p>
+
+    <!--    </div>-->
 </div>
-<footer>
-    <div th:replace="commons/footer :: footer(~{})"></div>
-</footer>
+<!--<footer>-->
+<div th:replace="commons/footer :: footer(~{})"></div>
+<!--</footer>-->
 </body>
 </html>

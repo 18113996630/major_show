@@ -1,3 +1,6 @@
-.foot_div {
-    height: 100%;
+.foot {
+    /*height: 100%;*/
+    position: absolute;
+    text-align: center;
+    bottom: 0;
 }

@@ -3,13 +3,13 @@
 <head th:replace="commons/header :: common-header(~{}, ~{::link})">
     <link rel="stylesheet" th:href="@{/css/footer.css}">
 </head>
-<div class="foot_div" th:fragment="footer(script)">
+
+<div class="foot" style="position: absolute; bottom: 0; margin-left: 45%" th:fragment="footer(script)">
     <script th:src="@{/js/jquery.min.js}"></script>
     <script th:src="@{/js/bootstrap.min.js}"></script>
 <!--    <script th:src="@{/js/common.js}"></script>-->
     <script th:src="@{/layer/layer.js}"></script>
     <th:block th:replace="${script}"/>
-    <hr>
     <p th:text="${conf.footer}">&copy; 2016 Company, Inc.</p>
 </div>
 </html>

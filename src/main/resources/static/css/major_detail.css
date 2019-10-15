@@ -89,6 +89,9 @@
     /*height: 5em;*/
     overflow: hidden;
 }
+.question_head {
+
+}
 
 /*下一页详情*/
 .btn-next {
@@ -133,7 +136,6 @@
 .content_split {
     text-align: center;
     color: green;
-    margin: 2em 0;
     font-weight: normal;
 }
 /* 按钮文字过多时按钮自动换行 */
@@ -192,4 +194,20 @@
     font-size: x-large;
     font-weight: bolder;
     color: #8f4242;
+}
+.major_question{
+    width: 100%;
+    border: 0;
+    margin-top: 2em;
+    text-align: left;
+}
+.question_title{
+    white-space: pre-wrap;
+    word-wrap: break-word;
+    color: steelblue;
+    font-weight: bold;
+    font-size: large;
+}
+.answer_count{
+    font-size: small;
 }

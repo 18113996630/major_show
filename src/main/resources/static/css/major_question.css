@@ -1,0 +1,38 @@
+.author_name{
+    font-size: large;
+    font-weight: bold;
+    color: #565656;
+}
+.author_desc {
+    font-size: smaller;
+    font-weight: normal;
+    color: gray;
+}
+.author_info{
+    margin-bottom: 1em;
+}
+.answers {
+    margin-bottom: 3em;
+    /*background-color: #daf2f2;*/
+}
+.answer_content{
+    line-height: 2.5em;
+    font-size: medium;
+    white-space: pre-wrap;
+    word-wrap: break-word;
+}
+.question {
+    background-color: #daf2f2;
+}
+.up_count{
+    color: gray;
+    margin-right: 1em;
+}
+.answer_time{
+    color: grey;
+}
+/*下一页详情*/
+.btn-next {
+    width: 100%;
+    margin-bottom: 2.5em;
+}

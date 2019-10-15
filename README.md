@@ -244,3 +244,9 @@ springboot+mybatis-plus
 1. **完成异常ip检测功能**
     1. **增加ip黑名单表**
 
+### 20191001
+1. **增加知乎相关提问模块**
+    1. **增加major_question、question_answer表**
+    
+### 20191015
+1. **增加知乎评论**

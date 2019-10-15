@@ -154,4 +154,9 @@ public class AdminController {
 	public String webMessage() {
 		return "admin/side/web_message";
 	}
+
+	@GetMapping(value = "/major/question")
+	public String question(){
+		return "admin/side/major_question";
+	}
 }

@@ -1,0 +1,27 @@
+<!DOCTYPE html>
+<html lang="en" layout:decorate="~{admin/layouts/layout}"
+      xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+      xmlns:th="http://www.thymeleaf.org" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+      xsi:schemaLocation="http://www.ultraq.net.nz/thymeleaf/layout ">
+<body>
+<div layout:fragment="content">
+    <div class="form-inline text-center">
+
+        <label for="major-name">专业名字</label>
+        <input class="input-group input-group-lg form-control" id="major-name" placeholder="专业名字" type="text">
+        <button class="btn btn-group-lg btn-primary form-control" th:onclick="searchMajorQuestions()" type="button">
+            <span aria-hidden="true" class="glyphicon glyphicon-search"></span>搜索
+        </button>
+    </div>
+    <div class="table-responsive">
+        <table class="table table-striped" id="major_question_table"></table>
+    </div>
+    <!-- 额外引入js -->
+    <footer>
+        <div th:replace="admin/commons/footer :: footer(~{::script})">
+            <script th:src="@{/js/admin/major_question.js}"></script>
+        </div>
+    </footer>
+</div>
+</body>
+</html>

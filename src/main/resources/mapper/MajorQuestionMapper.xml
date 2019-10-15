@@ -1,0 +1,28 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.hrong.major.dao.MajorQuestionMapper">
+
+    <!-- 通用查询映射结果 -->
+    <resultMap id="BaseResultMap" type="com.hrong.major.model.MajorQuestion">
+        <id column="id" property="id" />
+        <result column="url" property="url" />
+        <result column="major_name" property="majorName" />
+        <result column="major_id" property="majorId" />
+        <result column="title" property="title" />
+        <result column="description" property="description" />
+        <result column="answer_count" property="answerCount" />
+    </resultMap>
+    <select id="findQuestionsPageData" resultMap="BaseResultMap">
+        select * from major_question t where 1=1
+        <if test="majorName != null and majorName != ''">
+            and t.major_name like #{majorName}
+        </if>
+    </select>
+    <select id="countQuestionsPageData" resultType="java.lang.Integer">
+        select count(1) from major_question t where 1=1
+        <if test="majorName != null and majorName != ''">
+            and t.major_name like #{majorName}
+        </if>
+    </select>
+
+</mapper>

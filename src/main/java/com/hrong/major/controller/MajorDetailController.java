@@ -1,7 +1,6 @@
 package com.hrong.major.controller;
 
 
-import com.alibaba.fastjson.JSONObject;
 import com.baomidou.mybatisplus.core.conditions.query.QueryWrapper;
 import com.hrong.major.annotation.ClickLog;
 import com.hrong.major.model.ClickType;
@@ -9,17 +8,16 @@ import com.hrong.major.model.DetailUpdate;
 import com.hrong.major.model.Major;
 import com.hrong.major.model.MajorDetail;
 import com.hrong.major.model.Subject;
-import com.hrong.major.model.User;
 import com.hrong.major.model.vo.CommentVo;
 import com.hrong.major.model.vo.MajorDetailWithVideoVo;
-import com.hrong.major.model.vo.Result;
+import com.hrong.major.model.vo.MajorQuestionVo;
 import com.hrong.major.service.CommentService;
 import com.hrong.major.service.DetailUpdateService;
 import com.hrong.major.service.MajorDetailService;
+import com.hrong.major.service.MajorQuestionService;
 import com.hrong.major.service.MajorService;
 import com.hrong.major.service.SubjectService;
 import com.hrong.major.service.UserService;
-import com.hrong.major.utils.IpUtils;
 import com.hrong.major.utils.RequestUtils;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Controller;
@@ -59,6 +57,8 @@ public class MajorDetailController {
 	private DetailUpdateService detailUpdateService;
 	@Resource
 	private UserService userService;
+	@Resource
+	private MajorQuestionService majorQuestionService;
 
 	/**
 	 * 根据专业id查询详情
@@ -81,6 +81,8 @@ public class MajorDetailController {
 		List<Major> majors = majorService.findAroundMajors(id);
 		//当前专业详情的评论
 		List<CommentVo> comments = commentService.findCommentsByDetailId(majorDetail.getId(), RequestUtils.getIp(request));
+		//当前专业的知乎提问
+		List<MajorQuestionVo> questions = majorQuestionService.findQuestionsByMajorId(id);
 		log.info("ip:{}查看{}下的{}专业详情，详情id为：{}", ip, currentSubject.getName(), currentMajor.getName(), majorDetail.getId());
 
 		model.addAttribute("detailVo", detail);
@@ -94,6 +96,8 @@ public class MajorDetailController {
 		model.addAttribute("comments", comments);
 		//评论数量
 		model.addAttribute("commentsCount", comments.size());
+		//知乎提问
+		model.addAttribute("questions", questions);
 		return "major/major_detail";
 	}
 	/**

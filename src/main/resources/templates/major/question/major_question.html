@@ -1,0 +1,57 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head th:replace="commons/header :: common-header(~{::title}, ~{::link})">
+    <link rel="stylesheet" th:href="@{/css/major_question.css}">
+    <title>专业相关问题</title>
+</head>
+<body>
+<!-- Header -->
+<div th:replace="commons/header :: header"></div>
+
+<div class="container">
+    <div class="col-xs-12 col-sm-11 col-md-10 col-lg-10">
+        <div>
+            <div class="question">
+                <h2  th:text="${question.title}"></h2>
+                <p th:text="${question.description}"></p>
+            </div>
+            <hr>
+            <div class="auth">
+                <p>
+                    <span>来源：知乎</span><br>
+                    <span>原文链接：</span><span th:href="${question.url}" th:text="${question.url}"></span><br>
+                    <span>著作权归作者所有。商业转载请联系作者获得授权，非商业转载请注明出处。</span>
+                </p>
+            </div>
+            <hr>
+            <div class="answers" th:each="answer:${answers}">
+                <div class="author_info">
+                    <span class="author_name" th:text="${answer.authorName}"></span>
+                    <span class="author_desc" th:text="${answer.authorDescription}"></span>
+                </div>
+                <div>
+                    <p class="text-justify answer_content" th:text="${answer.content}"></p>
+                    <span class="up_count" th:text="${answer.upCount}"></span>
+                    <span class="answer_time" th:text="${answer.time}"></span>
+                </div>
+                <HR SIZE=1 color=#d2bbbb style="FILTER: progid:DXImageTransform.Microsoft.Shadow(color:#987cb9,direction:145,strength:15)" width="80%">
+            </div>
+        </div>
+
+        <div>
+            <a class="btn btn-success btn-next" th:href="@{'/major/info/'+${question.majorId}}" th:if="!${nextId}">已经看完啦，继续查看该专业信息</a>
+            <a class="btn btn-primary btn-next" th:href="@{'/major/question/'+${nextId}}"
+               th:if="${nextId}">查看下一个知乎提问</a>
+        </div>
+    </div>
+    <hr>
+</div>
+<footer>
+    <div th:replace="commons/footer :: footer(~{::script})">
+        <script th:src="@{/js/major_question.js}"></script>
+    </div>
+</footer>
+</body>
+
+
+</html>
