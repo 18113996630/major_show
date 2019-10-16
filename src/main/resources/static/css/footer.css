@@ -1,6 +1,7 @@
 .foot {
-    /*height: 100%;*/
-    position: absolute;
+    height: 2em;
+    position: fixed;
     text-align: center;
     bottom: 0;
+    background-color: #5cb85c;
 }

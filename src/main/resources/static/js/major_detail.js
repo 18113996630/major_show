@@ -218,7 +218,7 @@ function update_detail(id, divId, contentId) {
         layer.msg('修改内容或修改原因不能为空~');
         return;
     }
-    $.post('/major/info',
+    $.post('/major',
         {majorDetailId: id, content: content, type: divId, reason: reason} ,
         function (data) {
             if (data.code === 200) {

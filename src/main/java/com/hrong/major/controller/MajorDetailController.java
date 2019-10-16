@@ -25,7 +25,6 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.ResponseBody;
 
 import javax.annotation.Resource;
@@ -42,7 +41,6 @@ import java.util.List;
  */
 @Slf4j
 @Controller
-@RequestMapping("/major/info")
 public class MajorDetailController {
 
 	@Resource
@@ -64,7 +62,7 @@ public class MajorDetailController {
 	 * 根据专业id查询详情
 	 */
 	@ClickLog(type = ClickType.major)
-	@GetMapping(value = "/{id}")
+	@GetMapping(value = "/major/{id}")
 	public String getMajorInfoById(HttpServletRequest request, Model model, @PathVariable(value = "id") int id) {
 		String ip = RequestUtils.getIp(request);
 		//当前专业详情
@@ -79,6 +77,7 @@ public class MajorDetailController {
 		Subject currentSubject = subjectService.getById(currentMajor.getSubjectId());
 		//当前专业附近的专业
 		List<Major> majors = majorService.findAroundMajors(id);
+//		int a = 1/0;
 		//当前专业详情的评论
 		List<CommentVo> comments = commentService.findCommentsByDetailId(majorDetail.getId(), RequestUtils.getIp(request));
 		//当前专业的知乎提问
@@ -87,7 +86,7 @@ public class MajorDetailController {
 
 		model.addAttribute("detailVo", detail);
 		model.addAttribute("nextId", nextDetailId);
-		model.addAttribute("currentMajorId", id);
+		model.addAttribute("currentMajor", currentMajor);
 		//从详情查询subject下的majors
 		model.addAttribute("currentSubject", currentSubject);
 		//显示该专业前后几个专业
@@ -105,7 +104,7 @@ public class MajorDetailController {
 	 */
 	@ClickLog(type = ClickType.detail_update)
 	@ResponseBody
-	@PostMapping
+	@PostMapping("/major")
 	public Object detailUpdate(HttpServletRequest request, DetailUpdate detailUpdate) {
 		return detailUpdateService.addUpdateInfo(RequestUtils.getIp(request), detailUpdate);
 	}

@@ -39,7 +39,7 @@
         </div>
 
         <div>
-            <a class="btn btn-success btn-next" th:href="@{'/major/info/'+${question.majorId}}" th:if="!${nextId}">已经看完啦，继续查看该专业信息</a>
+            <a class="btn btn-success btn-next" th:href="@{'/major/'+${question.majorId}}" th:if="!${nextId}">已经看完啦，继续查看该专业信息</a>
             <a class="btn btn-primary btn-next" th:href="@{'/major/question/'+${nextId}}"
                th:if="${nextId}">查看下一个知乎提问</a>
         </div>

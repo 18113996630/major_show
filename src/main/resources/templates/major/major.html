@@ -18,7 +18,8 @@
                 <!--/*@thymesVar id="subjects" type="com.hrong.major.model.Subject"*/-->
                 <a th:each="subject:${subjects}"
                    th:href="@{'/majors/'+${subject.id}(page=1, size=8)}">
-                    <button class="btn btn-default btn-md" th:classappend="${subject.id eq currentSubject.id ? 'active-btn':(subject.id % 3 eq 0 ? 'btn-success' : (subject.id % 2 eq 0 ? 'btn-warning' : 'btn-info'))}"
+                    <button class="btn btn-default btn-md"
+                            th:classappend="${subject.id eq currentSubject.id ? 'active-btn':(subject.id % 3 eq 0 ? 'btn-success' : (subject.id % 2 eq 0 ? 'btn-warning' : 'btn-info'))}"
                             th:text="${subject.name}"></button>
                 </a>
             </div>
@@ -52,7 +53,7 @@
             <ul class="row major_ul" th:if="${majors}">
                 <!--/*@thymesVar id="subjects" type="com.hrong.major.model.Major"*/-->
                 <li class="col-xs-12 col-sm-12 col-md-12 col-lg-12 major_li" th:each="major:${majors}">
-                    <a class="major_a" th:href="@{'/major/info/'+${major.id}}" th:text="${major.name}"
+                    <a class="major_a" th:href="@{'/major/'+${major.id}}" th:text="${major.name}"
                        th:title="${major.name}">
                     </a>
                 </li>
@@ -62,7 +63,7 @@
                 <!--/*@thymesVar id="subjects" type="com.hrong.major.model.Major"*/-->
                 <li class="col-xs-12 col-sm-12 col-md-12 col-lg-12 search_major_li" th:each="item:${data}">
                     <div class="col-xs-12 col-lg-12">
-                        <a class="search_major_name" th:href="@{'/major/info/'+${item.major.id}}"
+                        <a class="search_major_name" th:href="@{'/major/'+${item.major.id}}"
                            th:text="${item.major.name}" th:title="${item.major.name}">
                         </a>
                     </div>

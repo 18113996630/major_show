@@ -31,7 +31,7 @@ public class ArrayUtil {
 
 	public static Log getLog(int i) {
 		Log log = new Log();
-		String method = "GET /major/info/" + i + " HTTP/1.1";
+		String method = "GET /major/" + i + " HTTP/1.1";
 //		String ip = i % 6 == 0 ? "182.148.24.100" : "192.168.1.1";
 		String ip = "182.148.24.100";
 		log.setIp(ip);

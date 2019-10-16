@@ -7,7 +7,6 @@ import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.Date;
 import java.util.Locale;
-import java.util.Optional;
 
 /**
  * @Author hrong
@@ -57,7 +56,7 @@ public class LogParseUtil {
 	 * @return 专业详情id，若日志格式不正确则返回0
 	 */
 	public static int getRequestMajorId(Log log){
-		String[] strings = log.getRequestMethod().split("/major/info/");
+		String[] strings = log.getRequestMethod().split("/major/");
 		if (strings.length == 2) {
 			String id = strings[1].split("\\s")[0];
 			return Integer.valueOf(id);

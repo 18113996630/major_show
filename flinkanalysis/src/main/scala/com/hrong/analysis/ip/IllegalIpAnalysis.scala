@@ -17,7 +17,7 @@ import org.apache.flink.util.Collector
   * ip检测规则：
   * 1. 同一ip每次请求间隔时间相同
   * 2. 重复请求同一地址次数过多
-  * 3. 请求地址依次递增：https://www.subjectshow.com/major/info/1 https://www.subjectshow.com/major/info/2
+  * 3. 请求地址依次递增：https://www.subjectshow.com/major/1 https://www.subjectshow.com/major/2
   */
 object IllegalIpAnalysis {
   val sdf: FastDateFormat = FastDateFormat.getInstance("yyyy-MM-dd HH:mm:ss:SSS")
@@ -30,7 +30,7 @@ object IllegalIpAnalysis {
     val sourceData = env.addSource(new NginxLogSource)
     import org.apache.flink.api.scala._
     val requestLog = sourceData
-      .filter(log => log.getRequestMethod.contains("/major/info/"))
+      .filter(log => log.getRequestMethod.contains("/major/"))
       .assignTimestampsAndWatermarks(new AssignerWithPeriodicWatermarks[Log] {
         // 事件时间
         var currentMaxTimestamp = 0L
@@ -82,10 +82,10 @@ object IllegalIpAnalysis {
 
 
     /*requestLog.print("请求日志数据：")
-    //使用cep处理：请求地址依次递增：https://www.subjectshow.com/major/info/1 https://www.subjectshow.com/major/info/2
+    //使用cep处理：请求地址依次递增：https://www.subjectshow.com/major/1 https://www.subjectshow.com/major/2
     //获取请求地址最末尾的数字，判断是否是连续递增的，如果状态持续次数过多，则判定为异常ip
     val pattern = Pattern.begin[Log]("start")
-      .where(log => log.getRequestMethod.contains("/major/info/"))
+      .where(log => log.getRequestMethod.contains("/major/"))
       .followedBy("middle").where(new RichIterativeCondition[Log] {
       override def filter(t: Log, context: IterativeCondition.Context[Log]): Boolean = {
         //当前请求参数id

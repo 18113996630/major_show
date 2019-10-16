@@ -11,24 +11,23 @@
 <div class="container">
     <div class="col-xs-12 col-sm-11 col-md-10 col-lg-10">
         <!-- sm、md、lg上显示其他专业-->
+
         <div class="around_majors visible-md visible-lg visible-sm">
             <h4 class="text-primary" th:text="其他同类专业"></h4>
-            <a th:each="major:${majors}" th:href="@{'/major/info/'+${major.id}}">
-                <button class="btn"
-                        th:classappend="${major.id eq currentMajorId ? 'active-btn' : (major.id % 3 eq 0 ? 'btn-success' : (major.id % 2 eq 0 ? 'btn-warning' : 'btn-info'))}"
-                        th:text="${major.name}">
-                </button>
+            <a th:each="major:${majors}" th:href="@{'/major/'+${major.id}}">
+                <button class="btn btn-default btn-md"
+                        th:classappend="${major.id eq currentMajor.id ? 'active-btn' : (major.id % 3 eq 0 ? 'btn-success' : (major.id % 2 eq 0 ? 'btn-warning' : 'btn-info'))}"
+                        th:text="${major.name}"></button>
             </a>
         </div>
         <!-- xs上显示其他专业-->
         <div class="around_majors_ph visible-xs">
             <h4 class="text-primary" th:text="其他同类专业"></h4>
             <p>
-                <a th:each="major:${majors}" th:href="@{'/major/info/'+${major.id}}">
+                <a th:each="major:${majors}" th:href="@{'/major/'+${major.id}}">
                     <button class="btn"
-                            th:classappend="${major.id} % 3 eq 0 ? 'btn-success' : (${major.id} % 2 eq 0 ? 'btn-warning' : 'btn-info')"
-                            th:text="${major.name}">
-                    </button>
+                            th:classappend="${major.id eq currentMajor.id ? 'active-btn' : (major.id % 3 eq 0 ? 'btn-success' : (major.id % 2 eq 0 ? 'btn-warning' : 'btn-info'))}"
+                            th:text="${major.name}"></button>
                 </a>
             </p>
         </div>
@@ -41,31 +40,33 @@
             <p class="text-center text-danger text-nowrap" th:if="${detailVo.videos.size() gt 0}"
                th:text="视频在文字下方哦"></p>
             <br/>
-            <p>
-                <strong th:class="text-info" th:text="${conf.dDesc}">专业描述</strong>
+            <div>
+                <strong th:class="text-info" th:text="${detailVo.detail.name}+'专业描述'"></strong>
                 <button class="btn btn-default detail_update_btn" id="detail_desc_btn"
                         th:onclick="updateDesc([[${detailVo.detail.id}]])" th:text="${conf.dDescBtn}">信息有误,我要修改
                 </button>
-            </p>
-            <p class="text-justify major_info" id="detail_desc" th:text="${detailVo.detail.description}"></p>
+                <div class="clearfloat"></div>
+                <p class="text-justify major_info" id="detail_desc" th:text="${detailVo.detail.description}"></p>
+            </div>
             <hr/>
-            <p>
-                <strong th:class="text-info" th:text="${conf.dCourse}">核心课程</strong>
+            <div>
+                <strong th:class="text-info" th:text="${detailVo.detail.name}+'专业学什么课程'"></strong>
                 <button class="btn btn-default detail_update_btn" id="detail_course_btn"
                         th:onclick="updateCourse([[${detailVo.detail.id}]])" th:text="${conf.dCourseBtn}">信息有误,我要修改
                 </button>
-            </p> &nbsp;&nbsp;
-            <p class="text-justify major_info" id="detail_course" th:text="${detailVo.detail.course}"></p>
+                <div class="clearfloat"></div>
+                <p class="text-justify major_info" id="detail_course" th:text="${detailVo.detail.course}"></p>
+            </div> &nbsp;&nbsp;
 
             <hr/>
-            <p>
-
-                <strong th:class="text-info" th:text="${conf.dJob}">就业方向</strong>
+            <div>
+                <strong th:class="text-info" th:text="${detailVo.detail.name}+'专业毕业后做什么'"></strong>
                 <button class="btn btn-default detail_update_btn" id="detail_job_btn"
                         th:onclick="updateJob([[${detailVo.detail.id}]])" th:text="${conf.dJobBtn}">信息有误,我要修改
                 </button>
-            </p> &nbsp;&nbsp;
-            <p class="text-justify major_info" id="detail_job" th:text="${detailVo.detail.job}"></p>
+                <div class="clearfloat"></div>
+                <p class="text-justify major_info" id="detail_job" th:text="${detailVo.detail.job}"></p>
+            </div> &nbsp;&nbsp;
             <div th:if="${questions}">
                 <h2 class="content_split">知乎相关提问</h2>
                 <div th:each="question:${questions}">
@@ -73,12 +74,14 @@
                        th:href="@{'/major/question/'+${question.id}}">
                         <span class="question_title" th:text="${question.title}"></span><span
                             class="answer_count" th:text="${question.answerCount}+'个回答'"></span>
-                        <p class="text-justify" th:text="${question.firstAnswer}"></p>
+                        <p class="text-justify question_part" th:text="${question.firstAnswer}"></p>
                     </a>
                 </div>
             </div>
-
             <h2 class="content_split" th:if="${detailVo.videos.size() gt 0}" th:text="${conf.dSplitor}">相关视频</h2>
+            <div class="auth_box">
+                <span class="auth_desc">说明：因版权原因只能跳转到哔哩哔哩原网页观看视频</span>
+            </div>
             <ul class="video_ul" th:each="videoVo:${detailVo.videos}">
                 <li class="small_item"><a target="_blank" th:class="title" th:href="${videoVo.video.url}"
                                           th:text="${videoVo.video.title}"></a><br/>
@@ -149,7 +152,7 @@
             <div>
                 <button class="btn btn-success btn-next" id="go_top_btn" th:text="${conf.dBtnTop}">回到顶部</button>
                 <!-- 后面还有同类专业时显示 -->
-                <a class="btn btn-primary btn-next" th:href="@{'/major/info/'+${nextId}}"
+                <a class="btn btn-primary btn-next" th:href="@{'/major/'+${nextId}}"
                    th:if="${nextId} gt 0" th:text="${conf.dBtnNext}">查看下一个专业介绍</a>
                 <a class="btn btn-warning btn-next" th:href="@{'/majors/'+${currentSubject.id}(page=1, size=8)}"
                    th:if="${nextId} gt 0" th:text="${conf.dBtnOther}">看看其它专业</a>
