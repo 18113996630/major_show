@@ -12,6 +12,7 @@
     <artifactId>major</artifactId>
     <version>0.0.1-SNAPSHOT</version>
     <name>major_show</name>
+    <packaging>war</packaging>
     <description>Demo project for Spring Boot</description>
 
     <properties>
@@ -40,6 +41,12 @@
         <dependency>
             <groupId>org.springframework.boot</groupId>
             <artifactId>spring-boot-starter-web</artifactId>
+           <!-- <exclusions>
+                <exclusion>
+                    <groupId>org.springframework.boot</groupId>
+                    <artifactId>spring-boot-starter-tomcat</artifactId>
+                </exclusion>
+            </exclusions>-->
         </dependency>
         <dependency>
             <groupId>com.baomidou</groupId>
@@ -114,9 +121,16 @@
             <artifactId>jsoup</artifactId>
             <version>1.9.2</version>
         </dependency>
+        <dependency>
+            <groupId>javax.servlet</groupId>
+            <artifactId>javax.servlet-api</artifactId>
+            <version>3.1.0</version>
+            <scope>provided</scope>
+        </dependency>
     </dependencies>
 
     <build>
+        <finalName>major</finalName>
         <plugins>
             <plugin>
                 <groupId>org.springframework.boot</groupId>
