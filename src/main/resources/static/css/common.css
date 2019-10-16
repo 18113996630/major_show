@@ -1,4 +1,4 @@
-html{
+html {
     overflow-x: hidden; /* Prevent scroll on narrow devices */
     height: 100%;
 }
@@ -10,9 +10,11 @@ body {
     background-size: 100%;
     min-height: 100%;
 }
-.content_container{
+
+.content_container {
     min-height: 800px;
 }
+
 footer {
     text-align: center;
 }
@@ -33,10 +35,6 @@ footer {
 
 .clearfloat {
     zoom: 1
-}
-
-.content_container {
-
 }
 
 @media screen and (max-width: 767px) {

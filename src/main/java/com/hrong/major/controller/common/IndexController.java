@@ -75,16 +75,22 @@ public class IndexController {
 
 	@ClickLog(type = ClickType.login)
 	@GetMapping("/login")
-	public String login(Model model){
+	public String login(Model model) {
 		model.addAttribute("user", new User());
 		return "login/login";
 	}
 
 	@ClickLog(type = ClickType.register)
 	@GetMapping("/register")
-	public String register(Model model){
+	public String register(Model model) {
 		model.addAttribute("user", new User());
 		return "register/register";
+	}
+
+	@ClickLog(type = ClickType.declare)
+	@GetMapping("/declare")
+	public String declare() {
+		return "declare/declare";
 	}
 
 }

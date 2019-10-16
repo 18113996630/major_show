@@ -78,7 +78,7 @@ springboot+mybatis-plus
       <body>
       <!-- 类似指定id为header，复用方法：<div th:replace="commons/header :: header"></div>-->
       <nav class="navbar navbar-fixed-top navbar-inverse nav_color" th:fragment="header">
-          <div class="container">
+          <div class="container content_container">
               <div class="navbar-header">
                   <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#navbar"
                           aria-expanded="false" aria-controls="navbar">

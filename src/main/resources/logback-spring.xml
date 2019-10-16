@@ -1,55 +1,27 @@
-<?xml version="1.0" encoding="utf-8" ?>
-
-
+<?xml version="1.0" encoding="UTF-8"?>
 <configuration>
-    <!--配置控制台的输出-->
-    <appender name="consoleLog" class="ch.qos.logback.core.ConsoleAppender">
-        <layout class="ch.qos.logback.classic.PatternLayout">
-            <!--日志格式-->
+    <property resource="application.properties" />
+    <appender name="STDOUT" class="ch.qos.logback.core.ConsoleAppender">
+        <encoder>
             <pattern>%d{yyyy-MM-dd HH:mm:ss.SSS} [%thread] %-5level %logger{50} - %msg%n</pattern>
-        </layout>
-    </appender>
-    <!--文件输出info日志的配置-->
-    <appender name="fileInfoLog" class="ch.qos.logback.core.rolling.RollingFileAppender">
-        <!--为了在info中不出现error的日志，因为error的日志级别最高，所以我们不用普通的过滤器，而是在权限过滤器下匹配相应级别的日志，进行筛选-->
-        <!--筛选的级别有三种 DENY ACCEPT  NEUTRAL  禁止，接受和中立   具体看类 filterReply-->
-        <filter class="ch.qos.logback.classic.filter.LevelFilter">
-            <!--设置权限-->
-            <level>ERROR</level>
-            <!--命中-->
-            <onMatch>DENY</onMatch>
-            <!--未命中-->
-            <onMismatch>ACCEPT</onMismatch>
-        </filter>
-        <encoder>
-            <pattern>
-                %d - %msg%n
-            </pattern>
         </encoder>
-        <!--滚动策略 按照时间来滚动 每日创建一个日志文件-->
-        <rollingPolicy class="ch.qos.logback.core.rolling.TimeBasedRollingPolicy">
-            <fileNamePattern>logs/info-log%d.log</fileNamePattern>
-        </rollingPolicy>
     </appender>
-    <!--文件输出error日志的配置-->
-    <appender name="fileErrorLog" class="ch.qos.logback.core.rolling.RollingFileAppender">
-        <!--为了在error日志中没有info日志，所以我们设置一个过滤器 记住是ThresholdFilter，不是levelFilter-->
-        <filter class="ch.qos.logback.classic.filter.ThresholdFilter">
-            <level>ERROR</level>
-        </filter>
+    <property name="LOG_NAME" value="/"></property>
+    <appender name="FILE"  class="ch.qos.logback.core.rolling.RollingFileAppender">
+        <prudent>true</prudent>
+        <rollingPolicy class="ch.qos.logback.core.rolling.TimeBasedRollingPolicy">
+            <FileNamePattern>${logback.logfilepath}/${spring.application.name}-%d{yyyy-MM-dd}.log</FileNamePattern>
+            <MaxHistory>30</MaxHistory>
+            <totalSizeCap>1GB</totalSizeCap>
+        </rollingPolicy>
         <encoder>
-            <pattern>
-                %d - %msg%n
-            </pattern>
+            <pattern>%d{yyyy-MM-dd HH:mm:ss.SSS}[%thread]%msg%n</pattern>
         </encoder>
-        <!--滚动策略 按照时间来滚动-->
-        <rollingPolicy class="ch.qos.logback.core.rolling.TimeBasedRollingPolicy">
-            <fileNamePattern>logs/error-log%d.log</fileNamePattern>
-        </rollingPolicy>
     </appender>
-    <root level="INFO">
-        <appender-ref ref="consoleLog"/>
-        <appender-ref ref="fileInfoLog"/>
-        <appender-ref ref="fileErrorLog"/>
+
+    <root level="${logback.loglevel}">
+        <appender-ref ref="${logback.logtype}" />
+        <appender-ref ref="STDOUT" />
     </root>
+
 </configuration>

@@ -7,8 +7,8 @@
 <!-- Header -->
 <div th:replace="commons/header :: header"></div>
 
-<div class="container">
-    <div class="col-xs-12 col-sm-12 col-md-12 col-lg-12">
+<div class="container content_container">
+    <div class="col-xs-12 col-sm-11 col-md-11 col-lg-11">
         <h2 class="text-center text-success" th:if="msg" th:text="${msg}"></h2>
         <form class="form-horizontal" th:action="@{/video/contribute}" th:if="not ${msg}" th:method="post" th:object="${video}">
             <div class="form-group">
