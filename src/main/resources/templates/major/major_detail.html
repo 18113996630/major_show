@@ -7,7 +7,10 @@
 <body>
 <!-- Header -->
 <div th:replace="commons/header :: header"></div>
-
+<script th:inline="javascript">
+    suffix = ['专业怎么样', '专业就业怎么样', '专业好不好'];
+    document.getElementsByTagName('title')[0].innerText = [[${title}]] + suffix[Math.floor(Math.random() * suffix.length)];
+</script>
 <div class="container">
     <div class="col-xs-12 col-sm-11 col-md-10 col-lg-10">
         <!-- sm、md、lg上显示其他专业-->

@@ -49,6 +49,7 @@ public class QuestionAnswerController {
 		model.addAttribute("question", question);
 		model.addAttribute("answers", answers);
 		model.addAttribute("nextId", nextId);
+		model.addAttribute("title", question.getTitle());
 		return "major/question/major_question.html";
 	}
 }

@@ -97,6 +97,7 @@ public class MajorDetailController {
 		model.addAttribute("commentsCount", comments.size());
 		//知乎提问
 		model.addAttribute("questions", questions);
+		model.addAttribute("title", currentMajor.getName());
 		return "major/major_detail";
 	}
 	/**

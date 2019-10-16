@@ -8,7 +8,10 @@
 <body>
 <!-- Header -->
 <div th:replace="commons/header :: header"></div>
-
+<script th:inline="javascript">
+    suffix = ['专业有哪些', '专业哪个好', '专业怎么样'];
+    document.getElementsByTagName('title')[0].innerText = [[${currentSubject.name}]] + suffix[Math.floor(Math.random() * suffix.length)];
+</script>
 <div class="container">
     <div class="row row-offcanvas row-offcanvas-left">
 

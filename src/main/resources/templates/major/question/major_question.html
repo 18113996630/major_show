@@ -2,12 +2,14 @@
 <html lang="en" xmlns:th="http://www.thymeleaf.org">
 <head th:replace="commons/header :: common-header(~{::title}, ~{::link})">
     <link rel="stylesheet" th:href="@{/css/major_question.css}">
-    <title>专业相关问题</title>
+    <title>知乎上专业相关的问题</title>
 </head>
 <body>
 <!-- Header -->
 <div th:replace="commons/header :: header"></div>
-
+<script th:inline="javascript">
+    $('title').html([[${title}]]);
+</script>
 <div class="container">
     <div class="col-xs-12 col-sm-11 col-md-10 col-lg-10">
         <div>
