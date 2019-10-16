@@ -260,3 +260,7 @@ springboot+mybatis-plus
 ### 20191015
 1. **增加知乎评论**
     1. 增加**major_question**与**question_answer**表
+    
+### 20191016
+1. 修改页面css样式
+2. 修改footer
