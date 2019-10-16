@@ -250,3 +250,4 @@ springboot+mybatis-plus
     
 ### 20191015
 1. **增加知乎评论**
+    1. 增加**major_question**与**question_answer**表

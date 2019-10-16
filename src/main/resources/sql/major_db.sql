@@ -1,24 +1,38 @@
 /*
  Navicat Premium Data Transfer
 
- Source Server         : aliyun
+ Source Server         : 本地
  Source Server Type    : MySQL
- Source Server Version : 50726
- Source Host           : 39.106.190.74:3306
+ Source Server Version : 50723
+ Source Host           : localhost:3306
  Source Schema         : major_db
 
  Target Server Type    : MySQL
- Target Server Version : 50726
+ Target Server Version : 50723
  File Encoding         : 65001
 
- Date: 15/09/2019 14:12:58
+ Date: 16/10/2019 12:33:48
 */
 CREATE DATABASE `major_db` DEFAULT CHARACTER SET utf8;
 
 USE `major_db`;
 
+
 SET NAMES utf8mb4;
 SET FOREIGN_KEY_CHECKS = 0;
+
+-- ----------------------------
+-- Table structure for blacklist
+-- ----------------------------
+DROP TABLE IF EXISTS `blacklist`;
+CREATE TABLE `blacklist`  (
+  `id` int(11) NOT NULL AUTO_INCREMENT,
+  `ip` varchar(50) CHARACTER SET utf8 COLLATE utf8_general_ci NOT NULL COMMENT '非法ip',
+  `check_time` varchar(20) CHARACTER SET utf8 COLLATE utf8_general_ci NULL DEFAULT NULL COMMENT '检查时间',
+  `detail` text CHARACTER SET utf8 COLLATE utf8_general_ci NULL COMMENT '检测详情',
+  `status` int(1) NULL DEFAULT NULL COMMENT '状态(1：拉入黑名单 0：取消黑名单)',
+  PRIMARY KEY (`id`) USING BTREE
+) ENGINE = InnoDB AUTO_INCREMENT = 1 CHARACTER SET = utf8 COLLATE = utf8_general_ci ROW_FORMAT = Dynamic;
 
 -- ----------------------------
 -- Table structure for comment
@@ -105,7 +119,7 @@ CREATE TABLE `detail_update`  (
   `time` varchar(20) CHARACTER SET utf8 COLLATE utf8_general_ci NULL DEFAULT NULL COMMENT '提交时间',
   `status` int(1) NULL DEFAULT 0 COMMENT '状态(0-待处理 1-已通过 -1-未通过)',
   PRIMARY KEY (`id`) USING BTREE
-) ENGINE = InnoDB AUTO_INCREMENT = 7 CHARACTER SET = utf8 COLLATE = utf8_general_ci ROW_FORMAT = Dynamic;
+) ENGINE = InnoDB AUTO_INCREMENT = 8 CHARACTER SET = utf8 COLLATE = utf8_general_ci ROW_FORMAT = Dynamic;
 
 -- ----------------------------
 -- Table structure for log
@@ -132,7 +146,7 @@ CREATE TABLE `log`  (
   `execute_time` int(15) NULL DEFAULT NULL,
   `city` varchar(255) CHARACTER SET utf8 COLLATE utf8_general_ci NULL DEFAULT NULL,
   PRIMARY KEY (`id`) USING BTREE
-) ENGINE = InnoDB AUTO_INCREMENT = 6852 CHARACTER SET = utf8 COLLATE = utf8_general_ci ROW_FORMAT = Dynamic;
+) ENGINE = InnoDB AUTO_INCREMENT = 11117 CHARACTER SET = utf8 COLLATE = utf8_general_ci ROW_FORMAT = Dynamic;
 
 -- ----------------------------
 -- Table structure for major
@@ -168,6 +182,21 @@ CREATE TABLE `major_detail`  (
 ) ENGINE = InnoDB AUTO_INCREMENT = 358 CHARACTER SET = utf8 COLLATE = utf8_general_ci ROW_FORMAT = Dynamic;
 
 -- ----------------------------
+-- Table structure for major_question
+-- ----------------------------
+DROP TABLE IF EXISTS `major_question`;
+CREATE TABLE `major_question`  (
+  `id` int(11) NOT NULL AUTO_INCREMENT,
+  `url` varchar(200) CHARACTER SET utf8 COLLATE utf8_general_ci NULL DEFAULT NULL COMMENT 'question-url',
+  `major_name` varchar(100) CHARACTER SET utf8 COLLATE utf8_general_ci NULL DEFAULT NULL,
+  `major_id` int(11) NULL DEFAULT NULL COMMENT '专业id',
+  `title` text CHARACTER SET utf8 COLLATE utf8_general_ci NULL,
+  `description` text CHARACTER SET utf8 COLLATE utf8_general_ci NULL COMMENT '问题描述',
+  `answer_count` int(5) NULL DEFAULT NULL COMMENT '回答数量',
+  PRIMARY KEY (`id`) USING BTREE
+) ENGINE = InnoDB AUTO_INCREMENT = 1092 CHARACTER SET = utf8 COLLATE = utf8_general_ci ROW_FORMAT = Dynamic;
+
+-- ----------------------------
 -- Table structure for message
 -- ----------------------------
 DROP TABLE IF EXISTS `message`;
@@ -179,7 +208,25 @@ CREATE TABLE `message`  (
   `user_id` int(10) NULL DEFAULT NULL COMMENT '用户id',
   `status` int(1) NULL DEFAULT 0 COMMENT '是否查看',
   PRIMARY KEY (`id`) USING BTREE
-) ENGINE = InnoDB AUTO_INCREMENT = 8 CHARACTER SET = utf8 COLLATE = utf8_general_ci ROW_FORMAT = Dynamic;
+) ENGINE = InnoDB AUTO_INCREMENT = 9 CHARACTER SET = utf8 COLLATE = utf8_general_ci ROW_FORMAT = Dynamic;
+
+-- ----------------------------
+-- Table structure for question_answer
+-- ----------------------------
+DROP TABLE IF EXISTS `question_answer`;
+CREATE TABLE `question_answer`  (
+  `id` int(10) NOT NULL AUTO_INCREMENT,
+  `author_name` varchar(200) CHARACTER SET utf8 COLLATE utf8_general_ci NULL DEFAULT NULL COMMENT '作者名字',
+  `author_url` varchar(100) CHARACTER SET utf8 COLLATE utf8_general_ci NULL DEFAULT NULL COMMENT '作者主页',
+  `author_description` varchar(500) CHARACTER SET utf8 COLLATE utf8_general_ci NULL DEFAULT NULL COMMENT '作者描述',
+  `up_count` varchar(100) CHARACTER SET utf8 COLLATE utf8_general_ci NULL DEFAULT NULL COMMENT '点赞描述',
+  `time` varchar(100) CHARACTER SET utf8 COLLATE utf8_general_ci NULL DEFAULT NULL COMMENT '发布时间',
+  `content` longtext CHARACTER SET utf8 COLLATE utf8_general_ci NULL COMMENT '回答内容',
+  `order_number` int(11) NULL DEFAULT NULL COMMENT '排序号',
+  `allow` int(5) NULL DEFAULT 0 COMMENT '删除标志，默认为0,1表示已删除',
+  `major_question_id` int(11) NULL DEFAULT NULL COMMENT 'question外键',
+  PRIMARY KEY (`id`) USING BTREE
+) ENGINE = InnoDB AUTO_INCREMENT = 2687 CHARACTER SET = utf8 COLLATE = utf8_general_ci ROW_FORMAT = Dynamic;
 
 -- ----------------------------
 -- Table structure for search
@@ -190,7 +237,7 @@ CREATE TABLE `search`  (
   `name` varchar(200) CHARACTER SET utf8 COLLATE utf8_general_ci NULL DEFAULT NULL COMMENT '搜索内容',
   `search_count` int(10) NULL DEFAULT NULL COMMENT '搜索次数',
   PRIMARY KEY (`id`) USING BTREE
-) ENGINE = InnoDB AUTO_INCREMENT = 25 CHARACTER SET = utf8 COLLATE = utf8_general_ci ROW_FORMAT = Dynamic;
+) ENGINE = InnoDB AUTO_INCREMENT = 58 CHARACTER SET = utf8 COLLATE = utf8_general_ci ROW_FORMAT = Dynamic;
 
 -- ----------------------------
 -- Table structure for subject
@@ -220,7 +267,7 @@ CREATE TABLE `user`  (
   `city` varchar(100) CHARACTER SET utf8 COLLATE utf8_general_ci NULL DEFAULT NULL COMMENT '城市',
   `ip` varchar(30) CHARACTER SET utf8 COLLATE utf8_general_ci NULL DEFAULT NULL COMMENT 'ip',
   PRIMARY KEY (`id`) USING BTREE
-) ENGINE = InnoDB AUTO_INCREMENT = 370 CHARACTER SET = utf8 COLLATE = utf8_general_ci ROW_FORMAT = Dynamic;
+) ENGINE = InnoDB AUTO_INCREMENT = 1591 CHARACTER SET = utf8 COLLATE = utf8_general_ci ROW_FORMAT = Dynamic;
 
 -- ----------------------------
 -- Table structure for video
@@ -265,7 +312,7 @@ CREATE TABLE `video_feedback`  (
   `ip` varchar(200) CHARACTER SET utf8 COLLATE utf8_general_ci NULL DEFAULT NULL COMMENT 'ip地址',
   `time` varchar(50) CHARACTER SET utf8 COLLATE utf8_general_ci NULL DEFAULT NULL COMMENT '请求时间',
   PRIMARY KEY (`id`) USING BTREE
-) ENGINE = InnoDB AUTO_INCREMENT = 77 CHARACTER SET = utf8 COLLATE = utf8_general_ci ROW_FORMAT = Dynamic;
+) ENGINE = InnoDB AUTO_INCREMENT = 104 CHARACTER SET = utf8 COLLATE = utf8_general_ci ROW_FORMAT = Dynamic;
 
 -- ----------------------------
 -- Table structure for video_needs
@@ -280,7 +327,7 @@ CREATE TABLE `video_needs`  (
   `status` int(1) NULL DEFAULT 0 COMMENT '需求状态',
   `address` varchar(255) CHARACTER SET utf8 COLLATE utf8_general_ci NULL DEFAULT NULL,
   PRIMARY KEY (`id`) USING BTREE
-) ENGINE = InnoDB AUTO_INCREMENT = 35 CHARACTER SET = utf8 COLLATE = utf8_general_ci ROW_FORMAT = Dynamic;
+) ENGINE = InnoDB AUTO_INCREMENT = 47 CHARACTER SET = utf8 COLLATE = utf8_general_ci ROW_FORMAT = Dynamic;
 
 -- ----------------------------
 -- View structure for vw_authed_up
