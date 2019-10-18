@@ -56,6 +56,7 @@
             <ul class="row major_ul" th:if="${majors}">
                 <!--/*@thymesVar id="subjects" type="com.hrong.major.model.Major"*/-->
                 <li class="col-xs-12 col-sm-12 col-md-12 col-lg-12 major_li" th:each="major:${majors}">
+                    <span class="search_index" th:classappend="${majorStat.index eq 0 ? 'search_index_1':(majorStat.index eq 1 ? 'search_index_2' : (majorStat.index eq 2 ? 'search_index_3' : ''))}" th:text="${majorStat.index+1}"></span>
                     <a class="major_a" th:href="@{'/major/'+${major.id}}" th:text="${major.name}"
                        th:title="${major.name}">
                     </a>
