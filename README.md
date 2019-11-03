@@ -264,3 +264,6 @@ springboot+mybatis-plus
 ### 20191016
 1. 修改页面css样式
 2. 修改footer
+
+### 20191102
+1. 加入redis缓存

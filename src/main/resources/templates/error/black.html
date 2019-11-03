@@ -1,0 +1,16 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head th:replace="commons/header :: common-header(~{::title}, ~{})">
+    <title>请求过于频繁~</title>
+</head>
+<body>
+<!-- Header -->
+<div th:replace="commons/header :: header"></div>
+<div class="content_container">
+    <h2 class="text-center" th:text="'请求过于频繁,请'+${timeTolive}+'秒后再试'"></h2>
+</div>
+<footer>
+    <div th:replace="commons/footer :: footer(~{})"></div>
+</footer>
+</body>
+</html>

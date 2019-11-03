@@ -30,6 +30,9 @@ public class MajorServiceImpl extends ServiceImpl<MajorMapper, Major> implements
 
 	@Resource
 	private MajorMapper majorMapper;
+	@Resource
+	private CacheConstant cacheConstant;
+
 	@Override
 	public List<Major> findAroundMajors(Integer id) {
 		Major major = majorMapper.selectById(id);
@@ -41,7 +44,7 @@ public class MajorServiceImpl extends ServiceImpl<MajorMapper, Major> implements
 	public List<MajorVo> findMajorsByName(String name) {
 		List<Major> majors = majorMapper.selectList(new QueryWrapper<Major>().like("name", name).last("order by order_number"));
 		List<MajorVo> majorVos = new ArrayList<>(majors.size());
-		List<Subject> subjects = CacheConstant.subjects;
+		List<Subject> subjects = cacheConstant.subjects();
 		for (Major major : majors) {
 			MajorVo majorVo = MajorVo.builder().major(major).build();
 			Optional<Subject> first = subjects.stream().filter(item -> item.getId().equals(major.getSubjectId())).findFirst();

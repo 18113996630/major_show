@@ -1,9 +1,11 @@
 package com.hrong.major.controller.admin;
 
 
+import com.alibaba.fastjson.JSONObject;
 import com.hrong.major.constant.CacheConstant;
 import com.hrong.major.model.Configuration;
 import com.hrong.major.service.ConfigurationService;
+import org.springframework.data.redis.core.StringRedisTemplate;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PostMapping;
@@ -25,11 +27,14 @@ public class AdminConfigurationController {
 
 	@Resource
 	private ConfigurationService configurationService;
+	@Resource
+	private StringRedisTemplate stringRedisTemplate;
 
 	@PostMapping("/configuration")
 	public Object updateConfiguration(@ModelAttribute Configuration configuration){
 		configurationService.saveOrUpdate(configuration);
-		CacheConstant.conf = configurationService.list().get(0);
+		Configuration conf = configurationService.list().get(0);
+		stringRedisTemplate.opsForValue().setIfPresent(CacheConstant.REDIS_CONF, JSONObject.toJSONString(conf));
 		return "admin/side/conf";
 	}
 }

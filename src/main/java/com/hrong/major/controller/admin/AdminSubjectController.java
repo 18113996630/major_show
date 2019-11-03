@@ -29,6 +29,8 @@ import java.util.Map;
 public class AdminSubjectController{
 	@Resource
 	private SubjectService subjectService;
+	@Resource
+	private CacheConstant cacheConstant;
 
 	/**
 	 * 表格初始化
@@ -37,7 +39,7 @@ public class AdminSubjectController{
 	@RequestMapping("/subjects")
 	public Map<String, Object> getAllSubjects() {
 		Map<String, Object> res = new HashMap<>(2);
-		List<Subject> subjects = CacheConstant.subjects;
+		List<Subject> subjects = cacheConstant.subjects();
 		res.put("total", subjects.size());
 		res.put("rows", subjects);
 		return res;
@@ -54,6 +56,8 @@ public class AdminSubjectController{
 	public Object saveOrUpdateSubject(@RequestBody Subject subject) {
 		try {
 			subjectService.saveOrUpdate(subject);
+			Boolean setResult = subjectService.resetRedisSubjects();
+			log.info("更新结果：{}", setResult);
 		} catch (Exception e) {
 			log.error(e.getMessage());
 			return Result.err(500, String.format("后台保存出错:%s", e.getMessage()));
@@ -67,6 +71,8 @@ public class AdminSubjectController{
 		Subject subject = subjectService.getById(id);
 		if (subject.getDeleted() != 1) {
 			subjectService.update(subject, new UpdateWrapper<Subject>().eq("id", id).set("deleted", 1));
+			Boolean setResult = subjectService.resetRedisSubjects();
+			log.info("更新结果：{}", setResult);
 		}
 		return Result.success("删除成功");
 	}
@@ -77,6 +83,8 @@ public class AdminSubjectController{
 		Subject subject = subjectService.getById(id);
 		if (subject.getDeleted() != 0) {
 			subjectService.update(subject, new UpdateWrapper<Subject>().eq("id", id).set("deleted", 0));
+			Boolean setResult = subjectService.resetRedisSubjects();
+			log.info("更新结果：{}", setResult);
 		}
 		return Result.success("恢复成功");
 	}

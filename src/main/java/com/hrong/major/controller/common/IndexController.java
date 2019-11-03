@@ -15,12 +15,16 @@ import com.hrong.major.service.MajorService;
 import com.hrong.major.service.SearchService;
 import com.hrong.major.utils.RequestUtils;
 import lombok.extern.slf4j.Slf4j;
+import org.springframework.data.redis.core.StringRedisTemplate;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 
 import javax.annotation.Resource;
 import javax.servlet.http.HttpServletRequest;
+import java.util.concurrent.TimeUnit;
+
+import static com.hrong.major.constant.Constant.REDIS_BLACK_IP;
 
 /**
  * @Author hrong
@@ -35,6 +39,10 @@ public class IndexController {
 	private MajorService majorService;
 	@Resource
 	private SearchService searchService;
+	@Resource
+	private CacheConstant cacheConstant;
+	@Resource
+	private StringRedisTemplate stringRedisTemplate;
 
 	@ClickLog(type = ClickType.subject)
 	@GetMapping("/")
@@ -45,7 +53,7 @@ public class IndexController {
 		if (isFirstVisit == 0) {
 			return "about/about";
 		}
-		model.addAttribute("subjects", CacheConstant.subjects);
+		model.addAttribute("subjects", cacheConstant.subjects());
 		model.addAttribute("searchVo", new SearchVo());
 		model.addAttribute("searches", searchService.getPopularSearches());
 		return "index";
@@ -91,6 +99,14 @@ public class IndexController {
 	@GetMapping("/declare")
 	public String declare() {
 		return "declare/declare";
+	}
+
+	@GetMapping("/black")
+	public String black(HttpServletRequest request, Model model) {
+		String ip = RequestUtils.getIp(request);
+		Long expire = stringRedisTemplate.getExpire(REDIS_BLACK_IP + ip, TimeUnit.SECONDS);
+		model.addAttribute("timeTolive", expire);
+		return "error/black";
 	}
 
 }

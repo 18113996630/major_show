@@ -36,7 +36,6 @@ public class MajorQuestionServiceImpl extends ServiceImpl<MajorQuestionMapper, M
 		List<MajorQuestionVo> result = new ArrayList<>(questions.size());
 		Random random = new Random();
 		for (MajorQuestion question : questions) {
-			System.out.println(question.getId()+"  "+question.getTitle());
 			QuestionAnswer firstAnswer = questionAnswerMapper.selectOne(new QueryWrapper<QuestionAnswer>()
 					.eq("major_question_id", question.getId())
 					.orderByDesc("order_number")
