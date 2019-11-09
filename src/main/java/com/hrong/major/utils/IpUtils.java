@@ -18,6 +18,7 @@ import org.springframework.stereotype.Component;
 import javax.annotation.PostConstruct;
 import javax.annotation.Resource;
 import java.io.IOException;
+import java.util.List;
 import java.util.Objects;
 import java.util.Random;
 
@@ -54,7 +55,8 @@ public class IpUtils {
 	 */
 	public static String getCity(String ip) {
 		String address = "未知";
-		User user = userServiceStatic.getOne(new QueryWrapper<User>().eq("ip", ip));
+		List<User> users = userServiceStatic.list(new QueryWrapper<User>().eq("ip", ip));
+		User user = users.size() == 0 ? null : users.get(0);
 		boolean isNeed = isProd && (user == null || address.equalsIgnoreCase(user.getCity()));
 		if (isNeed) {
 			log.info("未在用户表中发现该ip所在城市信息，开始从第三方api获取city信息");
