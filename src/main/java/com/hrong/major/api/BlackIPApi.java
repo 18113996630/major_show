@@ -6,6 +6,7 @@ import com.hrong.major.model.vo.Result;
 import com.hrong.major.service.BlacklistService;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.data.redis.core.StringRedisTemplate;
+import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RestController;
 
@@ -29,6 +30,7 @@ public class BlackIPApi {
 	@Resource
 	private BlacklistService blacklistService;
 
+	@PostMapping(value = "/major/api/black_ip")
 	public String addBlackIp(@RequestBody String blackIpInfo){
 		try {
 			DateFormat df = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
