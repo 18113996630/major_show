@@ -22,6 +22,7 @@ footer {
 /* index中去掉subject(li)前面的点 */
 .row li {
     list-style-type: none;
+    background-color: whitesmoke;
 }
 
 /* 清除浮动样式 */
