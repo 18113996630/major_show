@@ -1,6 +1,5 @@
 ## 网站预览图
 ![关于](./web_pictures/about.png)
-![关于](./web_pictures/about.png)
 ![网站首页](./web_pictures/index.png)
 ![专业大类列表](./web_pictures/major.png)
 ![专业详情](./web_pictures/detail.png)
