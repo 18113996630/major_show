@@ -32,6 +32,8 @@ public class AdminController {
 	private LogService logService;
 	@Resource
 	private ConfigurationService configurationService;
+	@Resource
+	private CacheConstant cacheConstant;
 
 	private static String getToday() {
 		SimpleDateFormat dateFormat = new SimpleDateFormat("yyyy-MM-dd");
@@ -68,7 +70,7 @@ public class AdminController {
 	@GetMapping(value = "/major")
 	public String major(Model model) {
 		//用于下拉选项赋值
-		model.addAttribute("subjects", CacheConstant.subjects);
+		model.addAttribute("subjects", cacheConstant.subjects());
 		return "admin/side/major";
 	}
 
@@ -96,7 +98,7 @@ public class AdminController {
 	@GetMapping(value = "/major/detail")
 	public String majorDetail(Model model) {
 		//用于下拉选项赋值
-		model.addAttribute("subjects", CacheConstant.subjects);
+		model.addAttribute("subjects", cacheConstant.subjects());
 		model.addAttribute("majors", majorService.list());
 		return "admin/side/major_detail";
 	}

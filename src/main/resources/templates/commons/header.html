@@ -3,14 +3,14 @@
 <head th:fragment="common-header(title, link)">
     <script>
         var _hmt = _hmt || [];
-        (function() {
+        (function () {
             var hm = document.createElement("script");
             hm.src = "https://hm.baidu.com/hm.js?fdef99b7e60238d3867e7447dac83249";
             var s = document.getElementsByTagName("script")[0];
             s.parentNode.insertBefore(hm, s);
         })();
     </script>
-    <meta content="4akdphFH3V" name="baidu-site-verification" />
+    <meta content="4akdphFH3V" name="baidu-site-verification"/>
     <meta charset="utf-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1">
@@ -33,7 +33,6 @@
         <div class="navbar-header">
             <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#navbar"
                     aria-expanded="false" aria-controls="navbar">
-                <span class="sr-only">Toggle navigation</span>
                 <span class="icon-bar"></span>
                 <span class="icon-bar"></span>
                 <span class="icon-bar"></span>
@@ -48,7 +47,7 @@
                 <li><a th:href="@{/about}" th:text="${conf.headAbout}">关于我</a></li>
                 <li><a th:href="@{/contact}" th:text="${conf.headContact}">联系我</a></li>
                 <li><a th:href="@{/contribute}" th:text="${conf.headContribute}">我要投稿</a></li>
-<!--                <li><a th:href="@{/login}">登录/注册</a></li>-->
+                <!--                <li><a th:href="@{/login}">登录/注册</a></li>-->
             </ul>
         </div>
     </div>

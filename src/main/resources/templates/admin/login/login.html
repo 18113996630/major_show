@@ -4,7 +4,7 @@
     <link rel="stylesheet" th:href="@{/css/admin/login.css}">
 </head>
 <body>
-<div class="container">
+<div class="container content_container">
     <form class="form-signin" th:action="@{/admin/login}" th:method="post" th:object="${user}">
         <h2 class="form-signin-heading text-center default-color0" style="color: chartreuse;">不登录就别想进后台</h2>
         <h3 class="text-center" style="color: #2f14bb" th:if="${msg}" th:text="${msg}"></h3>

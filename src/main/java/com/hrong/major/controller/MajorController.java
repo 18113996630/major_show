@@ -45,6 +45,8 @@ public class MajorController extends BaseController<Major> {
 	private SubjectService subjectService;
 	@Resource
 	private SearchService searchService;
+	@Resource
+	private CacheConstant cacheConstant;
 
 	/**
 	 * 分页获取专业信息
@@ -57,7 +59,7 @@ public class MajorController extends BaseController<Major> {
 		IPage<Major> majors = majorService.page(new Page<>(page, size), new QueryWrapper<Major>().eq("subject_id", subjectId).orderByAsc("order_number"));
 		//翻页需要知道当前是什么科目类别
 		Subject currentSubject = subjectService.getById(subjectId);
-		List<Subject> subjects = CacheConstant.subjects;
+		List<Subject> subjects = cacheConstant.subjects();
 		packagePageResult(model, majors);
 		model.addAttribute("majors", majors.getRecords());
 		model.addAttribute("data", null);
@@ -89,13 +91,16 @@ public class MajorController extends BaseController<Major> {
 			log.info("搜索词：{}的搜索次数:{}", major.getName(), count);
 		}
 		searchService.saveOrUpdate(search);
-		model.addAttribute("currentSubject", new Subject().setId(0));
+		Subject subject = new Subject();
+		subject.setId(0);
+		subject.setName(major.getName());
+		model.addAttribute("currentSubject", subject);
 		model.addAttribute("data", majors);
 		//启用与专业类别一起展示的方式
 		model.addAttribute("majors", null);
 		//不显示分页按钮
 		model.addAttribute("totalPages", null);
-		model.addAttribute("subjects", CacheConstant.subjects);
+		model.addAttribute("subjects", cacheConstant.subjects());
 		model.addAttribute("searches", searchService.getPopularSearches());
 		return "major/major";
 	}

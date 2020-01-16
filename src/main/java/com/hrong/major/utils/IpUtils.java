@@ -2,8 +2,6 @@ package com.hrong.major.utils;
 
 import com.alibaba.fastjson.JSON;
 import com.alibaba.fastjson.JSONObject;
-import com.baomidou.mybatisplus.core.conditions.query.QueryWrapper;
-import com.hrong.major.model.User;
 import com.hrong.major.service.UserService;
 import lombok.extern.slf4j.Slf4j;
 import org.apache.http.client.config.RequestConfig;
@@ -18,8 +16,6 @@ import org.springframework.stereotype.Component;
 import javax.annotation.PostConstruct;
 import javax.annotation.Resource;
 import java.io.IOException;
-import java.util.Objects;
-import java.util.Random;
 
 /**
  * @Author hrong
@@ -54,7 +50,8 @@ public class IpUtils {
 	 */
 	public static String getCity(String ip) {
 		String address = "未知";
-		User user = userServiceStatic.getOne(new QueryWrapper<User>().eq("ip", ip));
+		/*List<User> users = userServiceStatic.list(new QueryWrapper<User>().eq("ip", ip));
+		User user = users.size() == 0 ? null : users.get(0);
 		boolean isNeed = isProd && (user == null || address.equalsIgnoreCase(user.getCity()));
 		if (isNeed) {
 			log.info("未在用户表中发现该ip所在城市信息，开始从第三方api获取city信息");
@@ -85,7 +82,7 @@ public class IpUtils {
 		} else {
 			address = Objects.requireNonNull(user).getCity();
 		}
-		log.info("ip:{}，城市:{}", ip, address);
+		log.info("ip:{}，城市:{}", ip, address);*/
 		return address;
 	}
 

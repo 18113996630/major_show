@@ -68,6 +68,7 @@ public enum ClickType {
 	 * 详情修改
 	 */
 	detail_update,
+	declare,
 
 	ClickType() {
 	}

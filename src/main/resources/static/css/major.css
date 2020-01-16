@@ -9,10 +9,33 @@
     overflow: hidden;
     display: inline-block;
 }
+.search_index{
+    background-color: #8eb9f5;
+    display: inline-block;
+    padding: 3px 0;
+    color: #fff;
+    width: 1em;
+    line-height: 1em;
+    font-size: 2em;
+    text-align: center;
+    margin-right: 10px;
+}
+.search_index_1 {
+    background-color: #f54545;
+}
+.search_index_2 {
+    background-color: #ff8547;
+}
+.search_index_3 {
+    background-color: #ffac38;
+}
 
 .major_a {
     height: 100%;
     font-size: 2em;
+    /*color: dodgerblue;*/
+    color: #474ed5;
+    font-weight: 600;
 }
 
 /*翻页属性*/
@@ -44,7 +67,7 @@
     white-space: nowrap;
     overflow: hidden;
     display: inline-block;
-    padding: 0 30%;
+    /*padding: 0 30%;*/
 }
 
 .search_subject {

@@ -4,13 +4,67 @@
     <link rel="stylesheet" th:href="@{/css/footer.css}">
 </head>
 
-<div class="foot" style="position: fixed; bottom: 0; left: 0; width: 100%" th:fragment="footer(script)">
-<!--<div class="foot" th:fragment="footer(script)">-->
+<div class="foot" style="left: 0; width: 100%" th:fragment="footer(script)">
     <script th:src="@{/js/jquery.min.js}"></script>
     <script th:src="@{/js/bootstrap.min.js}"></script>
-<!--    <script th:src="@{/js/common.js}"></script>-->
     <script th:src="@{/layer/layer.js}"></script>
+    <script type="text/javascript">
+        /*页面存在线条向鼠标汇集特效*/
+        // if (screen.width > 750)
+            // document.write('<script type="text/javascript" src="https://cdn.bootcss.com/canvas-nest.js/1.0.1/canvas-nest.min.js"><\/script>');
+        (function() {
+            var chars=['☺','☹','☻','😀','😁','😂','😃','😄','😅','😆','😇','😈','😉','😊','😋','😌','😍','😎','😏','😐','😑','😒','😓','😔','😕','😖','😗','😘','😙','😚','😛','😜','😝','😞','😟','😠','😡','😢','😣','😤','😥','😦','😧','😨','😩','😪','😫','😬','😭','😮','😯','😰','😱','😲','😳','😴','😵','😶','😷','😸','😹','😺','😻','😼','😽','😾','😿','🙀','🙅','🙆','🙇','🙈','🙉','🙊','🙋','🙌','🙍','🙎','🙏','🚀','🚁','🚂','🚃','🚄','🚅','🚆','🚇','🚈','🚉','🚊','🚋','🚌','🚍','🚎','🚏','🚐','🚑','🚒','🚓','🚔','🚕','🚖','🚗','🚘','🚙','🚚','🚛','🚜','🚝','🚞','🚟','🚠','🚡','🚢','🚣','🚤','🚥','🚦','🚧','🚨','🚩','🚪','🚫','🚬','🚭','🚮','🚯','🚰','🚱','🚲','🚳','🚴','🚵','🚶','🚷','🚸','🚹','🚺','🚻','🚼','🚽','🚾','🚿','🛀','🛁','🛂','🛃','🛄','🛅','❦','❧','☙','❥','❣','♡','♥','❤','➳','ღ','💌','🏩','💓','💔','💕','💖','💗','💘','💙','💚','💛','💜','💝','💞','💟','💑','⚜','✥','✤','✻','✼','✽','✾','❀','✿','❁','❃','❇','❈','❉','❊','❋','⚘','⁕','ꙮ','ꕤ','ꕥ','☘','᪥','🍀','🌼','🌻','🌺','🌹','🌸','🌷','💐','★','☆','✪','✫','✯','✡','⚝','⚹','✵','❉','❋','✺','✹','✸','✶','✷','✵','✴','✳','✲','✱','✧','✦','⍟','⊛','⁕','🔯','🌠','🌟','﹡','❃','❂','✼','✻','✰','⍣','✭'];
+            jQuery(document).ready(function($) {
+                $("html").click(function(e) {
+                    var n = 0;
+                    var color = "#"+("00000"+((Math.random()*16777215+0.5)>>0).toString(16)).slice(-6);
+                    var sty=" style='color:"+color+"'";
+                    var id=Math.ceil(Math.random()*243);
+                    var $i;
+                    $i = $("<b "+sty+"></b>").text(chars[id]);
+                    n = Math.round(Math.random() * 30 + 26);
+                    var x = e.pageX,
+                        y = e.pageY;
+                    $i.css({
+                        "z-index": 9999,
+                        "top": y - 20,
+                        "left": x,
+                        "position": "absolute",
+                        "font-size": n,
+                        "-moz-user-select": "none",
+                        "-webkit-user-select": "none",
+                        "-ms-user-select": "none"
+                    });
+                    $("body").append($i);
+                    $i.animate({
+                        "top": y - 180,
+                        "opacity": 0
+                    }, 1500, function() {
+                        $i.remove();
+                    });
+                });
+            });
+        })();
+    </script>
     <th:block th:replace="${script}"/>
-    <p th:text="${conf.footer}">&copy; 2016 Company, Inc.</p>
+    <p>
+        <span>本网站提供的内容不保证正确性，仅用于参考，请三思而后行~</span>
+        <a th:href="@{/declare}"><strong>免责声明</strong></a>
+    </p>
+    <p>
+        <span>本项目部署于:</span>
+        <a data-original-title="阿里云红包" data-placement="bottom"
+           data-toggle="tooltip" href="https://promotion.aliyun.com/ntms/yunparter/invite.html?userCode=njx3kmjo"
+           rel="external nofollow" target="_blank" title="">阿里云</a>
+        <span>·</span>
+        <span>Github:</span>
+        <a data-original-title="Github地址" data-placement="bottom"
+           data-toggle="tooltip" href="https://github.com/18113996630/major_show"
+           rel="external nofollow" target="_blank" title="">源码地址,欢迎star</a>
+        <span>·</span>
+        <a data-placement="bottom" data-toggle="tooltip" href="http://www.beian.miit.gov.cn/" rel="external nofollow" target="_blank" title="查看备案信息">蜀ICP备19028552号</a>
+    </p>
+    <p th:text="${conf.footer}">©2019 HuangRong. All rights reserved</p>
+
 </div>
 </html>

@@ -13,7 +13,7 @@
     document.getElementsByTagName('title')[0].innerText = [[${currentSubject.name}]] + suffix[Math.floor(Math.random() * suffix.length)];
 </script>
 <div class="container">
-    <div class="row row-offcanvas row-offcanvas-left">
+    <div class="row row-offcanvas row-offcanvas-left content_container">
 
         <div class="col-xs-12 col-sm-12 col-md-12 col-lg-12">
             <!-- 展示专业种类信息 -->
@@ -56,9 +56,12 @@
             <ul class="row major_ul" th:if="${majors}">
                 <!--/*@thymesVar id="subjects" type="com.hrong.major.model.Major"*/-->
                 <li class="col-xs-12 col-sm-12 col-md-12 col-lg-12 major_li" th:each="major:${majors}">
+                    <span class="search_index" th:classappend="${majorStat.index eq 0 ? 'search_index_1':(majorStat.index eq 1 ? 'search_index_2' : (majorStat.index eq 2 ? 'search_index_3' : ''))}" th:text="${majorStat.index+1}"></span>
                     <a class="major_a" th:href="@{'/major/'+${major.id}}" th:text="${major.name}"
                        th:title="${major.name}">
                     </a>
+                    <span>&nbsp;&nbsp;</span>
+                    <span class="glyphicon glyphicon-hand-left" style="font-size:1.5em"></span>
                 </li>
             </ul>
             <!-- 模糊查询显示方式 -->

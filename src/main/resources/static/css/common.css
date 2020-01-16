@@ -1,8 +1,6 @@
-html,
-body {
+html {
     overflow-x: hidden; /* Prevent scroll on narrow devices */
-    height: 100%
-;
+    height: 100%;
 }
 
 body {
@@ -10,6 +8,11 @@ body {
     /*background-color: lightgray;*/
     /*background: url("/img/bg.jpg") no-repeat;*/
     background-size: 100%;
+    min-height: 100%;
+}
+
+.content_container {
+    min-height: 800px;
 }
 
 footer {
@@ -19,8 +22,10 @@ footer {
 /* index中去掉subject(li)前面的点 */
 .row li {
     list-style-type: none;
+    background-color: whitesmoke;
 }
-/* 清楚浮动样式 */
+
+/* 清除浮动样式 */
 .clearfloat:after {
     display: block;
     clear: both;
@@ -28,6 +33,7 @@ footer {
     visibility: hidden;
     height: 0
 }
+
 .clearfloat {
     zoom: 1
 }

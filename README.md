@@ -1,8 +1,8 @@
 ## 网站预览图
-![关于](https://github.com/18113996630/major_show/blob/master/src/main/resources/web_pictures/about.png)
-![网站首页](https://github.com/18113996630/major_show/blob/master/src/main/resources/web_pictures/index.png)
-![专业大类列表](https://github.com/18113996630/major_show/blob/master/src/main/resources/web_pictures/major.png)
-![专业详情](https://github.com/18113996630/major_show/blob/master/src/main/resources/web_pictures/detail.png)
+![关于](./web_pictures/about.png)
+![网站首页](./web_pictures/index.png)
+![专业大类列表](./web_pictures/major.png)
+![专业详情](./web_pictures/detail.png)
 
 ## 数据库
 
@@ -78,7 +78,7 @@ springboot+mybatis-plus
       <body>
       <!-- 类似指定id为header，复用方法：<div th:replace="commons/header :: header"></div>-->
       <nav class="navbar navbar-fixed-top navbar-inverse nav_color" th:fragment="header">
-          <div class="container">
+          <div class="container content_container">
               <div class="navbar-header">
                   <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#navbar"
                           aria-expanded="false" aria-controls="navbar">
@@ -260,3 +260,10 @@ springboot+mybatis-plus
 ### 20191015
 1. **增加知乎评论**
     1. 增加**major_question**与**question_answer**表
+    
+### 20191016
+1. 修改页面css样式
+2. 修改footer
+
+### 20191102
+1. 加入redis缓存

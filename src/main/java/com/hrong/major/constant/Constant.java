@@ -18,4 +18,7 @@ public class Constant {
 	public static final String KEY = "Hrong";
 	public static final String REQUEST_TYPE = "XMLHttpRequest";
 	public static final String COOKIE = "Authorization";
+
+	public static final String REDIS_BLACK_IP = "black";
+
 }

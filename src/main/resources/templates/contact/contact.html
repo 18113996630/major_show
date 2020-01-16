@@ -6,7 +6,7 @@
 <body>
 <!-- Header -->
 <div th:replace="commons/header :: header"></div>
-<div class="container">
+<div class="container content_container">
     <h2 class="text-center"  style="margin-bottom: 2em" th:if="not ${msg}" th:text="${conf.hCContent}">若有需要，可以在下面留言，也可以直接联系QQ：1011486768</h2>
     <h2 class="text-center text-success" th:if="msg" th:text="${msg}"></h2>
     <form class="form-horizontal" th:action="@{/contact/message}" th:if="not ${msg}" th:method="post" th:object="${message}">

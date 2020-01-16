@@ -1,7 +1,7 @@
 package com.hrong.major.service;
 
-import com.hrong.major.model.Subject;
 import com.baomidou.mybatisplus.extension.service.IService;
+import com.hrong.major.model.Subject;
 
 /**
  * <p>
@@ -12,5 +12,5 @@ import com.baomidou.mybatisplus.extension.service.IService;
  * @since 2019-08-13
  */
 public interface SubjectService extends IService<Subject> {
-
+	Boolean resetRedisSubjects();
 }
