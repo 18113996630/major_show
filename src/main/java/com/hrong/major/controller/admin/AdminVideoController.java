@@ -13,14 +13,13 @@ import com.hrong.major.service.MajorDetailService;
 import com.hrong.major.service.VideoNeedsService;
 import com.hrong.major.service.VideoService;
 import lombok.extern.slf4j.Slf4j;
-import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.ResponseBody;
+import org.springframework.web.bind.annotation.RestController;
 
 import javax.annotation.Resource;
 import java.util.Arrays;
@@ -33,7 +32,7 @@ import java.util.stream.Collectors;
  * @Author hrong
  **/
 @Slf4j
-@Controller
+@RestController
 @RequestMapping(value = "/admin")
 public class AdminVideoController {
 
@@ -46,7 +45,6 @@ public class AdminVideoController {
 	/**
 	 * 表格初始化
 	 */
-	@ResponseBody
 	@GetMapping("/videos")
 	public Map<String, Object> getAllVideos(int pageNumber, int pageSize, String videoName, String majorName, String upName, String isAuth) {
 		Map<String, Object> res = new HashMap<>(2);
@@ -57,26 +55,22 @@ public class AdminVideoController {
 		return res;
 	}
 
-	@ResponseBody
 	@GetMapping(value = "/video/{id}")
 	public Object findById(@PathVariable int id) {
 		return Result.success(videoService.getById(id));
 	}
 
-	@ResponseBody
 	@PostMapping(value = "/video")
 	public Object saveOrUpdateSubject(@RequestBody Video video) {
 		return videoService.saveOrUpdateVideo(video);
 	}
 
-	@ResponseBody
 	@DeleteMapping(value = "/video/{id}")
 	public Object deleteSubject(@PathVariable int id) {
 		videoService.removeById(id);
 		return Result.success("删除成功");
 	}
 
-	@ResponseBody
 	@PostMapping(value = "/video/{id}")
 	public Object updateSubject(@PathVariable int id) {
 		Video video = videoService.getById(id);
@@ -87,7 +81,6 @@ public class AdminVideoController {
 		return Result.success("操作成功");
 	}
 
-	@ResponseBody
 	@PostMapping(value = "/videos/auth")
 	public Object authVideo(String ids) {
 		List<String> idsList = Arrays.asList(ids.split(","));
@@ -102,7 +95,6 @@ public class AdminVideoController {
 		return Result.success("授权成功");
 	}
 
-	@ResponseBody
 	@GetMapping(value = "/video/authors")
 	public Object authors(int pageNumber, int pageSize ,String upName, String isAuth) {
 		Map<String, Object> res = new HashMap<>(2);
@@ -112,7 +104,7 @@ public class AdminVideoController {
 		res.put("rows", videos);
 		return res;
 	}
-	@ResponseBody
+
 	@GetMapping(value = "/video/needsInfo")
 	public Object videoNeedsInfo(int pageNumber, int pageSize) {
 		Map<String, Object> res = new HashMap<>(2);
@@ -123,8 +115,6 @@ public class AdminVideoController {
 		return res;
 	}
 
-
-	@ResponseBody
 	@PostMapping(value = "/video/need/{id}")
 	public Object fixVideoNeedsInfo(@PathVariable int id) {
 		VideoNeeds videoNeeds = videoNeedsService.getById(id);
