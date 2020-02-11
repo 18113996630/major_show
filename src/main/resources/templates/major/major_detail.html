@@ -77,7 +77,10 @@
                        th:href="@{'/major/question/'+${question.id}}">
                         <span class="question_title" th:text="${question.title}"></span><span
                             class="answer_count" th:text="${question.answerCount}+'个回答'"></span>
-                        <p class="text-justify question_part" th:text="${question.firstAnswer}"></p>
+                        <p>
+                            <span class="text-justify question_part" th:text="${question.firstAnswer}"></span>
+                            <span class="glyphicon glyphicon-hand-left" style="font-size:1.5em; float: right"></span>
+                        </p>
                     </a>
                 </div>
             </div>
