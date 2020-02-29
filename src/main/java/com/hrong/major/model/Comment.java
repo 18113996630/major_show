@@ -52,5 +52,9 @@ public class Comment implements Serializable {
      * IP
      */
     private String ip;
+    /**
+     * 文章id
+     */
+    private Integer articleId;
 
 }

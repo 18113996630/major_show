@@ -6,10 +6,11 @@
     <resultMap id="BaseResultMap" type="com.hrong.major.model.Comment">
         <id column="id" property="id" />
         <result column="content" property="content" />
-        <result column="major_detail_id" property="detailId" />
+        <result column="major_detail_id" property="majorDetailId" />
         <result column="time" property="time" />
         <result column="up_count" property="upCount" />
         <result column="ip" property="ip" />
+        <result column="article_id" property="articleId" />
     </resultMap>
 
 </mapper>
