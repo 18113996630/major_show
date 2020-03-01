@@ -1,0 +1,20 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.hrong.major.dao.ArticleMapper">
+
+    <!-- 通用查询映射结果 -->
+    <resultMap id="BaseResultMap" type="com.hrong.major.model.Article">
+        <id column="id" property="id" />
+        <result column="link" property="link" />
+        <result column="type_id" property="typeId" />
+        <result column="title" property="title" />
+        <result column="author" property="author" />
+        <result column="publish_time" property="publishTime" />
+        <result column="source" property="source" />
+        <result column="click" property="click" />
+        <result column="comment_count" property="commentCount" />
+        <result column="content" property="content" />
+        <result column="content_preview" property="contentPreview" />
+    </resultMap>
+
+</mapper>

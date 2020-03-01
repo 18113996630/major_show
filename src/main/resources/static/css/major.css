@@ -1,6 +1,10 @@
 .major_ul {
     padding: 0;
 }
+.page {
+    text-align: center;
+    font-size: larger;
+}
 .major_li {
     text-align: center;
     margin: 2em 0;

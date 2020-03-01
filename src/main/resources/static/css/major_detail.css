@@ -37,6 +37,7 @@
     display: block;
     float: left;
     position: relative;
+    margin: 0 2em;
 }
 
 /*视频标题*/

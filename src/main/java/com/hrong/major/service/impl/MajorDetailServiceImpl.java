@@ -86,8 +86,7 @@ public class MajorDetailServiceImpl extends ServiceImpl<MajorDetailMapper, Major
 			return 0;
 		}
 		log.info("{}下一个专业为：{}", currentMajor.getName(), nextMajor.getName());
-		MajorDetail nextMajorDetail = majorDetailMapper.selectOne(new QueryWrapper<MajorDetail>().eq("major_id", nextMajor.getId()));
-		return nextMajorDetail == null ? 0 : nextMajorDetail.getId();
+		return nextMajor.getId();
 	}
 
 	@Override

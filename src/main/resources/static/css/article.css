@@ -1,0 +1,29 @@
+.page {
+    text-align: center;
+    font-size: larger;
+}
+
+li {
+    list-style: none;
+}
+
+.click {
+    font-size:1.5em;
+    float: right;
+}
+.article-title {
+    font-size: large;
+    color: #007e81;
+    padding-left: 0.5em;
+}
+
+.article {
+    margin: 2em 0;
+}
+.article-content {
+    color: black;
+    text-indent: 1em;
+}
+.article-ul {
+    padding-inline-start: 0;
+}

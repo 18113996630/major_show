@@ -44,10 +44,22 @@
                 <li><a th:href="@{/}" th:text="${conf.headSubject}">主页</a></li>
                 <li><a th:href="@{'/majors/1'(page=1, size=8)}" th:text="${conf.headMajor}">专业</a></li>
                 <li><a th:href="@{/top}" th:text="${conf.headTop}">视频贡献排行榜</a></li>
+                <!--<li><a th:href="@{/login}">登录/注册</a></li>-->
+                <li class="dropdown">
+                    <a aria-expanded="false" aria-haspopup="true" class="dropdown-toggle" data-toggle="dropdown" href="#" role="button">文学<span class="caret"></span></a>
+                    <ul class="dropdown-menu">
+                        <li><a th:href="@{/articles/note(page=1, size=10)}">读书笔记</a></li>
+                    </ul>
+                </li>
+                <li class="dropdown">
+                    <a aria-expanded="false" aria-haspopup="true" class="dropdown-toggle" data-toggle="dropdown" href="#" role="button">其他<span class="caret"></span></a>
+                    <ul class="dropdown-menu">
+                        <li><a th:href="@{/contact}" th:text="${conf.headContact}">联系我</a></li>
+                        <li><a th:href="@{/contribute}" th:text="${conf.headContribute}">我要投稿</a></li>
+                    </ul>
+                </li>
+                <li><a th:href="@{/pay}" th:text="支持我"></a></li>
                 <li><a th:href="@{/about}" th:text="${conf.headAbout}">关于我</a></li>
-                <li><a th:href="@{/contact}" th:text="${conf.headContact}">联系我</a></li>
-                <li><a th:href="@{/contribute}" th:text="${conf.headContribute}">我要投稿</a></li>
-                <!--                <li><a th:href="@{/login}">登录/注册</a></li>-->
             </ul>
         </div>
     </div>

@@ -108,5 +108,8 @@ public class IndexController {
 		model.addAttribute("timeTolive", expire);
 		return "error/black";
 	}
-
+	@GetMapping("/pay")
+	public String pay(){
+		return "pay/pay";
+	}
 }

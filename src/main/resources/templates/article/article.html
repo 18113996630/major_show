@@ -1,0 +1,125 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head th:replace="commons/header :: common-header(~{::title}, ~{::link})">
+    <link rel="stylesheet" th:href="@{/css/article.css}">
+    <title>读书笔记</title>
+</head>
+<body>
+<!-- Header -->
+<div th:replace="commons/header :: header"></div>
+
+<div class="container">
+    <div class="row row-offcanvas row-offcanvas-right">
+        <div class="col-xs-12 col-sm-12 col-md-12 col-lg-9">
+            <!-- 搜索框 -->
+            <form class="form-group" th:action="@{'/articles/search/'+${type}}" th:method="post" th:object="${searchVo}">
+                <div class="col-xs-9 col-sm-10 col-md-10 col-lg-10">
+                    <input class="form-control input-lg" oninvalid="setCustomValidity('不能不填哦');"  placeholder="输入想搜索的文章标题吧~" required="required" th:field="*{name}" type="text"/>
+                    <input th:field="*{type}" th:value="${type}" type="hidden"/>
+                </div>
+                <div class="col-xs-3 col-sm-2 col-md-2 col-lg-2">
+                    <button class="btn btn-info btn-lg" type="submit">搜一搜</button>
+                </div>
+            </form>
+            <div class="clearfloat"></div>
+            <!-- articles列表 -->
+            <div class="articles" th:fragment="articles">
+                <ul class="article-ul">
+                    <li class="article" th:each="article:${articles}">
+                        <div>
+                            <a th:href="@{'/article/'+${article.id}}">
+                                <p>
+                                    <span class="glyphicon glyphicon-list-alt"></span>
+                                    <strong class="article-title" th:text="${articleStat.index + 1}+'、'+${article.title}"></strong>
+                                    <span class="glyphicon glyphicon-hand-left click"></span>
+                                </p>
+                                <p class="article-content">[[${#strings.substring(article.contentPreview,1,80)}]]...</p>
+                            </a>
+                        </div>
+                    </li>
+                </ul>
+            </div>
+
+
+            <!-- 当存在totalPages并且总页数大于1时显示分页按钮 -->
+            <div class="page" th:if="${totalPages} and ${totalPages} gt 1">
+                <nav aria-label="">
+                    <ul class="pagination">
+                        <!-- 如果当前页数为1的时候禁用上一页按钮-->
+                        <li class="disabled" th:if="${pageNum} eq 1">
+                      <span>
+                        <span aria-hidden="true">&laquo;</span>
+                      </span>
+                        </li>
+                        <!-- 非第一页时显示 -->
+                        <li th:if="${pageNum gt 1}">
+                            <a aria-label="Previous" th:href="@{'/articles/'+${type}(page=${pageNum}-1, size=10)}"><span
+                                    aria-hidden="true">&laquo;</span></a>
+                        </li>
+
+                        <!-- 页数按钮 -->
+                        <!-- 当页数小于总页数-5-->
+                        <li th:classappend="${pageNum eq pageNo} ? 'active'"
+                            th:each="pageNo : ${#numbers.sequence(pageNum, pageNum + 5)}"
+                            th:if="${pageNum lt totalPages - 4}">
+                            <!-- 禁用当前页按钮 -->
+                            <a href="#" th:if="${pageNum eq pageNo}" th:text="${pageNo}">
+                                <span class="sr-only"></span>
+                            </a>
+                            <!-- 为非当前页按钮指定href地址 -->
+                            <a th:href="@{'/articles/'+${type}(page=${pageNo}, size=10)}"
+                               th:if="${not (pageNum eq pageNo)}">
+                                <span th:text="${pageNo}"></span>
+                            </a>
+                        </li>
+                        <!-- 当页数大于总页数-5-->
+                        <li th:classappend="${pageNum eq pageNo} ? 'active'"
+                            th:each="pageNo : ${#numbers.sequence(totalPages - 5, totalPages)}"
+                            th:if="${pageNum gt totalPages - 5}">
+                            <!-- 禁用当前页按钮 -->
+                            <a href="#" th:if="${pageNum eq pageNo}" th:text="${pageNo}">
+                                <span class="sr-only"></span>
+                            </a>
+                            <!-- 为非当前页按钮指定href地址 -->
+                            <a th:href="@{'/articles/'+${type}(page=${pageNo}, size=10)}"
+                               th:if="${not (pageNum eq pageNo)}">
+                                <span th:text="${pageNo}"></span>
+                            </a>
+                        </li>
+                        <!-- 下一页按钮 -->
+                        <!-- 如果当前页数是最后一页 -->
+                        <li class="disabled" th:if="${pageNum} eq ${totalPages}">
+                      <span>
+                        <span aria-hidden="true">&raquo;</span>
+                      </span>
+                        </li>
+                        <!-- 如果当前页数不是最后一页 -->
+                        <li th:if="${pageNum} lt ${totalPages}">
+                            <a aria-label="Next" th:href="@{'/articles/'+${type}(page=${pageNum+1}, size=10)}">
+                                <span aria-hidden="true">&raquo;</span>
+                            </a>
+                        </li>
+                    </ul>
+                </nav>
+            </div>
+        </div>
+
+        <!-- 展示其他信息 -->
+        <div class="col-lg-3 sidebar-offcanvas visible-lg">
+            <div style="display: none">
+
+            </div>
+        </div>
+    </div>
+
+</div>
+<hr>
+<footer>
+    <div th:replace="commons/footer :: footer(~{::script})">
+        <script th:src="@{/js/article.js}"></script>
+    </div>
+</footer>
+</body>
+
+
+</html>

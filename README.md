@@ -267,3 +267,40 @@ springboot+mybatis-plus
 
 ### 20191102
 1. 加入redis缓存
+
+### 20200301
+1. 爬取文章数据，增加文章展示模块
+2. 调整页面显示布局
+```
+将页面分为左右两部分，visible-lg保证只有在大屏显示器才显示，col-lg-3表示右侧宽度占1/4
+<div class="row row-offcanvas row-offcanvas-right">
+        <!-- 左侧 -->
+        <div class="col-xs-12 col-sm-12 col-md-12 col-lg-9"></div>       
+        <!-- 右侧 -->
+        <div class="col-lg-3 sidebar-offcanvas visible-lg"></div>
+</div>
+```
+```
+<!-- 表示当显示器宽度大于1200px时，.container的宽度为90%，margin-left为10% -->
+<!-- 可以修改min-width来调整不同显示器大小时内容的显示范围 -->
+@media (min-width: 1200px) {
+    .container {
+        width: 90%;
+        margin-left:10%
+    }
+}
+```
+```
+<!-- 动态更改html的header -->
+<script th:inline="javascript">
+    document.getElementsByTagName('title')[0].innerText = [[${title}]];
+</script>
+```
+```
+<!-- 直接显示带标签的数据 -->
+th:utext="${article.content}"
+```
+```
+修改input的非空提示：
+oninvalid="setCustomValidity('不能什么也不填哦');"
+```

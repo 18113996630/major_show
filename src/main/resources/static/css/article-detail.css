@@ -1,0 +1,22 @@
+h2 {
+    text-align: center;
+}
+#content p{
+    line-height: 2.5em;
+    font-size: medium;
+    white-space: pre-wrap;
+    word-wrap: break-word;
+    text-indent: 2em;
+}
+.label-area {
+    margin: 3em 0;
+}
+.label-area strong{
+    font-size: 1.3em;
+}
+.author-info {
+    float: right;
+}
+.next-article {
+    text-align: center;
+}

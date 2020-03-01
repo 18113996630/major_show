@@ -1,0 +1,64 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head th:replace="commons/header :: common-header(~{::title}, ~{::link})">
+    <link rel="stylesheet" th:href="@{/css/article-detail.css}">
+    <title>读书笔记详情</title>
+</head>
+<body>
+<!-- Header -->
+<div th:replace="commons/header :: header"></div>
+<script th:inline="javascript">
+    document.getElementsByTagName('title')[0].innerText = [[${article.title}]] + '';
+</script>
+<div class="container">
+    <div class="row row-offcanvas row-offcanvas-right">
+        <div class="col-xs-12 col-sm-12 col-md-12 col-lg-9">
+            <!-- article详情 -->
+            <div class="article">
+                <h2 th:text="${article.title}"></h2>
+                <p class="author-info">
+                    <span>作者：</span><span th:text="${article.author}"></span>
+                    &nbsp;&nbsp;
+                    <span>发布时间：</span><span th:text="${article.publishTime}"></span>
+                </p>
+                <div class="clearfloat"></div>
+                <hr>
+                <div id="content" th:utext="${article.content}">
+                </div>
+            </div>
+            <div class="label-area">
+                <strong>文章标签：</strong>
+                <a th:each="label:${labels}" th:href="@{'/articles/'+${type}+'/label'(label=${label.name}, page=1, size=10)}" th:if="${labels.size() gt 0}">
+                    <button class="btn"
+                            th:classappend="${label.id % 3 eq 0 ? 'btn-success' : (label.id % 2 eq 0 ? 'btn-warning' : 'btn-info')}"
+                            th:text="${label.name}"></button>
+                </a>
+            </div>
+            <div class="next-article">
+                <!-- 下一篇文章 -->
+                <a class="btn btn-primary btn-next" th:href="@{'/article/'+${nextId}}" th:if="${nextId} gt 0"
+                   th:text="查看下一篇文章"></a>
+                <a class="btn btn-primary btn-next" th:href="@{/articles/note(page=1, size=10)}"
+                   th:if="${nextId} eq 0" th:text="已经是最后一篇了，看看其他的吧"></a>
+            </div>
+        </div>
+
+        <!-- 展示其他信息 -->
+        <div class="col-lg-3 sidebar-offcanvas visible-lg">
+            <div style="display: none">
+
+            </div>
+        </div>
+    </div>
+
+</div>
+<hr>
+<footer>
+    <div th:replace="commons/footer :: footer(~{::script})">
+        <script th:src="@{/js/article-detail.js}"></script>
+    </div>
+</footer>
+</body>
+
+
+</html>

@@ -12,7 +12,8 @@
     document.getElementsByTagName('title')[0].innerText = [[${title}]] + suffix[Math.floor(Math.random() * suffix.length)];
 </script>
 <div class="container">
-    <div class="col-xs-12 col-sm-12 col-md-12 col-lg-12 content_container">
+    <div class="row row-offcanvas row-offcanvas-right">
+        <div class="col-xs-12 col-sm-12 col-md-12 col-lg-9 content_container">
         <!-- sm、md、lg上显示其他专业-->
 
         <div class="around_majors visible-md visible-lg visible-sm">
@@ -40,6 +41,7 @@
             <!-- 专业名字 -->
             <h1 class="text-center" th:text="${detailVo.detail.name}"></h1>
             <br/>
+            <p class="text-center text-primary">欢迎大家加入QQ群交流：【<strong>822101138</strong>】</p>
             <p class="text-center text-danger text-nowrap" th:if="${detailVo.videos.size() gt 0}"
                th:text="视频在文字下方哦"></p>
             <br/>
@@ -84,12 +86,12 @@
                     </a>
                 </div>
             </div>
-            <h2 class="content_split" th:if="${detailVo.videos.size() gt 0}" th:text="${conf.dSplitor}">相关视频</h2>
-            <div class="auth_box">
+            <div class="auth_box" th:if="${detailVo.videos.size() gt 0}">
+                <h2 class="content_split" th:text="${conf.dSplitor}">相关视频</h2>
                 <span class="auth_desc">说明：因版权原因只能跳转到哔哩哔哩原网页观看视频</span>
             </div>
-            <ul class="video_ul" th:each="videoVo:${detailVo.videos}">
-                <li class="small_item"><a target="_blank" th:class="title" th:href="${videoVo.video.url}"
+            <ul class="video_ul">
+                <li class="small_item" th:each="videoVo:${detailVo.videos}"><a target="_blank" th:class="title" th:href="${videoVo.video.url}"
                                           th:text="${videoVo.video.title}"></a><br/>
                     <div class="row video_info">
                         <div class="col-xs-12 col-lg-6 col-md-6">
@@ -201,6 +203,13 @@
                         </button>
                     </li>
                 </ul>
+            </div>
+        </div>
+        </div>
+        <!-- 展示其他信息 -->
+        <div class="col-lg-3 sidebar-offcanvas visible-lg">
+            <div style="display: none">
+
             </div>
         </div>
     </div>

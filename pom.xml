@@ -130,7 +130,7 @@
     </dependencies>
 
     <build>
-        <finalName>major</finalName>
+        <finalName>ROOT</finalName>
         <plugins>
             <plugin>
                 <groupId>org.springframework.boot</groupId>

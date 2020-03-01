@@ -11,4 +11,5 @@ import lombok.Data;
 @Data
 public class SearchVo {
 	private String name;
+	private String type;
 }

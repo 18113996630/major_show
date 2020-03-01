@@ -14,8 +14,7 @@
 </script>
 <div class="container">
     <div class="row row-offcanvas row-offcanvas-left content_container">
-
-        <div class="col-xs-12 col-sm-12 col-md-12 col-lg-12">
+        <div class="col-xs-12 col-sm-12 col-md-10 col-lg-10">
             <!-- 展示专业种类信息 -->
             <div class="subjects">
                 <!--/*@thymesVar id="subjects" type="com.hrong.major.model.Subject"*/-->
@@ -30,7 +29,7 @@
             <!-- 搜索框 -->
             <form class="form-group" th:action="@{/majors}" th:method="post" th:object="${searchVo}">
                 <div class="col-xs-8 col-sm-10 col-md-10 col-lg-10">
-                    <input class="form-control input-lg" placeholder="输入想搜索的专业名称吧~" required="required" th:field="*{name}" type="text">
+                    <input class="form-control input-lg" placeholder="输入想搜索的专业名称吧~" required="required" th:field="*{name}" type="text"/>
                 </div>
                 <div class="col-xs-3 col-sm-2 col-md-2 col-lg-2">
                     <button class="btn btn-info btn-lg" type="submit">搜一搜</button>
@@ -83,24 +82,63 @@
                     </div>
                 </li>
             </ul>
-            <!-- 翻页按钮 -->
-            <div class="col-xs-12 col-sm-12 col-md-12 col-lg-12"
-                 th:if="${totalPages} and ${totalPages} gt 1 and ${currentSubject}">
+            <div class="page" th:if="${totalPages} and ${totalPages} gt 1">
                 <nav aria-label="">
-                    <ul class="pager">
-                        <li><a th:if="${pageNum} gt 1"
-                               th:href="@{'/majors/'+${currentSubject.id}(page=${pageNum}-1, size=8)}">上一页</a></li>
-                        <li th:each="pageNo : ${#numbers.sequence(1, totalPages)}">
-                            <a th:if="${pageNum eq pageNo}" href="javascript:void(0);">
-                                <span th:text="${pageNo}" th:class="disable-a"></span>
+                    <ul class="pagination">
+                        <!-- 如果当前页数为1的时候禁用上一页按钮-->
+                        <li class="disabled" th:if="${pageNum} eq 1">
+                          <span>
+                            <span aria-hidden="true">&laquo;</span>
+                          </span>
+                        </li>
+                        <!-- 非第一页时显示 -->
+                        <li th:if="${pageNum gt 1}">
+                            <a aria-label="Previous" th:href="@{'/majors/'+${currentSubject.id}(page=${pageNum}-1, size=8)}"><span
+                                    aria-hidden="true">&laquo;</span></a>
+                        </li>
+
+                        <!-- 页数按钮 -->
+                        <!-- 当页数小于总页数-5-->
+                        <li th:classappend="${pageNum eq pageNo} ? 'active'"
+                            th:each="pageNo : ${#numbers.sequence(pageNum, pageNum + 5)}"
+                            th:if="${pageNum lt totalPages - 4}">
+                            <!-- 禁用当前页按钮 -->
+                            <a href="#" th:if="${pageNum eq pageNo}" th:text="${pageNo}">
+                                <span class="sr-only"></span>
                             </a>
+                            <!-- 为非当前页按钮指定href地址 -->
                             <a th:if="${not (pageNum eq pageNo)}"
                                th:href="@{'/majors/'+${currentSubject.id}(page=${pageNo}, size=8)}">
                                 <span th:text="${pageNo}"></span>
                             </a>
                         </li>
-                        <li><a th:if="${pageNum} lt ${totalPages}"
-                               th:href="@{'/majors/'+${currentSubject.id}(page=${pageNum+1}, size=8)}">下一页</a></li>
+                        <!-- 当页数大于总页数-5-->
+                        <li th:classappend="${pageNum eq pageNo} ? 'active'"
+                            th:each="pageNo : ${#numbers.sequence(totalPages - 5, totalPages)}"
+                            th:if="${pageNum gt totalPages - 5}">
+                            <!-- 禁用当前页按钮 -->
+                            <a href="#" th:if="${pageNum eq pageNo}" th:text="${pageNo}">
+                                <span class="sr-only"></span>
+                            </a>
+                            <!-- 为非当前页按钮指定href地址 -->
+                            <a th:href="@{'/majors/'+${currentSubject.id}(page=${pageNo}, size=8)}"
+                               th:if="${not (pageNum eq pageNo)}">
+                                <span th:text="${pageNo}"></span>
+                            </a>
+                        </li>
+                        <!-- 下一页按钮 -->
+                        <!-- 如果当前页数是最后一页 -->
+                        <li class="disabled" th:if="${pageNum} eq ${totalPages}">
+                      <span>
+                        <span aria-hidden="true">&raquo;</span>
+                      </span>
+                        </li>
+                        <!-- 如果当前页数不是最后一页 -->
+                        <li th:if="${pageNum} lt ${totalPages}">
+                            <a aria-label="Next" th:href="@{'/majors/'+${currentSubject.id}(page=${pageNum+1}, size=8)}">
+                                <span aria-hidden="true">&raquo;</span>
+                            </a>
+                        </li>
                     </ul>
                 </nav>
             </div>

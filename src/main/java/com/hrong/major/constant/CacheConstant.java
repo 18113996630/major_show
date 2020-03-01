@@ -71,7 +71,6 @@ public class CacheConstant {
 		Configuration conf;
 		String confRedis = stringRedisTemplate.opsForValue().get(REDIS_CONF);
 		if (StringUtils.isNotBlank(confRedis)) {
-			log.info("从redis中获取到conf数据");
 			conf = JSONObject.parseObject(confRedis, Configuration.class);
 		} else {
 			conf = configurationService.list().get(0);
