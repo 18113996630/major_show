@@ -1,0 +1,42 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head th:replace="commons/header :: common-header(~{::title}, ~{})">
+    <link rel="stylesheet" th:href="@{/css/pay.css}">
+    <title>赞助作者</title>
+</head>
+<body>
+<!-- Header -->
+<div th:replace="commons/header :: header"></div>
+<div class="container content_container">
+    <div class="col-xs-12 col-sm-12 col-md-12 col-lg-10" style="text-align: center">
+        <!-- 小屏 -->
+        <div class="pay-content visible-xs visible-sm visible-md" style="width: 100%;">
+            <h2 style="color: #646f79;">如果您感觉我的网站对您有帮助，不妨动动您的金手指给予小额赞助，予人玫瑰，手有余香。</h2>
+            <hr>
+            <h3 style="color: #646f79;">赞助方式一、支付宝扫一扫</h3>
+            <img class="pay-img visible-lg-block" style="width: 80%; height: 80%" th:alt="支付宝"
+                 th:class="cover_img" th:src="@{'/pay/zfb.jpg'}"/>
+            <hr>
+            <h3 style="color: #646f79;">赞助方式二、微信扫一扫</h3>
+            <img class="pay-img visible-lg-block" style="width: 80%; height: 80%" th:alt="微信"
+                 th:class="cover_img" th:src="@{'/pay/wx.jpg'}"/>
+        </div>
+        <!-- 大屏 -->
+        <div class="pay-content visible-lg" style="width: 100%;">
+            <h2 style="color: #646f79;">如果您感觉我的网站对您有帮助，不妨动动您的金手指给予小额赞助，予人玫瑰，手有余香。</h2>
+            <hr>
+            <h3 style="color: #646f79;">赞助方式一、支付宝扫一扫</h3>
+            <img class="pay-img visible-lg-block" style="width: 30%; height: 30%" th:alt="支付宝"
+                 th:class="cover_img" th:src="@{'/pay/zfb.jpg'}"/>
+            <hr>
+            <h3 style="color: #646f79;">赞助方式二、微信扫一扫</h3>
+            <img class="pay-img visible-lg-block" style="width: 30%; height: 30%" th:alt="微信"
+                 th:class="cover_img" th:src="@{'/pay/wx.jpg'}"/>
+        </div>
+    </div>
+</div>
+<footer>
+    <div th:replace="commons/footer :: footer(~{})"></div>
+</footer>
+</body>
+</html>

@@ -12,7 +12,6 @@ import org.springframework.web.servlet.config.annotation.InterceptorRegistry;
 import org.springframework.web.servlet.config.annotation.ResourceHandlerRegistry;
 import org.springframework.web.servlet.config.annotation.WebMvcConfigurer;
 
-import java.util.Collections;
 import java.util.HashMap;
 import java.util.Map;
 
@@ -26,6 +25,8 @@ public class WebConf implements WebMvcConfigurer {
 	private String coverPath;
 	@Value("${face.path}")
 	private String facePath;
+	@Value("${qrCodePath}")
+	private String qrCodePath;
 
 	@Bean
 	public MajorInterceptor interceptorConfig() {
@@ -69,5 +70,6 @@ public class WebConf implements WebMvcConfigurer {
 		//addResourceHandler填:/cover/**，addResourceLocations填本地路径：file:E:/workspace/java/cover/
 		registry.addResourceHandler("/cover/**").addResourceLocations(coverPath);
 		registry.addResourceHandler("/face/**").addResourceLocations(facePath);
+		registry.addResourceHandler("/pay/**").addResourceLocations(qrCodePath);
 	}
 }
