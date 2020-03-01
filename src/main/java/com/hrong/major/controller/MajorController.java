@@ -9,7 +9,6 @@ import com.hrong.major.constant.CacheConstant;
 import com.hrong.major.controller.common.BaseController;
 import com.hrong.major.model.ClickType;
 import com.hrong.major.model.Major;
-import com.hrong.major.model.Search;
 import com.hrong.major.model.Subject;
 import com.hrong.major.model.vo.MajorVo;
 import com.hrong.major.model.vo.SearchVo;
@@ -79,18 +78,7 @@ public class MajorController extends BaseController<Major> {
 	public String queryMajorsByShortName(Model model, @ModelAttribute SearchVo major){
 		List<MajorVo> majors = majorService.findMajorsByName(major.getName());
 		log.info("模糊查询专业信息，输入：{}， 查询结果数量：{}", major.getName(), majors.size());
-		Search search = searchService.getOne(new QueryWrapper<Search>().eq("name", major.getName()));
-		if (search == null) {
-			search = new Search();
-			search.setName(major.getName());
-			search.setSearchCount(1);
-			log.info("首次出现该搜索词:{}", major.getName());
-		}else {
-			Integer count = search.getSearchCount();
-			search.setSearchCount(count + 1);
-			log.info("搜索词：{}的搜索次数:{}", major.getName(), count);
-		}
-		searchService.saveOrUpdate(search);
+		searchService.saveOrUpdateSearch(major.getName());
 		Subject subject = new Subject();
 		subject.setId(0);
 		subject.setName(major.getName());

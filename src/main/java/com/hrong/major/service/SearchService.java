@@ -1,7 +1,7 @@
 package com.hrong.major.service;
 
-import com.hrong.major.model.Search;
 import com.baomidou.mybatisplus.extension.service.IService;
+import com.hrong.major.model.Search;
 
 import java.util.List;
 
@@ -19,4 +19,10 @@ public interface SearchService extends IService<Search> {
 	 * @return datas
 	 */
 	List<Search> getPopularSearches();
+
+	/**
+	 * 保存或新增search对象
+	 * @param name 查询词
+	 */
+	void saveOrUpdateSearch(String name);
 }
