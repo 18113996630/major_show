@@ -2,6 +2,7 @@
 <html lang="en" xmlns:th="http://www.thymeleaf.org">
 <head th:replace="commons/header :: common-header(~{::title}, ~{::link})">
     <link rel="stylesheet" th:href="@{/css/major_detail.css}">
+    <link rel="stylesheet" th:href="@{/css/ad.css}">
     <title>专业详情</title>
 </head>
 <body>
@@ -14,149 +15,155 @@
 <div class="container">
     <div class="row row-offcanvas row-offcanvas-right">
         <div class="col-xs-12 col-sm-12 col-md-12 col-lg-9 content_container">
-        <!-- sm、md、lg上显示其他专业-->
+            <!-- sm、md、lg上显示其他专业-->
 
-        <div class="around_majors visible-md visible-lg visible-sm">
-            <h4 class="text-primary" th:text="其他同类专业"></h4>
-            <a th:each="major:${majors}" th:href="@{'/major/'+${major.id}}">
-                <button class="btn btn-default btn-md"
-                        th:classappend="${major.id eq currentMajor.id ? 'active-btn' : (major.id % 3 eq 0 ? 'btn-success' : (major.id % 2 eq 0 ? 'btn-warning' : 'btn-info'))}"
-                        th:text="${major.name}"></button>
-            </a>
-        </div>
-        <!-- xs上显示其他专业-->
-        <div class="around_majors_ph visible-xs">
-            <h4 class="text-primary" th:text="其他同类专业"></h4>
-            <p>
+            <div class="around_majors visible-md visible-lg visible-sm">
+                <h4 class="text-primary" th:text="其他同类专业"></h4>
                 <a th:each="major:${majors}" th:href="@{'/major/'+${major.id}}">
-                    <button class="btn"
+                    <button class="btn btn-default btn-md"
                             th:classappend="${major.id eq currentMajor.id ? 'active-btn' : (major.id % 3 eq 0 ? 'btn-success' : (major.id % 2 eq 0 ? 'btn-warning' : 'btn-info'))}"
                             th:text="${major.name}"></button>
                 </a>
-            </p>
-        </div>
-        <!-- 详情区域 -->
-        <div class="detail_div col-xs-12 col-sm-12 col-md-12 col-lg-12">
-            <!--/*@thymesVar id="subjects" type="com.hrong.major.model.Major"*/-->
-            <!-- 专业名字 -->
-            <h1 class="text-center" th:text="${detailVo.detail.name}"></h1>
-            <br/>
-            <p class="text-center text-primary">欢迎大家加入QQ群交流：【<strong>822101138</strong>】</p>
-            <p class="text-center text-danger text-nowrap" th:if="${detailVo.videos.size() gt 0}"
-               th:text="视频在文字下方哦"></p>
-            <br/>
-            <div>
-                <strong th:class="text-info" th:text="${detailVo.detail.name}+'专业描述'"></strong>
-                <button class="btn btn-default detail_update_btn" id="detail_desc_btn"
-                        th:onclick="updateDesc([[${detailVo.detail.id}]])" th:text="${conf.dDescBtn}">信息有误,我要修改
-                </button>
-                <div class="clearfloat"></div>
-                <p class="text-justify major_info" id="detail_desc" th:text="${detailVo.detail.description}"></p>
             </div>
-            <hr/>
-            <div>
-                <strong th:class="text-info" th:text="${detailVo.detail.name}+'专业学什么课程'"></strong>
-                <button class="btn btn-default detail_update_btn" id="detail_course_btn"
-                        th:onclick="updateCourse([[${detailVo.detail.id}]])" th:text="${conf.dCourseBtn}">信息有误,我要修改
-                </button>
-                <div class="clearfloat"></div>
-                <p class="text-justify major_info" id="detail_course" th:text="${detailVo.detail.course}"></p>
-            </div> &nbsp;&nbsp;
-
-            <hr/>
-            <div>
-                <strong th:class="text-info" th:text="${detailVo.detail.name}+'专业毕业后做什么'"></strong>
-                <button class="btn btn-default detail_update_btn" id="detail_job_btn"
-                        th:onclick="updateJob([[${detailVo.detail.id}]])" th:text="${conf.dJobBtn}">信息有误,我要修改
-                </button>
-                <div class="clearfloat"></div>
-                <p class="text-justify major_info" id="detail_job" th:text="${detailVo.detail.job}"></p>
-            </div> &nbsp;&nbsp;
-            <div th:if="${questions}">
-                <h2 class="content_split">知乎相关提问</h2>
-                <div th:each="question:${questions}">
-                    <a class="btn btn-default major_question" target="_blank"
-                       th:href="@{'/major/question/'+${question.id}}">
-                        <span class="question_title" th:text="${question.title}"></span><span
-                            class="answer_count" th:text="${question.answerCount}+'个回答'"></span>
-                        <p>
-                            <span class="text-justify question_part" th:text="${question.firstAnswer}"></span>
-                            <span class="glyphicon glyphicon-hand-left" style="font-size:1.5em; float: right"></span>
-                        </p>
+            <!-- xs上显示其他专业-->
+            <div class="around_majors_ph visible-xs">
+                <h4 class="text-primary" th:text="其他同类专业"></h4>
+                <p>
+                    <a th:each="major:${majors}" th:href="@{'/major/'+${major.id}}">
+                        <button class="btn"
+                                th:classappend="${major.id eq currentMajor.id ? 'active-btn' : (major.id % 3 eq 0 ? 'btn-success' : (major.id % 2 eq 0 ? 'btn-warning' : 'btn-info'))}"
+                                th:text="${major.name}"></button>
                     </a>
-                </div>
+                </p>
             </div>
-            <div class="auth_box" th:if="${detailVo.videos.size() gt 0}">
-                <h2 class="content_split" th:text="${conf.dSplitor}">相关视频</h2>
-                <span class="auth_desc">说明：因版权原因只能跳转到哔哩哔哩原网页观看视频</span>
-            </div>
-            <ul class="video_ul">
-                <li class="small_item" th:each="videoVo:${detailVo.videos}"><a target="_blank" th:class="title" th:href="${videoVo.video.url}"
-                                          th:text="${videoVo.video.title}"></a><br/>
-                    <div class="row video_info">
-                        <div class="col-xs-12 col-lg-6 col-md-6">
-                            <span class="text-justify" th:text="${conf.dVTime}">发布时间：</span>
-                            <span class="text-warning" th:text="${videoVo.video.pubtime}"></span>
-                        </div>
-                        <div class="col-xs-12 col-lg-6 col-md-6">
-                            <span class="text-justify" th:text="${conf.dVAuth}">是否取得授权：</span>
-                            <span class="text-danger" style="font-weight: bolder"
-                                  th:text="${videoVo.video.isAuth == 1 ? '是':'正在联系作者'}"></span>
-                        </div>
-                    </div>
-                    <div class="row video_info">
-                        <div class="col-xs-12 col-lg-6 col-md-6">
-                            <span class="text-justify" th:text="${conf.dVSource}">视频来源：</span>
-                            <strong th:class="text-danger" th:text="${videoVo.video.sourceName}"></strong>
-                        </div>
-                        <div class="col-xs-12 col-lg-6 col-md-6">
-                            <span class="text-justify" th:text="${conf.dVAuthor}">视频提供者：</span>
-                            <strong th:class="text-danger">
-                                <a target="_blank" th:href="${videoVo.video.upPage}"
-                                   th:text="${videoVo.video.upName}"></a>
-                            </strong>
-                        </div>
-                    </div>
-                    <a target="_blank" th:class="cover_a" th:href="${videoVo.video.url}"
-                       th:onclick="clickVideo([[${videoVo.video.id}]], [[${videoVo.clickCount}]])"> <img
-                            th:alt="${videoVo.video.title}" th:class="cover_img"
-                            th:src="@{'/cover/'+${videoVo.video.coverName}}"/>
-                        <span th:class="duration" th:text="${videoVo.video.duration}"></span>
-                    </a>
-                    <hr>
-                    <!-- 视频反馈 -->
-                    <div class="video_feedback">
-                        <span class="text-info" th:text="${conf.dVHow}">这个视频怎么样?</span>
-                        <button class="btn btn-default btn-up" th:disabled="${videoVo.isUpped}"
-                                th:id="${videoVo.video.id}+'up'"
-                                th:onclick="video_up([[${videoVo.video.id}]], [[${videoVo.upCount}]])"
-                                th:value="${videoVo.video.id}+'up'">
-                            <span aria-hidden="true" class="glyphicon glyphicon-thumbs-up"></span>
-                            <span th:text="${videoVo.upCount}"></span>
-                        </button>
-                        <button class="btn btn-default btn-down" th:disabled="${videoVo.isDowned}"
-                                th:id="${videoVo.video.id}+'down'"
-                                th:onclick="video_down([[${videoVo.video.id}]], [[${videoVo.downCount}]])"
-                                th:value="${videoVo.video.id}+'down'">
-                            <span aria-hidden="true" class="glyphicon glyphicon-thumbs-down"></span>
-                            <span th:text="${videoVo.downCount}"></span>
-                        </button>
-                        <button class="btn btn-default" disabled="disabled" th:id="${videoVo.video.id}+'click'"
-                                th:value="${videoVo.video.id}+'click'">
-                            <span aria-hidden="true" class="glyphicon glyphicon-eye-open"></span>
-                            <span th:text="${videoVo.clickCount}"></span>
-                        </button>
-                    </div>
+            <!-- 详情区域 -->
+            <div class="detail_div col-xs-12 col-sm-12 col-md-12 col-lg-12">
+                <!--/*@thymesVar id="subjects" type="com.hrong.major.model.Major"*/-->
+                <!-- 专业名字 -->
+                <h1 class="text-center" th:text="${detailVo.detail.name}"></h1>
+                <br/>
+                <p class="text-center text-primary">欢迎大家加入QQ群交流：【<strong>822101138</strong>】</p>
+                <p class="text-center text-danger text-nowrap" th:if="${detailVo.videos.size() gt 0}"
+                   th:text="视频在文字下方哦"></p>
+                <br/>
+                <div>
+                    <strong th:class="text-info" th:text="${detailVo.detail.name}+'专业描述'"></strong>
+                    <button class="btn btn-default detail_update_btn" id="detail_desc_btn"
+                            th:onclick="updateDesc([[${detailVo.detail.id}]])" th:text="${conf.dDescBtn}">信息有误,我要修改
+                    </button>
                     <div class="clearfloat"></div>
-                    <p class="text-justify" th:if="${videoVo.video.intro} != ''"
-                       th:text="${#strings.substring(videoVo.video.intro,0,videoVo.video.intro.length()/2)+'...'}"></p>
-                    <hr/>
-                </li>
-            </ul>
-            <!-- 该专业的视频信息 -->
-            <button class="btn btn-success btn-video-need" th:if="${detailVo.videos.isEmpty()}"
-                    th:onclick="video_need([[${detailVo.detail.id}]])" th:text="${conf.dBtnFind}">点我帮你找视频
-            </button>
+                    <p class="text-justify major_info" id="detail_desc" th:text="${detailVo.detail.description}"></p>
+                </div>
+                <hr/>
+                <div>
+                    <strong th:class="text-info" th:text="${detailVo.detail.name}+'专业学什么课程'"></strong>
+                    <button class="btn btn-default detail_update_btn" id="detail_course_btn"
+                            th:onclick="updateCourse([[${detailVo.detail.id}]])" th:text="${conf.dCourseBtn}">信息有误,我要修改
+                    </button>
+                    <div class="clearfloat"></div>
+                    <p class="text-justify major_info" id="detail_course" th:text="${detailVo.detail.course}"></p>
+                </div> &nbsp;&nbsp;
+
+                <hr/>
+                <div>
+                    <strong th:class="text-info" th:text="${detailVo.detail.name}+'专业毕业后做什么'"></strong>
+                    <button class="btn btn-default detail_update_btn" id="detail_job_btn"
+                            th:onclick="updateJob([[${detailVo.detail.id}]])" th:text="${conf.dJobBtn}">信息有误,我要修改
+                    </button>
+                    <div class="clearfloat"></div>
+                    <p class="text-justify major_info" id="detail_job" th:text="${detailVo.detail.job}"></p>
+                </div> &nbsp;&nbsp;
+                <div th:if="${questions}">
+                    <h2 class="content_split">知乎相关提问</h2>
+                    <div th:each="question:${questions}">
+                        <a class="btn btn-default major_question" target="_blank"
+                           th:href="@{'/major/question/'+${question.id}}">
+                            <span class="question_title" th:text="${question.title}"></span><span
+                                class="answer_count" th:text="${question.answerCount}+'个回答'"></span>
+                            <p>
+                                <span class="text-justify question_part" th:text="${question.firstAnswer}"></span>
+                                <span class="glyphicon glyphicon-hand-left"
+                                      style="font-size:1.5em; float: right"></span>
+                            </p>
+                        </a>
+                    </div>
+                </div>
+                <div class="auth_box" th:if="${detailVo.videos.size() gt 0}">
+                    <h2 class="content_split" th:text="${conf.dSplitor}">相关视频</h2>
+                    <span class="auth_desc">说明：因版权原因只能跳转到哔哩哔哩原网页观看视频</span>
+                </div>
+                <div>
+                    <ul class="video_ul">
+                        <li class="small_item" th:each="videoVo:${detailVo.videos}"><a target="_blank" th:class="title"
+                                                                                       th:href="${videoVo.video.url}"
+                                                                                       th:text="${videoVo.video.title}"></a><br/>
+                            <div class="row video_info">
+                                <div class="col-xs-12 col-lg-6 col-md-6">
+                                    <span class="text-justify" th:text="${conf.dVTime}">发布时间：</span>
+                                    <span class="text-warning" th:text="${videoVo.video.pubtime}"></span>
+                                </div>
+                                <div class="col-xs-12 col-lg-6 col-md-6">
+                                    <span class="text-justify" th:text="${conf.dVAuth}">是否取得授权：</span>
+                                    <span class="text-danger" style="font-weight: bolder"
+                                          th:text="${videoVo.video.isAuth == 1 ? '是':'正在联系作者'}"></span>
+                                </div>
+                            </div>
+                            <div class="row video_info">
+                                <div class="col-xs-12 col-lg-6 col-md-6">
+                                    <span class="text-justify" th:text="${conf.dVSource}">视频来源：</span>
+                                    <strong th:class="text-danger" th:text="${videoVo.video.sourceName}"></strong>
+                                </div>
+                                <div class="col-xs-12 col-lg-6 col-md-6">
+                                    <span class="text-justify" th:text="${conf.dVAuthor}">视频提供者：</span>
+                                    <strong th:class="text-danger">
+                                        <a target="_blank" th:href="${videoVo.video.upPage}"
+                                           th:text="${videoVo.video.upName}"></a>
+                                    </strong>
+                                </div>
+                            </div>
+                            <a target="_blank" th:class="cover_a" th:href="${videoVo.video.url}"
+                               th:onclick="clickVideo([[${videoVo.video.id}]], [[${videoVo.clickCount}]])"> <img
+                                    th:alt="${videoVo.video.title}" th:class="cover_img"
+                                    th:src="@{'/cover/'+${videoVo.video.coverName}}"/>
+                                <span th:class="duration" th:text="${videoVo.video.duration}"></span>
+                            </a>
+                            <hr>
+                            <!-- 视频反馈 -->
+                            <div class="video_feedback">
+                                <span class="text-info" th:text="${conf.dVHow}">这个视频怎么样?</span>
+                                <button class="btn btn-default btn-up" th:disabled="${videoVo.isUpped}"
+                                        th:id="${videoVo.video.id}+'up'"
+                                        th:onclick="video_up([[${videoVo.video.id}]], [[${videoVo.upCount}]])"
+                                        th:value="${videoVo.video.id}+'up'">
+                                    <span aria-hidden="true" class="glyphicon glyphicon-thumbs-up"></span>
+                                    <span th:text="${videoVo.upCount}"></span>
+                                </button>
+                                <button class="btn btn-default btn-down" th:disabled="${videoVo.isDowned}"
+                                        th:id="${videoVo.video.id}+'down'"
+                                        th:onclick="video_down([[${videoVo.video.id}]], [[${videoVo.downCount}]])"
+                                        th:value="${videoVo.video.id}+'down'">
+                                    <span aria-hidden="true" class="glyphicon glyphicon-thumbs-down"></span>
+                                    <span th:text="${videoVo.downCount}"></span>
+                                </button>
+                                <button class="btn btn-default" disabled="disabled" th:id="${videoVo.video.id}+'click'"
+                                        th:value="${videoVo.video.id}+'click'">
+                                    <span aria-hidden="true" class="glyphicon glyphicon-eye-open"></span>
+                                    <span th:text="${videoVo.clickCount}"></span>
+                                </button>
+                            </div>
+                            <div class="clearfloat"></div>
+                            <p class="text-justify" th:if="${videoVo.video.intro} != ''"
+                               th:text="${#strings.substring(videoVo.video.intro,0,videoVo.video.intro.length()/2)+'...'}"></p>
+                            <hr/>
+                        </li>
+                    </ul>
+                </div>
+
+                <!-- 该专业的视频信息 -->
+                <button class="btn btn-success btn-video-need" th:if="${detailVo.videos.isEmpty()}"
+                        th:onclick="video_need([[${detailVo.detail.id}]])" th:text="${conf.dBtnFind}">点我帮你找视频
+                </button>
+            </div>
             <div>
                 <button class="btn btn-success btn-next" id="go_top_btn" th:text="${conf.dBtnTop}">回到顶部</button>
                 <!-- 后面还有同类专业时显示 -->
@@ -169,48 +176,47 @@
                    th:if="${nextId} eq 0" th:text="${conf.dBtnLast}">已经没有啦，看看其它专业</a>
                 <a class="btn btn-info btn-next" th:href="@{/contribute}" th:text="${conf.dBtnContribute}">我也要投稿</a>
             </div>
-        </div>
-        <hr>
-        <!-- 评论 -->
-        <div class="col-xs-12 col-sm-12 col-md-12 col-lg-12 common">
-            <div th:if="${commentsCount} gt 0">
-                <span class="comment_count" th:text="${commentsCount}"></span>
-                <span>条评论</span>
-            </div>
-            <div th:if="${commentsCount} eq 0">
-                <span th:text="${conf.msg}">快来给学弟学妹分享一下吧~</span>
-            </div>
-            <br>
-            <div>
-                <form class="form-horizontal" id="comment-form">
-                    <input hidden="hidden" id="majorDetailId" name="majorDetailId" th:value="${detailVo.detail.id}"/>
-                    <textarea class="form-control" id="content" name="content" required rows="5"></textarea>
-                    <br>
-                    <button class="btn btn-primary btn-block" th:onclick="comment()" th:text="${conf.dBtnComment}"
-                            type="button">提交评论
-                    </button>
-                </form>
+            <hr>
+            <!-- 评论 -->
+            <div class="col-xs-12 col-sm-12 col-md-12 col-lg-12 common">
+                <div th:if="${commentsCount} gt 0">
+                    <span class="comment_count" th:text="${commentsCount}"></span>
+                    <span>条评论</span>
+                </div>
+                <div th:if="${commentsCount} eq 0">
+                    <span th:text="${conf.msg}">快来给学弟学妹分享一下吧~</span>
+                </div>
                 <br>
-                <ul class="comment_ul">
-                    <li class="comment_li" th:each="comment : ${comments}">
-                        <span class="comment_content" th:text="${comment.content}"></span>
-                        <span th:text="${comment.time}"></span>
-                        <button class="btn btn-default btn-up" th:disabled="${comment.isUp}"
-                                th:id="'common-up'+${comment.id}"
-                                th:onclick="comment_up([[${comment.id}]], [[${comment.upCount}]])">
-                            <span aria-hidden="true" class="glyphicon glyphicon-thumbs-up"></span>
-                            <span th:text="${comment.upCount}"></span>
+                <div>
+                    <form class="form-horizontal" id="comment-form">
+                        <input hidden="hidden" id="majorDetailId" name="majorDetailId"
+                               th:value="${detailVo.detail.id}"/>
+                        <textarea class="form-control" id="content" name="content" required rows="5"></textarea>
+                        <br>
+                        <button class="btn btn-primary btn-block" th:onclick="comment()" th:text="${conf.dBtnComment}"
+                                type="button">提交评论
                         </button>
-                    </li>
-                </ul>
+                    </form>
+                    <br>
+                    <ul class="comment_ul">
+                        <li class="comment_li" th:each="comment : ${comments}">
+                            <span class="comment_content" th:text="${comment.content}"></span>
+                            <span th:text="${comment.time}"></span>
+                            <button class="btn btn-default btn-up" th:disabled="${comment.isUp}"
+                                    th:id="'common-up'+${comment.id}"
+                                    th:onclick="comment_up([[${comment.id}]], [[${comment.upCount}]])">
+                                <span aria-hidden="true" class="glyphicon glyphicon-thumbs-up"></span>
+                                <span th:text="${comment.upCount}"></span>
+                            </button>
+                        </li>
+                    </ul>
+                </div>
             </div>
         </div>
-        </div>
-        <!-- 展示其他信息 -->
+        <!-- ad -->
+        <div class="hidden-lg" th:replace="commons/ad :: ad"></div>
         <div class="col-lg-3 sidebar-offcanvas visible-lg">
-            <div style="display: none">
-
-            </div>
+            <div th:replace="commons/ad :: ad"></div>
         </div>
     </div>
 </div>

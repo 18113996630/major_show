@@ -1,0 +1,18 @@
+.wx-info {
+    position: fixed;
+    bottom: 30px;
+    right: 30px;
+    font-size: large;
+    text-align: right;
+}
+.wx-info img {
+    width: 60%;
+}
+.wx-info-phone {
+    font-size: large;
+    text-align: center;
+    margin-bottom: 3em;
+}
+.wx-info-phone img{
+    width: 70%;
+}

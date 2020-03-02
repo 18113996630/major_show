@@ -1,0 +1,25 @@
+<!DOCTYPE html>
+<html lang="en" xmlns="http://www.w3.org/1999/xhtml" xmlns:th="http://www.thymeleaf.org">
+<head th:replace="commons/header :: common-header(~{}, ~{::link})">
+    <link rel="stylesheet" th:href="@{/css/ad.css}">
+</head>
+
+<div th:fragment="ad">
+    <div class="wx-info visible-lg">
+        <img alt="" th:src="@{'/face/wx.jpg'}">
+        <p>
+            <strong>视频链接：</strong><a href="https://www.bilibili.com/video/av89515512" target="_blank">欢迎大家关注我</a>
+        </p>
+        <p><strong>不用写代码</strong>也可以爬取数据</p>
+
+    </div>
+    <div class="wx-info-phone hidden-lg">
+        <img alt="" th:src="@{'/face/wx.jpg'}">
+        <p>
+            <strong>视频链接：</strong><a href="https://www.bilibili.com/video/av89515512" target="_blank">欢迎大家关注我</a>
+        </p>
+        <p><strong>不用写代码</strong>也可以爬取数据</p>
+    </div>
+
+</div>
+</html>
