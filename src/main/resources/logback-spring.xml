@@ -15,6 +15,7 @@
 
     <!--日志文件输出-->
     <appender name="LOG_INFO" class="ch.qos.logback.core.rolling.RollingFileAppender">
+        <file>${LOG_HOME}/major.log</file>
         <rollingPolicy class="ch.qos.logback.core.rolling.TimeBasedRollingPolicy">
             <!--日志文件输出的文件名-->
             <FileNamePattern>${LOG_HOME}/major-%d{yyyy-MM-dd}.log</FileNamePattern>
