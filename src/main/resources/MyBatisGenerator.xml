@@ -11,8 +11,8 @@
         </commentGenerator>
         <!-- 数据库连接 -->
         <jdbcConnection driverClass="com.mysql.jdbc.Driver"
-                        connectionURL="jdbc:mysql://39.106.190.74:3306/major_db"
-                        userId="root" password="aHVhbmdyb25n"/>
+                        connectionURL="jdbc:mysql://:3306/major_db"
+                        userId="root" password=""/>
 
         <!-- 生成的包名和工程名 -->
         <javaModelGenerator targetPackage="com.hrong.major.model"
